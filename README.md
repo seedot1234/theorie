@@ -1,4 +1,4 @@
-# theorie
+# RailNL case 
 
-test test test werkt dit
-hoi
+algemene read me 
+beschrijving van de case 
