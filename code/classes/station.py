@@ -8,15 +8,15 @@ station.py
 class Station(object):
     """The Station class creates stations based on the railmap csv."""
 
-    def __init__(self, name, x_cor, y_cor):
+    def __init__(self, name):
         """
         Constructor of the Station class.
         Parameters: name, x_cor, y_cor
         """
 
         self.name = name
-        self.x_cor = x_cor
-        self.y_cor = y_cor
+        # self.x_cor = x_cor
+        # self.y_cor = y_cor
         self.connections = []
         self.visited = False
         self.rail_head = False
