@@ -5,6 +5,7 @@ route.py
 @version
 """
 
+<<<<<<< HEAD
 from connection import Connection
 
 def Route(object):
@@ -32,3 +33,5 @@ def Route(object):
         self.total_time += connection.self.time
 
     
+=======
+>>>>>>> ec3fc0d41851009f5ec928dd0bd3faea87952e90
