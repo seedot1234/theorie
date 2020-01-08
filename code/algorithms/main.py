@@ -8,17 +8,20 @@ f = open('ConnectiesHolland.csv')
 reader = csv.reader(f, delimiter = ",")
 stations_objects = []
 connections_list = []
+parsed_stations = []
 
 # iterates over the csv file 
 for row in reader:
     # checks if station 1 is already in list, if not adds it to the list as object 
-    if row[0] not in stations_objects:
+    if row[0] not in parsed_stations:
         station_object = Station(row[0])
         stations_objects.append(station_object)
+        parsed_stations.append(row[0])
     # checks if station 2 is already in list, if not adds it to the list as object 
-    if row[1] not in stations_objects:
+    if row[1] not in parsed_stations:
         station_object = Station(row[1])
         stations_objects.append(station_object)
+        parsed_stations.append(row[1])
     # adds the connection to a seperate list 
     connections_list.append(row)
 
@@ -49,12 +52,41 @@ for station in stations_objects:
 
     # for each station, loop over all connection objects
     for connection in connection_objects:
+        # if station == connection.station_a or station == connection.station_b:
+        #     station.add_connection(connection)
+
 
         # if the station is in the connection object, add its corresponding connected station
         if station == connection.station_a:
-            station.add_connection(connection.station_b)
+            station.add_connection(connection.station_b, connection.time)
         if station == connection.station_b:
-            station.add_connection(connection.station_a)
+            station.add_connection(connection.station_a, connection.time)
+
+# set first station randomly
+current_station = stations_objects[randrange(len(stations_objects))]
+
+# start new route
+route = Route(1, current_station)
+
+# 10 stations in one route
+for i in range (10):
+    print("current station:", current_station.name)
+
+    # pick a random new station out of all connections of the current station
+    new_station = current_station.connections[randrange(len(current_station.connections))]
+
+    print(new_station.keys())
+
+    route.add_station(new_station, )
+    print("new station:")
+    print(new_station.name)
+    print()
+    
+    # set this new station as the current station
+    current_station = new_station
+
+
+
 
 
 # connections = []

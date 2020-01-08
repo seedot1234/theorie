@@ -23,8 +23,9 @@ class Station(object):
         self.connections = []
         self.rail_head = False
 
-    def add_connection(self, destination):
-        self.connections.append(destination)
+    def add_connection(self, destination, time):
+        connection = {destination: time}
+        self.connections.append(connection)
 
     def set_rail_head(self):
         # of dit moet een functie zijn die True returnt als het een railhead is?
