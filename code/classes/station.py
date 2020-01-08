@@ -27,5 +27,8 @@ class Station(object):
         pass
 
     def set_rail_head(self):
+        # of dit moet een functie zijn die True returnt als het een railhead is?
+        # misschien is dat handiger in gebruik
         if len(self.connections) == 1:
             self.rail_head = True
+    

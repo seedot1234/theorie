@@ -5,16 +5,15 @@ route.py
 @version
 """
 
-<<<<<<< HEAD
 from connection import Connection
 
 def Route(object):
-    """The Route object creates routes by chaining Connections"""
+    """The Route object creates routes by chaining Connections together."""
 
     def __init__(self, number, first_station):
         """
         Constructor of the Route class.
-        Parameters: number.
+        Parameters: number, first_station.
         """
 
         # route properties
@@ -25,13 +24,9 @@ def Route(object):
 
     def add_station(self, station, connection):
         """
-        Adds a station to the route.
+        Adds a station to the route and updates the total time accordingly.
         Paramaters: station (station object), connection (connection object).
         """
 
         self.stations.append(station)
         self.total_time += connection.self.time
-
-    
-=======
->>>>>>> ec3fc0d41851009f5ec928dd0bd3faea87952e90

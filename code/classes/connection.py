@@ -19,3 +19,6 @@ class Connection(object):
         self.visited = False 
 
         print(station_a "naar" station_b)
+
+    def set_visited(self):
+        self.visitd = True
