@@ -1,5 +1,7 @@
 from station import *
 from connection import *
+from route import *
+from random import randrange
 import csv, io
 
 f = open('ConnectiesHolland.csv')
@@ -25,7 +27,7 @@ connection_objects = []
 
 # loop over all connections
 for connection in connections_list:
-    time = connection[-1]
+    time = int(connection[-1])
 
     # loop over all station objects
     for station in stations_objects:
@@ -53,6 +55,10 @@ for station in stations_objects:
             station.add_connection(connection.station_b)
         if station == connection.station_b:
             station.add_connection(connection.station_a)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 503dda374836aa09757eb84c3af25bbcbdbd088b
 
 # connections = []
 
