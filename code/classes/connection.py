@@ -21,4 +21,4 @@ class Connection(object):
         print(station_a "naar" station_b)
 
     def set_visited(self):
-        self.visitd = True
+        self.visited = True

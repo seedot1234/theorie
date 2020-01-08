@@ -53,8 +53,6 @@ for station in stations_objects:
             station.add_connection(connection.station_b)
         if station == connection.station_b:
             station.add_connection(connection.station_a)
-    
-
 
 # connections = []
 
