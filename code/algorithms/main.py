@@ -55,10 +55,6 @@ for station in stations_objects:
             station.add_connection(connection.station_b)
         if station == connection.station_b:
             station.add_connection(connection.station_a)
-<<<<<<< HEAD
-=======
-
->>>>>>> 503dda374836aa09757eb84c3af25bbcbdbd088b
 
 # connections = []
 
