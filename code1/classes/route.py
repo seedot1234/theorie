@@ -20,7 +20,7 @@ class Route(object):
         self.number = number
         self.first_station = first_station
         self.total_time = 0 
-        self.stations = [self.first_station]
+        self.stations = [self.first_station.name]
 
     def add_station(self, station, time):
         """
@@ -28,5 +28,8 @@ class Route(object):
         Paramaters: station (station object), connection (connection object).
         """
 
-        self.stations.append(station)
-        self.total_time += connection.time
+        self.stations.append(station.name)
+        self.total_time += time
+
+    def __str__(self):
+        return f"train{self.number} ({self.total_time}): {self.stations}"
