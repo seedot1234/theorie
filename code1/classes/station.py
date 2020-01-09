@@ -5,34 +5,8 @@ station.py
 @version
 """
 
-import csv, io, os
 
 # from .connection import Connection
-
-def create_station_list(csv_file):
-    
-    f = open(csv_file)
-    reader = csv.reader(f, delimiter = ",")
-
-    parsed_stations = []
-    stations_objects = []
-
-    # iterates over the csv file 
-    for row in reader:
-        # checks if station 1 is already in list, if not adds it to the list as object 
-        if row[0] not in parsed_stations:
-            station_object = Station(row[0])
-            stations_objects.append(station_object)
-            parsed_stations.append(row[0])
-        # checks if station 2 is already in list, if not adds it to the list as object 
-        if row[1] not in parsed_stations:
-            station_object = Station(row[1])
-            stations_objects.append(station_object)
-            parsed_stations.append(row[1])
-
-
-    return stations_objects
-
 
 class Station(object):
     """The Station class creates stations based on the railmap csv."""

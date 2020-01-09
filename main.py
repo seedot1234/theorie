@@ -1,49 +1,31 @@
-from code1.classes import connection, route, station
+from code1.classes import connection, route, station, load_data
 from random import randrange
 import csv, io, os
 
 
-csv_file = os.path.join("data", "ConnectiesHolland.csv")
-stations_objects = station.create_station_list(csv_file)
+station_csv = os.path.join("data", "ConnectiesHolland.csv")
+station_objects = load_data.create_station_list(station_csv)
+
+connection_csv = os.path.join("data", "ConnectiesHolland.csv")
+connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 connections_list = []   
-for station in stations_objects:
-    print(station)
+# for station in station_objects:
+#     print(station)
 
+for connection in connection_objects:
+    print(connection)
+print(len(connection_objects))
 
-def create_connection():
-    # create connection objects
-    connection_objects = []
-
-    # loop over all connections
-    for connection in connections_list:
-        time = int(connection[-1])
-
-        # loop over all station objects
-        for station in stations_objects:
-
-            # if the object is the same as the station in the connection, save it
-            if station.name == connection[0]:
-                station_a = station
-            if station.name == connection[1]:
-                station_b = station
-        
-        # create connection object
-        connection_object = Connection(station_a, station_b, time)
-        
-        # save connection object in a list
-        connection_objects.append(connection_object)
-
-
+exit()
 
 # add connections to stations
-for station in stations_objects:
+for station in station_objects:
 
     # for each station, loop over all connection objects
     for connection in connection_objects:
         # if station == connection.station_a or station == connection.station_b:
         #     station.add_connection(connection)
-
 
         # if the station is in the connection object, add its corresponding connected station
         if station == connection.station_a:
@@ -54,7 +36,7 @@ for station in stations_objects:
 
 
 # set first station randomly
-current_station = stations_objects[randrange(len(stations_objects))]
+current_station = station_objects[randrange(len(station_objects))]
 
 # start new route
 route = Route(1, current_station)
