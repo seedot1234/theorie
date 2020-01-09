@@ -31,9 +31,11 @@ def functie():
         visited_connections = []
         total_time = 0
         for total_routes in range (7):
-            if len(connection_objects) == len(visited_connections):
-                print(total_time)
-                return True
+
+            # return statement that checks whether all connections have been used yet
+            # if len(connection_objects) == len(visited_connections):
+            #     print(total_time)
+            #     return True
 
             # set starting station randomly
             current_station = station_objects[randrange(len(station_objects))]
@@ -43,8 +45,12 @@ def functie():
 
             # keep adding stations
             while True:
-                # retrieve all connected stations to the current station
                 
+                # putting it here makes it shorter..?
+                if len(connection_objects) == len(visited_connections):
+                    print(total_time)
+                    return True
+
                 # pick a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))
                 time = int(current_station.connections[new_station])
