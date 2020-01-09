@@ -10,28 +10,17 @@ connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 connections_list = []   
-# for station in station_objects:
-#     print(station)
+
+load_data.add_station_connection(station_objects, connection_objects)
+for station in station_objects:
+    print(station.connections)
 
 for connection in connection_objects:
     print(connection)
-print(len(connection_objects))
+# print(len(connection_objects))
 
 exit()
 
-# add connections to stations
-for station in station_objects:
-
-    # for each station, loop over all connection objects
-    for connection in connection_objects:
-        # if station == connection.station_a or station == connection.station_b:
-        #     station.add_connection(connection)
-
-        # if the station is in the connection object, add its corresponding connected station
-        if station == connection.station_a:
-            station.add_connection(connection.station_b, connection.time)
-        if station == connection.station_b:
-            station.add_connection(connection.station_a, connection.time)
 
 
 

@@ -25,6 +25,7 @@ class Station(object):
         self.rail_head = False
 
     def add_connection(self, destination, time):
+        """ Dictionary with connections """
         self.connections[destination] = time
 
     def set_rail_head(self):
