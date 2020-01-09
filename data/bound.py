@@ -5,7 +5,7 @@ In this file, you'll find the all calculations made for calculating the amount o
 possible outcomes when considering the state-space and the quality function (K)
 
 Note: the given variables values are either extracted from the dictionary Stations_objects (in main.py)
-or the assignment specifications
+or from the assignment specifications
 
 8/1/2020
 
@@ -16,7 +16,7 @@ import math
 
 def state_space():
     """ displays and calculates the relevant values to find the state-space to 
-        to solve the case problem """
+        to solve the case problem. We assume the state-space lower bound is equal to zero """"
 
     # number of stations extracted from the Station_objects 
     num_stations = 22 
@@ -32,10 +32,6 @@ def state_space():
 
     df = pd.read_csv('ConnectiesHolland.csv')
 
-    # finds the average amount of time in minutes of connections within Holland
-    # avg_distance = df.Time.mean()
-    # print(avg_distance)
-
     # finds the minimum amount of time of connections within Holland
     min_distance = df.Time.min()
     print(min_distance)
@@ -44,16 +40,14 @@ def state_space():
     max_stops = max_operating_time / min_distance
     print(max_stops)
 
-    # """" We assume the State-space lower bound is equal to zero """"
-
     # calculates the State-space upper bound (worst-case)
     print("="*50)
-    UB = ((num_stations * max_connections**max_stops)**max_routes)
-    print(UB)
+    upper_bound = ((num_stations * max_connections**max_stops)**max_routes)
+    print(upper_bound)
 
 def quality():
     """ displays and calculates the relevant values to find the highest quality score 
-        in order to indicate whether a our solution is efficient and is near the maximum quality score """
+        in order to determine whether a our solution is efficient and nears the maximum quality score """
     
     max_quality_score = 10000 
     
