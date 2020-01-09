@@ -20,3 +20,6 @@ class Connection(object):
 
     def set_visited(self):
         self.visitd = True
+
+    def __str__(self):
+        return f"{self.station_a} - {self.station_b}" 

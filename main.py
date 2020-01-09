@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 from code1.classes import connection, route, station
 from code1.classes.route import Route
+=======
+from code1.classes import connection, route, station, load_data
+>>>>>>> 3758fac572772702fe7932134229ccb2255356a0
 from random import randrange
 import csv, io, os
 
 
-csv_file = os.path.join("data", "ConnectiesHolland.csv")
-stations_objects = station.create_station_list(csv_file)
+station_csv = os.path.join("data", "ConnectiesHolland.csv")
+station_objects = load_data.create_station_list(station_csv)
 
+<<<<<<< HEAD
 connections_list = []   
 for station in stations_objects:
     print(station)
@@ -34,20 +39,36 @@ for connection in connections_list:
     # save connection object in a list
     connection_objects.append(connection_object)
         
+=======
+connection_csv = os.path.join("data", "ConnectiesHolland.csv")
+connection_objects = load_data.create_connection(connection_csv, station_objects)
 
+connections_list = []   
+# for station in station_objects:
+#     print(station)
+
+for connection in connection_objects:
+    print(connection)
+print(len(connection_objects))
+>>>>>>> 3758fac572772702fe7932134229ccb2255356a0
+
+exit()
 
 # add connections to stations
-for station in stations_objects:
+for station in station_objects:
 
     # for each station, loop over all connection objects
     for connection in connection_objects:
         # if station == connection.station_a or station == connection.station_b:
         #     station.add_connection(connection)
+<<<<<<< HEAD
         print("###")
         print(station)
         print(connection.station_a)
         print(connection.station_b)
         print("###")
+=======
+>>>>>>> 3758fac572772702fe7932134229ccb2255356a0
 
         # if the station is in the connection object, add its corresponding connected station
         if station == connection.station_a:
@@ -61,7 +82,12 @@ for station in stations_objects:
 
 
 # set first station randomly
+<<<<<<< HEAD
 current_station = stations_objects[randrange(len(stations_objects))]
+=======
+current_station = station_objects[randrange(len(station_objects))]
+
+>>>>>>> 3758fac572772702fe7932134229ccb2255356a0
 # start new route
 route = Route(1, current_station)
 
