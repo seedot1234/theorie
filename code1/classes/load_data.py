@@ -35,6 +35,7 @@ def create_station_list(station_csv):
     return station_objects
 
 def create_connection(connection_csv, station_objects):
+    """ Create list of all connections from csv file """
 
     f = open(connection_csv)
     reader = csv.reader(f, delimiter = ",")
@@ -62,3 +63,21 @@ def create_connection(connection_csv, station_objects):
         connection_objects.append(connection_object)
 
     return connection_objects
+
+def add_station_connection(station_objects, connection_objects):
+    """ Adds the connections to a station. All connections from one station. """
+    
+    # add connections to stations
+    for station in station_objects:
+        
+        # for each station, loop over all connection objects
+        for connection in connection_objects:
+
+            # if the station is in the connection object, add its corresponding connected station
+            if station == connection.station_a:
+                station.add_connection(connection.station_b, connection.time)
+            if station == connection.station_b:
+                station.add_connection(connection.station_a, connection.time)
+
+
+

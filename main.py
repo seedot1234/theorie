@@ -11,19 +11,16 @@ station_objects = load_data.create_station_list(station_csv)
 connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-# add connections to stations
+connections_list = []   
+
+load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
+    print(station.connections)
 
-    # for each station, loop over all connection objects
-    for connection in connection_objects:
-        # if station == connection.station_a or station == connection.station_b:
-        #     station.add_connection(connection)
+for connection in connection_objects:
+    print(connection)
+# print(len(connection_objects))
 
-        # if the station is in the connection object, add its corresponding connected station
-        if station == connection.station_a:
-            station.add_connection(connection.station_b, connection.time)
-        if station == connection.station_b:
-            station.add_connection(connection.station_a, connection.time)
 
 
 # make new routes until all connections have been used
