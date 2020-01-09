@@ -22,7 +22,7 @@ class Route(object):
         self.total_time = 0 
         self.stations = [self.first_station]
 
-    def add_station(self, station, connection):
+    def add_station(self, station, time):
         """
         Adds a station to the route and updates the total time accordingly.
         Paramaters: station (station object), connection (connection object).
