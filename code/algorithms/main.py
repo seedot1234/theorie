@@ -88,7 +88,6 @@ for i in range (10):
 
 
 
-
 # connections = []
 
 # csv_path = 'C:/Users/Seedot1234/Documents/Stuff/UvA/Minor_Programmeren/Opdrachten/theorie/ConnectiesHolland.csv'
