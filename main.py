@@ -9,6 +9,7 @@ Calls all functions in the repository 'theorie'
 from code1.classes import connection, route, station, load_data
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
+from code1.algorithms.railhead import railhead
 from random import randrange
 import random
 import csv, io, os
@@ -25,6 +26,14 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
 
+# set railhead stations
+for station in station_objects:
+    station.set_rail_head()
 
-
-random_solution(station_objects, connection_objects)
+solution = railhead(station_objects, connection_objects)
+for line in solution:
+    print(line)
+total_time = 0
+for route in solution:
+    total_time += route.total_time
+print(total_time)
