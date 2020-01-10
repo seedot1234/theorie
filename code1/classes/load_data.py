@@ -34,7 +34,6 @@ def create_station_list(station_csv):
             station_object = Station(row[1])
             station_objects.append(station_object)
             parsed_stations.append(row[1])
-
     return station_objects
 
 def create_connection(connection_csv, station_objects):

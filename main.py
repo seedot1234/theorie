@@ -26,33 +26,36 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
 
-<<<<<<< HEAD
+# makes a list of the solution that matches the requirements 
+lining = []
+
 # makes new routes randomly until all connections have been used
 def random_solution(station_objects, connection_objects):
     while True:
         visited_connections = []
         total_time = 0
-        print("="*100)
+        # print("="*100)
 
         # hier moet een lijst komen die de lijnvoering bijhoudt (lijst van Route objecten)
-        for total_routes in range (7):
+        for total_routes in range(7):
 
-            # return statement that checks whether all connections have been used yet
-            # if len(connection_objects) == len(visited_connections):
-            #     print(total_time)
-            #     return True
+            # CHECKEN VOOR EEN VEREENVOUDIGING VAN DE ONDERSTAANDE FUNCTIE 
+            # checks whether all connections have been used yet (P = 1)
+            if len(connection_objects) == len(visited_connections):
+                # print(total_time)
+                return lining
 
-            # picks a random station to the start route with
+            # picks a random station to the begin the route from
             current_station = station_objects[randrange(len(station_objects))]
-            print(f"Current station: {current_station}")
+            # print(f"Current station: {current_station}")
 
             # sets a shortest connection/distance variable 
             shortest = None 
 
             # selection sorting to order the times in ascending order 
             for connection in current_station.connections:
-                print(f"Station:{connection.name}, Distance:{current_station.connections[connection]}")
-                print("="*100)
+                # print(f"Station:{connection.name}, Distance:{current_station.connections[connection]}")
+                # print("="*100)
             
                 # sets the first connection as the shortest value 
                 if shortest is None: 
@@ -60,10 +63,16 @@ def random_solution(station_objects, connection_objects):
                 # checks if the other connection is 
                 elif current_station.connections[connection] < current_station.connections[shortest]:
                     shortest = connection 
-            print(shortest)
+            # print(shortest)
             
-            # starts new route
+            # starts new route | SJ: WAT DOET DIT? 
             route = Route(total_routes, current_station)
+
+            # add route to lining
+            lining.append(route)
+
+            # # add route to lining
+            # solution.append(route)
 
             # maak dit een gedefineerde while statement met een conditie ipv while True
             # keeps on adding stations until maximum time has been reached 
@@ -77,47 +86,37 @@ def random_solution(station_objects, connection_objects):
 
                 # vraag alle connecties op van current station
                 connections = list(current_station.connections.keys())
-                # print(connections)
 
-                # connecties van station sorteren op tijd 
-
-                # kies station met korste afstand
-
-                # maak dit station het nieuwe station ipv random choice
-
-            #     # picks a random new station out of all connections of the current station
-            #     new_station = random.choice(list(current_station.connections.keys()))
-
+                # picks a random new station out of all connections of the current station
+                new_station = random.choice(list(current_station.connections.keys()))
                 
-            #     # finds the time for the new station 
-            #     time = int(current_station.connections[new_station])
+                # finds the time for the new station 
+                time = int(current_station.connections[new_station])
                 
-            #     # stops adding stations until the total time would exceed 120 minutes
-            #     if time + route.total_time > 120:
-            #         total_time += route.total_time
+                # stops adding stations until the total time would exceed 120 minutes
+                if time + route.total_time > 120:
+                    total_time += route.total_time
 
-            #         # voeg Route toe aan lijnvoering lijst
-            #         break
+                    # voeg Route toe aan lijnvoering lijst
+                    break
                 
-            #     # add a new station to the route
-            #     route.add_station(new_station, time)
+                # add a new station to the route
+                route.add_station(new_station, time)
 
-            #     # find the connection that was added
-            #     for connection in connection_objects:
-            #         if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):
+                # find the connection that was added
+                for connection in connection_objects:
+                    if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):
                         
-            #             # if the connection wasn't used before, add it to the visited connections list
-            #             if connection in visited_connections:
-            #                 break
-            #             visited_connections.append(connection)
+                        # if the connection wasn't used before, add it to the visited connections list
+                        if connection in visited_connections:
+                            break
+                        visited_connections.append(connection)
                 
-            #     # set this new station as the current station
-            #     current_station = new_station
-            
-            # print(route)
+                # set this new station as the current station
+                current_station = new_station
 
 random_solution(station_objects, connection_objects)
-=======
+
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
@@ -129,4 +128,3 @@ total_time = 0
 for route in solution:
     total_time += route.total_time
 print(total_time)
->>>>>>> 1f8661273ffd106c7758864529465da39d3a9e74

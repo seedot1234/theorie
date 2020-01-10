@@ -4,7 +4,6 @@ route.py
 @author Heuristic Heroes
 @version
 """
-
 # from .connection import Connection
 
 class Route(object):
@@ -15,7 +14,7 @@ class Route(object):
         Constructor of the Route class.
         Parameters: number, first_station.
         """
-
+        
         # route properties
         self.number = number
         self.first_station = first_station
