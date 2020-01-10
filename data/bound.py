@@ -14,18 +14,19 @@ import os, csv
 import pandas as pd
 import math 
 
+
+# maximum train operating time in minutes 
+max_operating_time = 120 
+
 def state_space():
     """ displays and calculates the relevant values to find the state-space to 
-        to solve the case problem. We assume the state-space lower bound is equal to zero """"
+        to solve the case problem. We assume the state-space lower bound is equal to zero """
 
     # number of stations extracted from the Station_objects 
     num_stations = 22 
 
     # maximum number of operating trains   
     max_routes = 7 
-
-    # maximum train operating time in minutes 
-    max_operating_time = 120 
 
     # the maximum amount of connections at a station which is True for Leiden CS, Zaandam and Amsterdam Sloterdijk
     max_connections = 4 
@@ -43,6 +44,7 @@ def state_space():
     # calculates the State-space upper bound (worst-case)
     print("="*50)
     upper_bound = ((num_stations * max_connections**max_stops)**max_routes)
+    print(num_stations * max_connections**max_stops)
     print(upper_bound)
 
 def quality():

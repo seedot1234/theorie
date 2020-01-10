@@ -19,6 +19,9 @@ def create_station_list(station_csv):
     parsed_stations = []
     station_objects = []
 
+    # skips the first line of the csv
+    next(reader)
+
     # iterates over the csv file 
     for row in reader:
         # checks if station 1 is already in list, if not adds it to the list as object 
@@ -43,6 +46,9 @@ def create_connection(connection_csv, station_objects):
     # create connection objects
     connection_objects = []
 
+    # skips first line of csv
+    next(reader)
+    
     # loop over all connections
     for row in reader:
         time = int(row[2])
