@@ -4,8 +4,6 @@ station.py
 @author Heuristic Heroes
 @version
 """
-
-
 # from .connection import Connection
 
 class Station(object):
@@ -26,9 +24,11 @@ class Station(object):
 
     def add_connection(self, destination, time):
         """ Dictionary with connections """
+
         self.connections[destination] = time
 
     def set_rail_head(self):
+
         # of dit moet een functie zijn die True returnt als het een railhead is?
         # misschien is dat handiger in gebruik
         if len(self.connections) == 1:

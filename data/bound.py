@@ -14,7 +14,6 @@ import os, csv
 import pandas as pd
 import math 
 
-
 # maximum train operating time in minutes 
 max_operating_time = 120 
 

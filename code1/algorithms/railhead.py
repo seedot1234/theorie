@@ -15,18 +15,21 @@ from random import randrange
 import random   
 
 def railhead(station_objects, connection_objects):
-    while True:
+    
+    while True: 
+        
         visited_connections = []
         total_time = 0
         lining = []
         available_railheads = []
-        nonrailhead_stations = []
+        non_railhead_stations = []
+
         for station in station_objects:
             if station.rail_head is True:
                 available_railheads.append(station)
-            else:
-                nonrailhead_stations.append(station)
+            non_railhead_stations.append(station)
         
+        # make 7 routes maximum
         for total_routes in range (7):
 
             # when railheads are available, pick one of these as a starting station
@@ -37,8 +40,7 @@ def railhead(station_objects, connection_objects):
                 available_railheads.remove(current_station)
             
             # else pick a random starting station out of the non-railhead stations
-            else:
-                current_station = nonrailhead_stations[randrange(len(nonrailhead_stations))]
+            current_station = non_railhead_stations[randrange(len(non_railhead_stations))]
 
             # start new route
             route = Route(total_routes, current_station)
