@@ -7,9 +7,13 @@ random.py
 
 random algorithm
 """
+from code1.classes.station import Station
+from code1.classes.route import Route
+from random import randrange
+import random   
 
 # makes new routes randomly until all connections have been used
-def random_solution():
+def random_solution(station_objects, connection_objects):
     while True:
         visited_connections = []
         total_time = 0

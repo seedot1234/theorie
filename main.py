@@ -8,6 +8,7 @@ Calls all functions in the repository 'theorie'
 """
 from code1.classes import connection, route, station, load_data
 from code1.classes.route import Route
+from code1.algorithms.random import random_solution
 from random import randrange
 import random
 import csv, io, os
@@ -26,4 +27,4 @@ load_data.add_station_connection(station_objects, connection_objects)
 
 
 
-random_solution()
+random_solution(station_objects, connection_objects)
