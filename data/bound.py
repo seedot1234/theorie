@@ -67,6 +67,7 @@ def quality():
     Best_K_Score = ((p_max * max_quality_score) - (min_routes * 100 + sum_distance))
     print(Best_K_Score)
 
+# DIT MOET WEG!!!!
 if __name__ == "__main__":
 
     state_space()

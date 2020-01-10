@@ -14,6 +14,9 @@ from random import randrange
 import random
 import csv, io, os
 
+
+from results.random_vis import visualise
+
 # creates station objects from csv
 station_csv = os.path.join("data", "ConnectiesHolland.csv")
 station_objects = load_data.create_station_list(station_csv)
@@ -37,3 +40,7 @@ total_time = 0
 for route in solution:
     total_time += route.total_time
 print(total_time)
+
+print("="*80)
+
+visualise.test_vis()
