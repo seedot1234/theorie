@@ -29,6 +29,7 @@ def railhead(station_objects, connection_objects):
                 available_railheads.append(station)
             non_railhead_stations.append(station)
         
+        # make 7 routes maximum
         for total_routes in range (7):
 
             # when railheads are available, pick one of these as a starting station
