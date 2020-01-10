@@ -26,7 +26,7 @@ for connection in connection_objects:
 # make new routes until all connections have been used
 
 
-def functie():
+def random_solution():
     while True:
         visited_connections = []
         total_time = 0
@@ -77,4 +77,4 @@ def functie():
             
             print(route)
 
-functie()
+random_solution()
