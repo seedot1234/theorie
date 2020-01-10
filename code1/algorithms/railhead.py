@@ -21,12 +21,17 @@ def railhead(station_objects, connection_objects):
         lining = []
         available_railheads = []
         nonrailhead_stations = []
+        
+        # find all railhead stations
         for station in station_objects:
             if station.rail_head is True:
                 available_railheads.append(station)
+            
+            # put all other stations in a list as well
             else:
                 nonrailhead_stations.append(station)
         
+        # make 7 routes maximum
         for total_routes in range (7):
 
             # when railheads are available, pick one of these as a starting station
