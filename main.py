@@ -14,7 +14,6 @@ from random import randrange
 import random
 import csv, io, os
 
-
 from results.random_vis import visualise
 
 # creates station objects from csv
@@ -83,7 +82,7 @@ def random_solution(station_objects, connection_objects):
                 
                 # putting it here makes it shorter..?
                 if len(connection_objects) == len(visited_connections):
-                    print(total_time)
+                    # print(total_time)
                     # print hier de lijnvoering
                     return 'Finished'
 
@@ -126,11 +125,12 @@ for station in station_objects:
 
 solution = railhead(station_objects, connection_objects)
 for line in solution:
-    print(line)
+    # print(line)
+    pass
 total_time = 0
 for route in solution:
     total_time += route.total_time
-print(total_time)
+# print(total_time)
 
 print("="*80)
 visualise.test_vis()
