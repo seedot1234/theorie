@@ -55,7 +55,7 @@ def coordinates(coordinates_csv):
 
     stat = reader.Station
     # print(stat)
-    p.add_tools(HoverTool(tooltips=[('Station', '@stat')]))
+    p.add_tools(HoverTool(tooltips=[('Station', '$stat')]))
     
     show(p)
 
