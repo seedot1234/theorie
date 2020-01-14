@@ -12,6 +12,7 @@ from code1.algorithms.random import random_solution
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.unused import unused
+from code1.algorithms.master import master
 from random import randrange
 import random
 import csv, io, os
@@ -51,14 +52,19 @@ for station in station_objects:
 
 
 # voer hier een algoritme uit
-solution = random_solution(station_objects, connection_objects, 20, 180)
+solution = master(station_objects, connection_objects, 20, 180)
+total_time = 0
+for route in solution:
+    total_time += route.total_time
+while total_time >= 2150:
+    solution = master(station_objects, connection_objects, 20, 180)
+
 for line in solution:
     print(line)
 total_time = 0
 for route in solution:
     total_time += route.total_time
 print(total_time)
-
 exit()
 
 # print("="*80)
