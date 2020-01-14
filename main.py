@@ -7,8 +7,10 @@ Calls all functions in the repository 'theorie'
 
 """
 from code1.classes import connection, route, station, load_data
+from results.visualise import coordinates
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
+from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.unused import unused
@@ -16,8 +18,6 @@ from code1.algorithms.master import master
 from random import randrange
 import random
 import csv, io, os
-
-from results.random_vis import visualise
 
 
 # VOOR HOLLAND, DOE DIT:
@@ -46,28 +46,28 @@ coordinates_objects = visualise.coordinates(coordinates_csv)
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
 
-random_solution(station_objects, connection_objects)
-
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
 
-
 # voer hier een algoritme uit
-solution = random_solution(station_objects, connection_objects, 7, 120)
-total_time = 0
-for route in solution:
-    total_time += route.total_time
-while total_time >= 2150:
-    solution = random_solution(station_objects, connection_objects, 7, 120)
+solution = random_solution(station_objects, connection_objects, 20, 180)
 
-for line in solution:
-    print(line)
-total_time = 0
-for route in solution:
-    total_time += route.total_time
-print(total_time)
-exit()
+# total_time = 0
+# total_routes = 0
 
-print("="*80)
-# visualise.coordinates(coordinates_csv)
+# for i in range (1000):
+#     for route in solution:
+#         total_time += route.total_time
+#     total_routes += len(solution)
+#     solution = random_solution(station_objects, connection_objects, 20, 180)
+#     print(i)
+#     print("routes aantal: ",total_routes/(i+1))
+#     print("gemiddelde total time: ", total_time / (i+1))
+
+# for line in solution:
+#     print(line)
+# total_time = 0
+# for route in solution:
+#     total_time += route.total_time
+# print(total_time)
