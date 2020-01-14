@@ -6,6 +6,39 @@ visualise.py
 
 visualise random algorithm
 """
+import pandas as pd
+# import matplotlib.pyplot as plt
+# import numpy as np
+import plotly.express as px
+import csv, io, os
+
+def coordinates(coordinates_csv):
+
+    # # stations = pd.read_csv('data/TestConnecties.csv')
+
+    # # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
+    # #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
+    # # fig.update_layout(mapbox_style="open-street-map")
+    # # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+    # # fig.show()
+
+    # stations = pd.read_csv('data/StationsNationaal.csv')
+
+    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
+    #                         color_discrete_sequence=["fuchsia"], zoom=3, height=300)
+    # fig.update_layout(mapbox_style="open-street-map")
+    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+    # fig.show()
+    
+    # print("sike")
+    
+    # return 
+
+    # # for loop om marker te plotten en dan een lijn naar de volgende met matplotlib 
+    # # visualize traveling salesmen problem
+
 
 import json
 import csv
@@ -25,8 +58,8 @@ def coordinates(coordinates_csv):
     print(source)
 
     # x = longitude (lengtegraad), y = latitude (breedtegraad)
-    x = reader.longitude
-    y = reader.latitude
+    x = reader.lon
+    y = reader.lon
 
     # add plot
     p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
@@ -42,26 +75,26 @@ def coordinates(coordinates_csv):
     
     show(p)
 
-    # AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
+    AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
 
-    # f = open(coordinates_csv)
-    # reader = csv.reader(f, delimiter = ",")
+    f = open(coordinates_csv)
+    reader = csv.reader(f, delimiter = ",")
 
-    # with open(coordinates_csv, 'r') as coordinates_csv:
-    #     data = json.load(coordinates_csv)
+    with open(coordinates_csv, 'r') as coordinates_csv:
+        data = json.load(coordinates_csv)
 
-    # output_file("kaart.html")
+    output_file("kaart.html")
 
-    # for i in range(len(reader['features'])):
-    #     data['features'][i]['properties']['Color'] = ['blue', 'red'][i%2]
+    for i in range(len(reader['features'])):
+        data['features'][i]['properties']['Color'] = ['blue', 'red'][i%2]
 
-    # geo_source = GeoJSONDataSource(geojson=json.dumps(data))
+    geo_source = GeoJSONDataSource(geojson=json.dumps(data))
 
-    # TOOLTIPS = [
-    #     ('Organisation', '@OrganisationName')
-    # ]
+    TOOLTIPS = [
+        ('Organisation', '@OrganisationName')
+    ]
 
-    # p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
-    # p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
+    p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
+    p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
 
-    # show(p)
+    show(p)
