@@ -7,8 +7,10 @@ Calls all functions in the repository 'theorie'
 
 """
 from code1.classes import connection, route, station, load_data
+# from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
+from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.unused import unused
@@ -16,8 +18,6 @@ from code1.algorithms.master import master
 from random import randrange
 import random
 import csv, io, os
-
-from results.random_vis import visualise
 
 
 # VOOR HOLLAND, DOE DIT:
@@ -38,43 +38,36 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-<<<<<<< HEAD
-=======
 # creates test
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv)
->>>>>>> 4b736be85edee56a0bc942ffe690061ca88301d6
+# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv)
 
 # adds connections to stations
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
-<<<<<<< HEAD
 
-random_solution(station_objects, connection_objects)
-
-=======
-exit()
->>>>>>> 4b736be85edee56a0bc942ffe690061ca88301d6
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
 
-
 # voer hier een algoritme uit
-solution = master(station_objects, connection_objects, 20, 180)
-total_time = 0
-for route in solution:
-    total_time += route.total_time
-while total_time >= 2150:
-    solution = master(station_objects, connection_objects, 20, 180)
+solution = random_solution_p(station_objects, connection_objects, 20, 180)
 
-for line in solution:
-    print(line)
 total_time = 0
-for route in solution:
-    total_time += route.total_time
-print(total_time)
-exit()
+total_routes = 0
 
-# print("="*80)
-# visualise.test_vis()
+for i in range (1000):
+    for route in solution:
+        total_time += route.total_time
+    total_routes += len(solution)
+    solution = random_solution_p(station_objects, connection_objects, 20, 180)
+    print(i)
+    print("routes aantal: ",total_routes/(i+1))
+    print("gemiddelde total time: ", total_time / (i+1))
+
+# for line in solution:
+#     print(line)
+# total_time = 0
+# for route in solution:
+#     total_time += route.total_time
+# print(total_time)
