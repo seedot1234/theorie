@@ -48,19 +48,18 @@ load_data.add_station_connection(station_objects, connection_objects)
 
 random_solution(station_objects, connection_objects)
 
-exit()
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
 
 
 # voer hier een algoritme uit
-solution = master(station_objects, connection_objects, 20, 180)
+solution = random_solution(station_objects, connection_objects, 7, 120)
 total_time = 0
 for route in solution:
     total_time += route.total_time
 while total_time >= 2150:
-    solution = master(station_objects, connection_objects, 20, 180)
+    solution = random_solution(station_objects, connection_objects, 7, 120)
 
 for line in solution:
     print(line)
