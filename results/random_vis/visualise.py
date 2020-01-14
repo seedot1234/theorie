@@ -7,39 +7,22 @@ visualise.py
 visualise random algorithm
 """
 
-import pandas as pd
-
-# def test_vis():
-#     # read csv file with pandas to abstract tabel
-#     reader = pd.read_csv('data/TestConnecties.csv')
-
-#     # us_cities = us_cities.query("State in ['New York', 'Ohio']")
-
-#     import plotly.express as px
-
-#     fig = px.line_mapbox(reader, lat="latitude", lon="longitude", zoom=3, height=300)
-
-#     fig.update_layout(mapbox_style="stamen-terrain", mapbox_zoom=4, mapbox_center_lat = 41,
-#         margin={"r":0,"t":0,"l":0,"b":0})
-
-#     fig.show()
-
 import json
 import csv
 import pandas as pd
 
 from bokeh.io import show, output_file
-from bokeh.models import HoverTool
-from bokeh.plotting import figure, ColumnDataSource
+from bokeh.models import HoverTool, ColumnDataSource
+from bokeh.plotting import figure
 
 def coordinates(coordinates_csv):
 
     output_file("visualise.html")
 
     # read csv file with pandas to abstract tabel
-    reader = pd.read_csv('data/StationsNationaal.csv')\
-    # source = ColumnDataSource(data=reader)
-    # print(source)
+    reader = pd.read_csv('data/StationsNationaal.csv')
+    source = ColumnDataSource(data=reader)
+    print(source)
 
     # x = longitude (lengtegraad), y = latitude (breedtegraad)
     x = reader.longitude
@@ -55,13 +38,12 @@ def coordinates(coordinates_csv):
 
     stat = reader.Station
     # print(stat)
-    p.add_tools(HoverTool(tooltips=[('Station', '$stat')]))
+    p.add_tools(HoverTool(tooltips=[('Station', '@stat')]))
     
     show(p)
 
-
-
     # AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
+
     # f = open(coordinates_csv)
     # reader = csv.reader(f, delimiter = ",")
 
