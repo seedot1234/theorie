@@ -10,7 +10,7 @@ from code1.classes.station import Station
 from code1.classes.connection import Connection
 import csv, io, os
 
-def create_station_list(station_csv):
+def create_station_list_holland(station_csv):
     """ Create list of all stations in csv file. Gets csv file as parameter from main.py """ 
 
     f = open(station_csv)
@@ -29,11 +29,32 @@ def create_station_list(station_csv):
             station_object = Station(row[0])
             station_objects.append(station_object)
             parsed_stations.append(row[0])
+            
         # checks if station 2 is already in list, if not adds it to the list as object 
         if row[1] not in parsed_stations:
             station_object = Station(row[1])
             station_objects.append(station_object)
             parsed_stations.append(row[1])
+    return station_objects
+
+def create_station_list_nationaal(station_csv):
+    """ Create list of all stations in csv file. Gets csv file as parameter from main.py """ 
+
+    f = open(station_csv)
+    reader = csv.reader(f, delimiter = ",")
+
+    station_objects = []
+
+    # skips the first line of the csv
+    next(reader)
+
+    # iterates over the csv file 
+    for row in reader:
+
+        # create station object from the row
+        station_object = Station(row[0])
+        station_objects.append(station_object)
+            
     return station_objects
 
 def create_connection(connection_csv, station_objects):
@@ -50,7 +71,7 @@ def create_connection(connection_csv, station_objects):
     
     # loop over all connections
     for row in reader:
-        time = int(row[2])
+        time = float(row[2])
 
         # loop over all station objects
         for station in station_objects:
