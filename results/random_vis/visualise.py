@@ -37,8 +37,7 @@ def coordinates(coordinates_csv):
     output_file("visualise.html")
 
     # read csv file with pandas to abstract tabel
-    reader = pd.read_csv('data/TestConnecties.csv')
-
+    reader = pd.read_csv('data/StationsNationaal.csv')\
     # source = ColumnDataSource(data=reader)
     # print(source)
 
@@ -55,8 +54,8 @@ def coordinates(coordinates_csv):
     # p.line(x, y, line_width=2)
 
     stat = reader.Station
-    print(stat)
-    p.add_tools(HoverTool(tooltips=[('Station', '$index')]))
+    # print(stat)
+    p.add_tools(HoverTool(tooltips=[('Station', '@stat')]))
     
     show(p)
 
