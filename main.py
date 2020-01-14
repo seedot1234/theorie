@@ -17,7 +17,7 @@ from random import randrange
 import random
 import csv, io, os
 
-# from results.random_vis import visualise
+from results.random_vis import visualise
 
 
 # VOOR HOLLAND, DOE DIT:
@@ -38,13 +38,23 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
+<<<<<<< HEAD
+=======
+# creates test
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv)
+>>>>>>> 4b736be85edee56a0bc942ffe690061ca88301d6
 
 # adds connections to stations
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
+<<<<<<< HEAD
 
 random_solution(station_objects, connection_objects)
 
+=======
+exit()
+>>>>>>> 4b736be85edee56a0bc942ffe690061ca88301d6
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
