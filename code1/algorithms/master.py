@@ -1,9 +1,8 @@
 """
-railhead.py
+master.py
 
-Starts a route with a railhead station.
-When all railhead stations are used,
-it selects a random station out of non-railhead stations.
+Combines the following algorithms:
+shortest, railhead
 
 @author Heuristic Heroes
 @version
@@ -12,23 +11,26 @@ it selects a random station out of non-railhead stations.
 from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
-import random   
+import random  
 
-def railhead(station_objects, connection_objects, route_maximum, time_maximum):
-    
-    while True: 
-        
+# makes new routes randomly until all connections have been used
+def master(station_objects, connection_objects, route_maximum, time_maximum):
+    while True:
+
         visited_connections = []
         total_time = 0
-        lining = []
+
+        # create available (non)railhead lists
         available_railheads = []
         non_railhead_stations = []
-
         for station in station_objects:
             if station.rail_head is True:
                 available_railheads.append(station)
             else:
                 non_railhead_stations.append(station)
+
+        # makes a list of the solution that matches the requirements 
+        lining = []
 
         # make 'route_maximum' routes at max
         for total_routes in range(route_maximum):
@@ -43,28 +45,50 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
             else:
                 # else pick a random starting station out of the non-railhead stations
                 current_station = non_railhead_stations[randrange(len(non_railhead_stations))]
-
-            # start new route
+            
+            # starts new route
             route = Route(total_routes, current_station)
 
             # add route to lining
             lining.append(route)
 
-            # keep on adding stations until maximum time has been reached 
+            # keeps on adding stations until maximum time has been reached 
             while True:
                 
-                # when all connections are used, return the lining and thus end the algorithm
+                # when all connections have been used, end the algorithm
                 if len(connection_objects) == len(visited_connections):
                     return lining
 
-                # pick a random new station out of all connections of the current station
-                new_station = random.choice(list(current_station.connections.keys()))
+                # make a list of all unused connections of this station
+                unused_connections = []
+                for connection in current_station.connections:
+                    unused_connections.append(connection)
+                    for visit in visited_connections:
+                        if (visit.station_a == connection and visit.station_b == current_station) or (visit.station_b == connection and visit.station_a == current_station):
+                            unused_connections.remove(connection)
+
+                # if there are unused connections, find the shortest connection
+                if len(unused_connections) > 0:
+                    
+                    # sets a shortest connection/distance variable 
+                    shortest = None
+                    for connection in unused_connections:
+                        if shortest is None:
+                                shortest = connection
+                        else:
+                            if current_station.connections[connection] < current_station.connections[shortest]:
+                                shortest = connection
+                    new_station = shortest
+               
+                # if there are no unused connections, pick a random connection
+                else:
+                    new_station = random.choice(list(current_station.connections.keys()))
 
                 # if new station is a railhead, remove it from list
                 if new_station.rail_head and new_station in available_railheads:
                     available_railheads.remove(new_station)
 
-                # find the time for the new station 
+                # finds the time for the new station 
                 time = int(current_station.connections[new_station])
                 
                 # stops adding stations until the total time would exceed the maximum time
