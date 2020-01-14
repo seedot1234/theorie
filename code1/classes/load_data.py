@@ -105,5 +105,3 @@ def add_station_connection(station_objects, connection_objects):
             if station == connection.station_b:
                 station.add_connection(connection.station_a, connection.time)
 
-
-

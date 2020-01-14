@@ -38,14 +38,27 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
+<<<<<<< HEAD
 # creates test
 # coordinates_csv = os.path.join("data", "StationsNationaal.csv")
 # coordinates_objects = visualise.coordinates(coordinates_csv)
+=======
+# creates test objects from station with coordinates csv
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv)
+>>>>>>> 975b0b656b0abd80f8cff2759db3e8c94a7a1db8
 
 # adds connections to stations
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
+<<<<<<< HEAD
 
+=======
+
+random_solution(station_objects, connection_objects)
+
+exit()
+>>>>>>> 975b0b656b0abd80f8cff2759db3e8c94a7a1db8
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
@@ -54,6 +67,7 @@ for station in station_objects:
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
 
 total_time = 0
+<<<<<<< HEAD
 total_routes = 0
 
 for i in range (1000):
@@ -71,3 +85,12 @@ for i in range (1000):
 # for route in solution:
 #     total_time += route.total_time
 # print(total_time)
+=======
+for route in solution:
+    total_time += route.total_time
+print(total_time)
+exit()
+
+print("="*80)
+# visualise.coordinates(coordinates_csv)
+>>>>>>> 975b0b656b0abd80f8cff2759db3e8c94a7a1db8
