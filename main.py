@@ -24,6 +24,10 @@ station_objects = load_data.create_station_list(station_csv)
 connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
+# creates test objects from station with coordinates csv
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv)
+
 # adds connections to stations
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
@@ -133,4 +137,4 @@ for route in solution:
 # print(total_time)
 
 print("="*80)
-visualise.test_vis()
+# visualise.coordinates(coordinates_csv)

@@ -6,54 +6,36 @@ visualise.py
 
 visualise random algorithm
 """
-# import numpy as np
-# import pandas as pd
+import pandas as pd
 # import matplotlib.pyplot as plt
+# import numpy as np
+import plotly.express as px
+import csv, io, os
 
-# import csv, io, os
+def coordinates(coordinates_csv):
 
-# def test_vis():
+    # stations = pd.read_csv('data/TestConnecties.csv')
 
-#     # read csv file with pandas to abstract tabel
-#     reader = pd.read_csv('data/TestConnecties.csv')
+    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
+    #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
+    # fig.update_layout(mapbox_style="open-street-map")
+    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+    # fig.show()
+
+    stations = pd.read_csv('data/StationsNationaal.csv')
+
+    fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
+                            color_discrete_sequence=["fuchsia"], zoom=3, height=300)
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+    fig.show()
     
-#     # bounding box: the area defined by two longitudes (lengtegraad) and two latitudes (breedtegraad) that will include all spatial points
-#     box = (reader.longitude.min(), reader.longitude.max(),      
-#         reader.latitude.min(), reader.latitude.max())
+    print("sike")
+    
+    return 
 
-#     # box = reader.columns
-#     print(box)
-#     print(reader)
+    # for loop om marker te plotten en dan een lijn naar de volgende met matplotlib 
+    # visualize traveling salesmen problem
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-
-def test_vis():
-
-    fig, ax = plt.subplots()
-
-    ax.plot([2.], [3.], 'bo')
-
-    plt.text(  # position text relative to data
-        2., 3., 'important point',  # x, y, text,
-        ha='center', va='bottom',   # text alignment,
-        transform=ax.transData      # coordinate system transformation
-    )
-    plt.text(  # position text relative to Axes
-        1.0, 1.0, 'axes corner',
-        ha='right', va='top',
-        transform=ax.transAxes
-    )
-    plt.text(  # position text relative to Figure
-        0.0, 1.0, 'figure corner',
-        ha='left', va='top',
-        transform=fig.transFigure
-    )
-    plt.text(  # position text absolutely at specific pixel on image
-        200, 300, 'pixel (200, 300)',
-        ha='center', va='center',
-        transform=None
-    )
-
-    plt.show()
