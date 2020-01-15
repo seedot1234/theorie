@@ -50,11 +50,8 @@ def coordinates(coordinates_csv, solution):
     # # add plot
     # p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
     
-    
     # # render scatterplot
-    # # p.circle(x="longitude", y="latitude", legend_label="Stations", line_width=4, source=source)
     # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
-
 
     # # add hovertool for station name
     # p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))

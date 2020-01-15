@@ -22,21 +22,20 @@ import csv, io, os
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
-station_csv = os.path.join("data", "ConnectiesHolland.csv")
-station_objects = load_data.create_station_list_holland(station_csv)
-
-# creates connection objects from csv
-connection_csv = os.path.join("data", "ConnectiesHolland.csv")
-connection_objects = load_data.create_connection(connection_csv, station_objects)
-
-# VOOR NATIONAAL, DOE DIT:
-# station_csv = os.path.join("data", "StationsNationaal.csv")
-# station_objects = load_data.create_station_list_nationaal(station_csv)
+# station_csv = os.path.join("data", "ConnectiesHolland.csv")
+# station_objects = load_data.create_station_list_holland(station_csv)
 
 # # creates connection objects from csv
-# connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
+# connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 # connection_objects = load_data.create_connection(connection_csv, station_objects)
 
+# VOOR NATIONAAL, DOE DIT:
+station_csv = os.path.join("data", "StationsNationaal.csv")
+station_objects = load_data.create_station_list_nationaal(station_csv)
+
+# creates connection objects from csv
+connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
+connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 
 # adds connections to stations
@@ -47,14 +46,17 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
+for i in station_objects:
+    print(i)
+
+exit()
+
 # voer hier een algoritme uit
 solution = random_solution(station_objects, connection_objects, 7, 120)
 
 # creates test objects from station with coordinates csv
 coordinates_csv = os.path.join("data", "TestConnecties.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, connection_objects)
 coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-# coordinates_objects = load_data.create_coordinates(coordinates_csv)
 
 # total_time = 0
 # total_routes = 0
@@ -76,3 +78,4 @@ total_time = 0
 for route in solution:
     total_time += route.total_time
 print(total_time)
+
