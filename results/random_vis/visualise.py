@@ -6,44 +6,6 @@ visualise.py
 
 visualise random algorithm
 """
-<<<<<<< HEAD
-=======
-import pandas as pd
-# import matplotlib.pyplot as plt
-# import numpy as np
-import plotly.express as px
-import csv, io, os
-
-def coordinates(coordinates_csv):
-    
-    stations = pd.read_csv('data/TestConnecties.csv')
-
-    # # stations = pd.read_csv('data/TestConnecties.csv')
-
-    # # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    # #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
-    # # fig.update_layout(mapbox_style="open-street-map")
-    # # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # # fig.show()
-
-    # stations = pd.read_csv('data/StationsNationaal.csv')
-
-    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    #                         color_discrete_sequence=["fuchsia"], zoom=3, height=300)
-    # fig.update_layout(mapbox_style="open-street-map")
-    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # fig.show()
-    
-    # print("sike")
-    
-    # return 
-
-    # # for loop om marker te plotten en dan een lijn naar de volgende met matplotlib 
-    # # visualize traveling salesmen problem
-
->>>>>>> ebfd6900c1deeb7c17a99b701d851641d28d8b60
 
 import json
 import csv
@@ -54,8 +16,10 @@ from bokeh.models import HoverTool, ColumnDataSource, GMapOptions
 from bokeh.plotting import figure, gmap
 
 from code1.algorithms.random import random_solution
+from code1.algorithms.random_p import random_solution_p
 
-def coordinates(coordinates_csv): #, solution):
+def coordinates(coordinates_csv, solution):
+
 
     testline = []
     output_file("visualise.html")
@@ -64,6 +28,8 @@ def coordinates(coordinates_csv): #, solution):
     reader = pd.read_csv('data/StationsNationaal.csv')
     source = ColumnDataSource(data=reader)
     # test = pd.read_csv('data/ConnectiesHolland.csv')
+
+    print(reader)
 
     # coordinates of Utrecht, because that's sort of the middle of the Netherlands
     map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="roadmap", zoom=7)
@@ -75,9 +41,18 @@ def coordinates(coordinates_csv): #, solution):
     p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source,legend_label="Stations")
     # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
 
+    
     # add hovertool for station name
     p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
 
+    # add lines
+    # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
+    # p.line(x='lon', y='lat', line_width=2, color="green", source=source)
+
+    for line in solution:
+        print(line)
+        for station in line.stations:
+            print(station)
     show(p)
 
 
