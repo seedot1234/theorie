@@ -12,6 +12,7 @@ random algorithm
 from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
+from code1.classes.solution import Solution
 import random   
 
 # makes new routes randomly until all connections have been used
@@ -38,11 +39,17 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
             while True:
                 
                 # when all connections are used, return the lining and thus end the algorithm
-                if p >= 0.8:
-                    print("###")
-                    print(p)
-                    print("###")
+<<<<<<< HEAD
+                if p >= 0.85:
                     return lining
+=======
+                if p >= 0.8:
+                    # print("###")
+                    # print(p)
+                    # print("###")
+                    solution = Solution(lining, p)
+                    return solution
+>>>>>>> a4c0bc94b99d8ab97817739981b595a388a0e884
 
                 # picks a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))
