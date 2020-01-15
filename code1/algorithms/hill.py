@@ -25,8 +25,18 @@ def state(connection_objects, station_objects, solution):
 
     # creates a random path of the stations 
     # path = random.sample(station_objects, len(station_objects))
-    path = solution 
-    print(path)
+    print("="*50)
+
+    # these are the routes of the train 
+    paths = solution 
+   
+    # for path in paths: 
+        # K_old = 
+        # K_new = 
+        # for connection in connection: 
+        #     remove first and or last connection from connections: 
+        #     no median !!!
+            # connectie bestaan in andere route 
 
     # for i in path: 
     #     print(i)
@@ -36,8 +46,8 @@ def state(connection_objects, station_objects, solution):
 
     # calculates the geometric distance between two stations using the Pythagorean formula
     
-    for i, j in enumerate(path):
-        print(i)
+    # for i, j in enumerate(path):
+    #     print(i)
     
         
         # lat_a = i.lat

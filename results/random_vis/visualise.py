@@ -53,7 +53,7 @@ def coordinates(coordinates_csv, solution):
         print(line)
         for station in line.stations:
             print(station)
-    show(p)
+    # show(p)
 
 
 

@@ -13,13 +13,13 @@ from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
+from code1.algorithms.hill import state
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
-from code1.algorithms.hill import state
 from random import randrange
-
 import random
 import csv, io, os
+
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -38,21 +38,27 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-# creates test
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv)
 
-
+# adds connections to stations
+connections_list = []
+load_data.add_station_connection(station_objects, connection_objects)
 
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
-    print(station.connections)
-
-# exit()
+    
+# for i in station_objects:
+#     print(i)
 
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
+
+print(solution)
+print(solution.set_K())
+
+exit()
+
+state(connection_objects, station_objects, solution)
 
 # creates list of station coordinates
 coordinates_csv = os.path.join("data", "StationsNationaal.csv")
