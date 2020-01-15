@@ -13,11 +13,8 @@ from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
-<<<<<<< HEAD
 from code1.algorithms.longest import longest
-=======
 from code1.algorithms.hill import state
->>>>>>> a4c0bc94b99d8ab97817739981b595a388a0e884
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
 from random import randrange
