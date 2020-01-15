@@ -6,7 +6,6 @@ visualise.py
 
 visualise random algorithm
 """
-<<<<<<< HEAD
 import pandas as pd
 # import matplotlib.pyplot as plt
 # import numpy as np
@@ -14,20 +13,20 @@ import plotly.express as px
 import csv, io, os
 
 def coordinates(coordinates_csv):
+    
+    stations = pd.read_csv('data/TestConnecties.csv')
 
-    # stations = pd.read_csv('data/TestConnecties.csv')
+    fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
+                            color_discrete_sequence=["fuchsia"], zoom=6, height=600)
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
-    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
-    # fig.update_layout(mapbox_style="open-street-map")
-    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # fig.show()
+    fig.show()
 
     stations = pd.read_csv('data/StationsNationaal.csv')
 
     fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-                            color_discrete_sequence=["fuchsia"], zoom=3, height=300)
+                            color_discrete_sequence=["fuchsia"], zoom=6, height=600)
     fig.update_layout(mapbox_style="open-street-map")
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
@@ -37,11 +36,35 @@ def coordinates(coordinates_csv):
     
     return 
 
+    # stations = pd.read_csv('data/StationsNationaal.csv')
+
+    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
+    #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
+    # fig.add_trace(
+    #     mode = "markers+lines",
+    #     lat = [52.37888718, 52.38888931],
+    #     lon = [4.900277615, 4.837777615],
+    #     marker = {'size': 10})
+    # )
+
+    # fig.update_layout(mapbox_style="open-street-map")
+    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+    # fig.show()
+    
+    # print("sike")
+    
+    # return 
+
+
     # for loop om marker te plotten en dan een lijn naar de volgende met matplotlib 
     # visualize traveling salesmen problem
 
-=======
+# DIT MOET WEG!!!!
+# if __name__ == "__main__":
+#     coordinates(coordinates_csv)
 
+""" 
 import pandas as pd
 
 # def test_vis():
@@ -118,4 +141,4 @@ def coordinates(coordinates_csv):
     # p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
 
     # show(p)
->>>>>>> 670fbf21743184ec98bc44340d8fb8ee608fa08b
+    """
