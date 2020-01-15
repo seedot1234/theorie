@@ -42,9 +42,7 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 # coordinates_csv = os.path.join("data", "StationsNationaal.csv")
 # coordinates_objects = visualise.coordinates(coordinates_csv)
 
-# creates test objects from station with coordinates csv
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv)
+
 
 # set railhead stations
 for station in station_objects:
@@ -56,9 +54,15 @@ for station in station_objects:
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
 
+# creates list of station coordinates
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
-state(connection_objects, station_objects, solution)
-exit() 
+# for line in solution:
+#     print(line)
+#     for station in line.stations:
+#         print(station)
+
 
 # exit()
 
@@ -69,35 +73,28 @@ exit()
 # coordinates_csv = os.path.join("data", "TestConnecties.csv")
 # coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
-total_time = 0
+# total_time = 0
 
-total_routes = 0
+# total_routes = 0
 
-for i in range (1000):
-    for route in solution:
-        total_time += route.total_time
-    total_routes += len(solution)
-    solution = random_solution(station_objects, connection_objects, 20, 180)
-    print(i)
-    print("routes aantal: ",total_routes/(i+1))
-    print("gemiddelde total time: ", total_time / (i+1))
+# for i in range (1000):
+#     for route in solution:
+#         total_time += route.total_time
+#     total_routes += len(solution)
+#     solution = random_solution(station_objects, connection_objects, 20, 180)
+#     print(i)
+#     print("routes aantal: ",total_routes/(i+1))
+#     print("gemiddelde total time: ", total_time / (i+1))
 
 # for line in solution:
 #     print(line)
-#     for station in line.stations:
-#         print(station)
 
-total_time = 0
-for line in solution:
-    print(line)
+# total_time = 0
+# for line in solution:
+#     print(line)
 
-total_time = 0
-for route in solution:
-    total_time += route.total_time
-print(total_time)
-
-
-print("="*80)
-# visualise.coordinates(coordinates_csv)
-# station_objects = load_data.create_station_list_nationaal(station_csv)
-print(stations_objects())
+# total_time = 0
+# for route in solution:
+#     total_time += route.total_time
+# print(total_time)
+ 

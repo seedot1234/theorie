@@ -16,8 +16,10 @@ from bokeh.models import HoverTool, ColumnDataSource, GMapOptions
 from bokeh.plotting import figure, gmap
 
 from code1.algorithms.random import random_solution
+from code1.algorithms.random_p import random_solution_p
 
-def coordinates(coordinates_csv): #, solution):
+def coordinates(coordinates_csv, solution):
+
 
     testline = []
     output_file("visualise.html")
@@ -27,6 +29,8 @@ def coordinates(coordinates_csv): #, solution):
     source = ColumnDataSource(data=reader)
     # test = pd.read_csv('data/ConnectiesHolland.csv')
 
+    print(reader)
+
     # coordinates of Utrecht, because that's sort of the middle of the Netherlands
     map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="roadmap", zoom=7)
 
@@ -34,16 +38,63 @@ def coordinates(coordinates_csv): #, solution):
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
 
-    stat = reader.Station
-    # print(stat)
-    p.add_tools(HoverTool(tooltips=[('Station', '@stat')]))
+    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source,legend_label="Stations")
+    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
+
     
+    # add hovertool for station name
+    p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
+
+    # add lines
+    # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
+    # p.line(x='lon', y='lat', line_width=2, color="green", source=source)
+
+    for line in solution:
+        print(line)
+        for station in line.stations:
+            print(station)
+    show(p)
+
+
+
+    # # box = ((reader.longitude.min(), reader.longitude.max(),      
+    # #         reader.latitude.min(), reader.latitude.max())
+
+    # # add plot
+    # p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
+    
+    # # render scatterplot
+    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
+
+    # # add hovertool for station name
+    # p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
+
+    # # x = reader.lon y = reader.lat
+    # # for i in connection_objects:
+    # #     print(i)
+
+    # # add lines
+    # # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
+    # # p.line(test.Station_A, test.Station_B, line_width=2, color="green")
+    # # p.line([reader.lon, reader.lat], line_width=2, color='green')
+
+    # # for line in solution:
+    # #     # print(line)
+    # #     testline.append(line)
+    # #     for station in line.stations:
+    # #         # print(station)
+    # #         if 'Alkmaar' in reader.Station:
+    # #             print("y")
+    # # print(reader)
+    
+            
+    # print("="*80)
+    # for i in testline:
+    #     print(i)
+
     # show(p)
 
-    # AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
-
-    # f = open(coordinates_csv)
-    # reader = csv.reader(f, delimiter = ",")
+    #==============================================================================================
 
     # with open(coordinates_csv, 'r') as coordinates_csv:
     #     data = json.load(coordinates_csv)

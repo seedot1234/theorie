@@ -36,8 +36,8 @@ def state(connection_objects, station_objects, solution):
 
     # calculates the geometric distance between two stations using the Pythagorean formula
     
-    # for i, j in enumerate(path):
-    #     print(i.)
+    for i, j in enumerate(path):
+        print(i)
     
         
         # lat_a = i.lat
