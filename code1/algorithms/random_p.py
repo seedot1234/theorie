@@ -1,70 +1,54 @@
 """
-railhead.py
+random_p.py
 
-Starts a route with a railhead station.
-When all railhead stations are used,
-it selects a random station out of non-railhead stations.
+Completely random, but stops when P is at least 80%,
+instead of 100.
 
 @author Heuristic Heroes
 @version
 
+random algorithm
 """
 from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
 import random   
 
-def railhead(station_objects, connection_objects, route_maximum, time_maximum):
-    
-    while True: 
-        
+# makes new routes randomly until all connections have been used
+def random_solution_p(station_objects, connection_objects, route_maximum, time_maximum):
+    while True:
         visited_connections = []
+        p = 0
         total_time = 0
         lining = []
-        available_railheads = []
-        non_railhead_stations = []
 
-        for station in station_objects:
-            if station.rail_head is True:
-                available_railheads.append(station)
-            else:
-                non_railhead_stations.append(station)
-                
         # make 'route_maximum' routes at max
         for total_routes in range(route_maximum):
 
-            # when railheads are available, pick one of these as a starting station
-            if len(available_railheads) > 0:
-                current_station = available_railheads[randrange(len(available_railheads))]
-                
-                # remove this station from the available railheads
-                available_railheads.remove(current_station)
+            # sets starting station randomly
+            current_station = station_objects[randrange(len(station_objects))]
 
-            else:
-                # else pick a random starting station out of the non-railhead stations
-                current_station = non_railhead_stations[randrange(len(non_railhead_stations))]
-
-            # start new route
+            # starts new route
             route = Route(total_routes, current_station)
 
             # add route to lining
             lining.append(route)
 
-            # keep on adding stations until maximum time has been reached 
+            # keeps on adding stations until maximum time has been reached 
             while True:
                 
                 # when all connections are used, return the lining and thus end the algorithm
-                if len(connection_objects) == len(visited_connections):
+                if p >= 0.8:
+                    print("###")
+                    print(p)
+                    print("###")
                     return lining
 
-                # pick a random new station out of all connections of the current station
+                # picks a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))
 
-                # if new station is a railhead, remove it from list
-                if new_station.rail_head and new_station in available_railheads:
-                    available_railheads.remove(new_station)
-
-                # find the time for the new station 
+                
+                # finds the time for the new station 
                 time = int(current_station.connections[new_station])
                 
                 # stops adding stations until the total time would exceed the maximum time
@@ -83,6 +67,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                         if connection in visited_connections:
                             break
                         visited_connections.append(connection)
+                        p = len(visited_connections) /  len(connection_objects)
                 
                 # set this new station as the current station
                 current_station = new_station
