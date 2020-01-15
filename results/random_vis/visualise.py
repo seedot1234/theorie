@@ -17,13 +17,13 @@ from bokeh.plotting import figure, gmap
 
 from code1.algorithms.random import random_solution
 
-def coordinates(coordinates_csv, solution):
+def coordinates(coordinates_csv): #, solution):
 
     testline = []
     output_file("visualise.html")
 
     # read csv file with pandas to abstract tabel
-    reader = pd.read_csv('data/TestConnecties.csv')
+    reader = pd.read_csv('data/StationsNationaal.csv')
     source = ColumnDataSource(data=reader)
     # test = pd.read_csv('data/ConnectiesHolland.csv')
 

@@ -42,38 +42,47 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
 
+# creates test objects from station with coordinates csv
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv)
+
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
 
-for i in station_objects:
-    print(i)
-
-exit()
+# for i in station_objects:
+#     print(i)
 
 # voer hier een algoritme uit
-solution = random_solution(station_objects, connection_objects, 7, 120)
+solution = random_solution(station_objects, connection_objects, 20, 180)
 
-# creates test objects from station with coordinates csv
-coordinates_csv = os.path.join("data", "TestConnecties.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
-# total_time = 0
-# total_routes = 0
+# exit()
 
-# for i in range (1000):
-#     for route in solution:
-#         total_time += route.total_time
-#     total_routes += len(solution)
-#     solution = random_solution(station_objects, connection_objects, 20, 180)
-#     print(i)
-#     print("routes aantal: ",total_routes/(i+1))
-#     print("gemiddelde total time: ", total_time / (i+1))
+# # voer hier een algoritme uit
+# solution = random_solution(station_objects, connection_objects, 7, 120)
 
-# for line in solution:
-#     print(line)
-#     for station in line.stations:
-#         print(station)
+# # creates test objects from station with coordinates csv
+# coordinates_csv = os.path.join("data", "TestConnecties.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+
+total_time = 0
+total_routes = 0
+
+for i in range (1000):
+    for route in solution:
+        total_time += route.total_time
+    total_routes += len(solution)
+    solution = random_solution(station_objects, connection_objects, 20, 180)
+    print(i)
+    print("routes aantal: ",total_routes/(i+1))
+    print("gemiddelde total time: ", total_time / (i+1))
+
+for line in solution:
+    print(line)
+    for station in line.stations:
+        print(station)
+
 total_time = 0
 for route in solution:
     total_time += route.total_time

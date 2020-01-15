@@ -35,4 +35,4 @@ class Station(object):
             self.rail_head = True
 
     def __str__(self):
-        return f"{self.name} {self.rail_head} - {self.lat}, {self.lon}"
+        return f"{self.name} - {self.lat}, {self.lon}"
