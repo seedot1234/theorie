@@ -7,13 +7,17 @@ Calls all functions in the repository 'theorie'
 
 """
 from code1.classes import connection, route, station, load_data
-# from results.random_vis import visualise
+from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
+<<<<<<< HEAD
 from code1.algorithms.longest import longest
+=======
+from code1.algorithms.hill import state
+>>>>>>> a4c0bc94b99d8ab97817739981b595a388a0e884
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
 from random import randrange
@@ -30,7 +34,6 @@ import csv, io, os
 # connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 # connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-
 # VOOR NATIONAAL, DOE DIT:
 station_csv = os.path.join("data", "StationsNationaal.csv")
 station_objects = load_data.create_station_list_nationaal(station_csv)
@@ -39,9 +42,9 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-# creates test
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv)
+# creates list of station coordinates
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
 # adds connections to stations
 connections_list = []
@@ -50,6 +53,7 @@ load_data.add_station_connection(station_objects, connection_objects)
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
+    
 
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
@@ -73,3 +77,9 @@ total_time = 0
 for route in solution:
     total_time += route.total_time
 print(total_time)
+print(solution)
+print(solution.set_K())
+
+exit()
+
+state(connection_objects, station_objects, solution)
