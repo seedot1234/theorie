@@ -20,16 +20,13 @@ from code1.algorithms.random_p import random_solution_p
 
 def coordinates(coordinates_csv, solution):
 
-
-    testline = []
     output_file("visualise.html")
 
     # read csv file with pandas to abstract tabel
     reader = pd.read_csv('data/StationsNationaal.csv')
     source = ColumnDataSource(data=reader)
-    # test = pd.read_csv('data/ConnectiesHolland.csv')
 
-    print(reader)
+    # print(reader)
 
     # coordinates of Utrecht, because that's sort of the middle of the Netherlands
     map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="roadmap", zoom=7)
@@ -37,9 +34,7 @@ def coordinates(coordinates_csv, solution):
     # gmap function with API key
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
-
     p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source,legend_label="Stations")
-    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
 
     
     # add hovertool for station name
@@ -49,10 +44,25 @@ def coordinates(coordinates_csv, solution):
     # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
     # p.line(x='lon', y='lat', line_width=2, color="green", source=source)
 
+    # solution wordt in main meegegeven aan coordinates objects
+    # solution bestaat uit station objecten. 
+    station_lat = []
+    station_lon = []
+
     for line in solution:
-        print(line)
+        print(type(line))
+        print(line.stations)
         for station in line.stations:
-            print(station)
+            station_lat.append(float(station.lat))
+            station_lon.append(float(station.lon))
+            # print(station.lat)
+            # print(station)
+        break
+            
+    print(station_lat)       
+    # p.line(x='lon', y='lat', line_width=2, color="green", source=source)
+
+    p.line(station_lon, station_lat, line_width=2)
     show(p)
 
 
