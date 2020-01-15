@@ -7,7 +7,7 @@ Calls all functions in the repository 'theorie'
 
 """
 from code1.classes import connection, route, station, load_data
-from results.visualise import coordinates
+from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
@@ -22,25 +22,22 @@ import csv, io, os
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
-# station_csv = os.path.join("data", "ConnectiesHolland.csv")
-# station_objects = load_data.create_station_list_holland(station_csv)
+station_csv = os.path.join("data", "ConnectiesHolland.csv")
+station_objects = load_data.create_station_list_holland(station_csv)
+
+# creates connection objects from csv
+connection_csv = os.path.join("data", "ConnectiesHolland.csv")
+connection_objects = load_data.create_connection(connection_csv, station_objects)
+
+# VOOR NATIONAAL, DOE DIT:
+# station_csv = os.path.join("data", "StationsNationaal.csv")
+# station_objects = load_data.create_station_list_nationaal(station_csv)
 
 # # creates connection objects from csv
-# connection_csv = os.path.join("data", "ConnectiesHolland.csv")
+# connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 # connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 
-# VOOR NATIONAAL, DOE DIT:
-station_csv = os.path.join("data", "StationsNationaal.csv")
-station_objects = load_data.create_station_list_nationaal(station_csv)
-
-# creates connection objects from csv
-connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
-connection_objects = load_data.create_connection(connection_csv, station_objects)
-
-# creates test objects from station with coordinates csv
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv)
 
 # adds connections to stations
 connections_list = []
@@ -51,7 +48,13 @@ for station in station_objects:
     station.set_rail_head()
 
 # voer hier een algoritme uit
-solution = random_solution(station_objects, connection_objects, 20, 180)
+solution = random_solution(station_objects, connection_objects, 7, 120)
+
+# creates test objects from station with coordinates csv
+coordinates_csv = os.path.join("data", "TestConnecties.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, connection_objects)
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+# coordinates_objects = load_data.create_coordinates(coordinates_csv)
 
 # total_time = 0
 # total_routes = 0
@@ -67,7 +70,9 @@ solution = random_solution(station_objects, connection_objects, 20, 180)
 
 # for line in solution:
 #     print(line)
-# total_time = 0
-# for route in solution:
-#     total_time += route.total_time
-# print(total_time)
+#     for station in line.stations:
+#         print(station)
+total_time = 0
+for route in solution:
+    total_time += route.total_time
+print(total_time)

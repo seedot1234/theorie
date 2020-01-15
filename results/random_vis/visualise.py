@@ -6,39 +6,6 @@ visualise.py
 
 visualise random algorithm
 """
-# import pandas as pd
-# # import matplotlib.pyplot as plt
-# # import numpy as np
-# import plotly.express as px
-# import csv, io, os
-
-# def coordinates(coordinates_csv):
-
-    # # stations = pd.read_csv('data/TestConnecties.csv')
-
-    # # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    # #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
-    # # fig.update_layout(mapbox_style="open-street-map")
-    # # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # # fig.show()
-
-    # stations = pd.read_csv('data/StationsNationaal.csv')
-
-    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    #                         color_discrete_sequence=["fuchsia"], zoom=3, height=300)
-    # fig.update_layout(mapbox_style="open-street-map")
-    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # fig.show()
-    
-    # print("sike")
-    
-    # return 
-
-    # # for loop om marker te plotten en dan een lijn naar de volgende met matplotlib 
-    # # visualize traveling salesmen problem
-
 
 import json
 import csv
@@ -48,44 +15,76 @@ from bokeh.io import show, output_file
 from bokeh.models import HoverTool, ColumnDataSource, GMapOptions
 from bokeh.plotting import figure, gmap
 
-def coordinates(coordinates_csv):
+from code1.algorithms.random import random_solution
 
+def coordinates(coordinates_csv, solution):
+
+    testline = []
     output_file("visualise.html")
 
-
-    # map_options = GMapOptions(lat=30.2861, lng=-97.7394, map_type="roadmap", zoom=11)
-    # p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Austin")
-
     # read csv file with pandas to abstract tabel
-    reader = pd.read_csv('data/StationsNationaal.csv')
+    reader = pd.read_csv('data/TestConnecties.csv')
     source = ColumnDataSource(data=reader)
-    print(source)
+    # test = pd.read_csv('data/ConnectiesHolland.csv')
 
-    # box = ((reader.longitude.min(), reader.longitude.max(),      
-    #         reader.latitude.min(), reader.latitude.max())
+    # coordinates of Utrecht, because that's sort of the middle of the Netherlands
+    map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="roadmap", zoom=7)
 
-    # x = longitude (lengtegraad), y = latitude (breedtegraad)
-    x = reader.lon
-    y = reader.lat
+    # gmap function with API key
+    p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
-    # add plot
-    p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
 
-    # render scatterplot
-    # p.circle(x="longitude", y="latitude", legend_label="Stations", line_width=4, source=source)
-    p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
-    # p.line(x, y, line_width=2)
+    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source,legend_label="Stations")
+    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
 
-    stat = reader.Station
-    # print(stat)
+    # add hovertool for station name
     p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
-    
+
     show(p)
 
-    # AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
 
-    # f = open(coordinates_csv)
-    # reader = csv.reader(f, delimiter = ",")
+
+    # # box = ((reader.longitude.min(), reader.longitude.max(),      
+    # #         reader.latitude.min(), reader.latitude.max())
+
+    # # add plot
+    # p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
+    
+    
+    # # render scatterplot
+    # # p.circle(x="longitude", y="latitude", legend_label="Stations", line_width=4, source=source)
+    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
+
+
+    # # add hovertool for station name
+    # p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
+
+    # # x = reader.lon y = reader.lat
+    # # for i in connection_objects:
+    # #     print(i)
+
+    # # add lines
+    # # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
+    # # p.line(test.Station_A, test.Station_B, line_width=2, color="green")
+    # # p.line([reader.lon, reader.lat], line_width=2, color='green')
+
+    # # for line in solution:
+    # #     # print(line)
+    # #     testline.append(line)
+    # #     for station in line.stations:
+    # #         # print(station)
+    # #         if 'Alkmaar' in reader.Station:
+    # #             print("y")
+    # # print(reader)
+    
+            
+    # print("="*80)
+    # for i in testline:
+    #     print(i)
+
+    # show(p)
+
+    #==============================================================================================
 
     # with open(coordinates_csv, 'r') as coordinates_csv:
     #     data = json.load(coordinates_csv)
