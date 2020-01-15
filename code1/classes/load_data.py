@@ -51,9 +51,9 @@ def create_station_list_nationaal(station_csv):
     # iterates over the csv file 
     for row in reader:
 
-        # create station object from the row
-        station_object = Station(row[0])
-        station_objects.append(station_object)
+        # create station object from the row. Fill parameters of station function with 0 = station 1 = lat 2 = lon
+        station_object = Station(row[0], row[1], row[2])
+        station_objects.append(station_object)  
             
     return station_objects
 
