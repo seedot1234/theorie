@@ -38,11 +38,6 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-
-
-state(connection_objects, station_objects)
-exit() 
-
 # creates test
 # coordinates_csv = os.path.join("data", "StationsNationaal.csv")
 # coordinates_objects = visualise.coordinates(coordinates_csv)
@@ -54,11 +49,16 @@ coordinates_objects = visualise.coordinates(coordinates_csv)
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
+    print(station.connections)
 
-exit()
+# exit()
 
 # voer hier een algoritme uit
-solution = random_solution(station_objects, connection_objects, 20, 180)
+solution = random_solution_p(station_objects, connection_objects, 20, 180)
+
+
+state(connection_objects, station_objects, solution)
+exit() 
 
 # exit()
 

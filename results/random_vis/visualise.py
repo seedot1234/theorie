@@ -6,44 +6,6 @@ visualise.py
 
 visualise random algorithm
 """
-<<<<<<< HEAD
-=======
-import pandas as pd
-# import matplotlib.pyplot as plt
-# import numpy as np
-import plotly.express as px
-import csv, io, os
-
-def coordinates(coordinates_csv):
-    
-    stations = pd.read_csv('data/TestConnecties.csv')
-
-    # # stations = pd.read_csv('data/TestConnecties.csv')
-
-    # # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    # #                         color_discrete_sequence=["fuchsia"], zoom=6, height=600)
-    # # fig.update_layout(mapbox_style="open-street-map")
-    # # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # # fig.show()
-
-    # stations = pd.read_csv('data/StationsNationaal.csv')
-
-    # fig = px.scatter_mapbox(stations, lat="lat", lon="lon", hover_name="Station",
-    #                         color_discrete_sequence=["fuchsia"], zoom=3, height=300)
-    # fig.update_layout(mapbox_style="open-street-map")
-    # fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-    # fig.show()
-    
-    # print("sike")
-    
-    # return 
-
-    # # for loop om marker te plotten en dan een lijn naar de volgende met matplotlib 
-    # # visualize traveling salesmen problem
-
->>>>>>> ebfd6900c1deeb7c17a99b701d851641d28d8b60
 
 import json
 import csv
@@ -72,7 +34,6 @@ def coordinates(coordinates_csv): #, solution):
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
 
-<<<<<<< HEAD
     stat = reader.Station
     # print(stat)
     p.add_tools(HoverTool(tooltips=[('Station', '@stat')]))
@@ -101,72 +62,4 @@ def coordinates(coordinates_csv): #, solution):
     # p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
     # p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
 
-=======
-    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source,legend_label="Stations")
-    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
-
-    # add hovertool for station name
-    p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
-
-    show(p)
-
-
-
-    # # box = ((reader.longitude.min(), reader.longitude.max(),      
-    # #         reader.latitude.min(), reader.latitude.max())
-
-    # # add plot
-    # p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
-    
-    # # render scatterplot
-    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
-
-    # # add hovertool for station name
-    # p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
-
-    # # x = reader.lon y = reader.lat
-    # # for i in connection_objects:
-    # #     print(i)
-
-    # # add lines
-    # # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
-    # # p.line(test.Station_A, test.Station_B, line_width=2, color="green")
-    # # p.line([reader.lon, reader.lat], line_width=2, color='green')
-
-    # # for line in solution:
-    # #     # print(line)
-    # #     testline.append(line)
-    # #     for station in line.stations:
-    # #         # print(station)
-    # #         if 'Alkmaar' in reader.Station:
-    # #             print("y")
-    # # print(reader)
-    
-            
-    # print("="*80)
-    # for i in testline:
-    #     print(i)
-
-    # show(p)
-
-    #==============================================================================================
-
-    # with open(coordinates_csv, 'r') as coordinates_csv:
-    #     data = json.load(coordinates_csv)
-
-    # output_file("kaart.html")
-
-    # for i in range(len(reader['features'])):
-    #     data['features'][i]['properties']['Color'] = ['blue', 'red'][i%2]
-
-    # geo_source = GeoJSONDataSource(geojson=json.dumps(data))
-
-    # TOOLTIPS = [
-    #     ('Organisation', '@OrganisationName')
-    # ]
-
-    # p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
-    # p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
-
->>>>>>> dd504d3dc5bb1662be07a70ba73932535a6d3178
     # show(p)
