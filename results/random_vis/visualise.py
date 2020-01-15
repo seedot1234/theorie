@@ -75,28 +75,28 @@ def coordinates(coordinates_csv):
     # print(stat)
     p.add_tools(HoverTool(tooltips=[('Station', '@stat')]))
     
-    show(p)
+    # show(p)
 
-    AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
+    # AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI
 
-    f = open(coordinates_csv)
-    reader = csv.reader(f, delimiter = ",")
+    # f = open(coordinates_csv)
+    # reader = csv.reader(f, delimiter = ",")
 
-    with open(coordinates_csv, 'r') as coordinates_csv:
-        data = json.load(coordinates_csv)
+    # with open(coordinates_csv, 'r') as coordinates_csv:
+    #     data = json.load(coordinates_csv)
 
-    output_file("kaart.html")
+    # output_file("kaart.html")
 
-    for i in range(len(reader['features'])):
-        data['features'][i]['properties']['Color'] = ['blue', 'red'][i%2]
+    # for i in range(len(reader['features'])):
+    #     data['features'][i]['properties']['Color'] = ['blue', 'red'][i%2]
 
-    geo_source = GeoJSONDataSource(geojson=json.dumps(data))
+    # geo_source = GeoJSONDataSource(geojson=json.dumps(data))
 
-    TOOLTIPS = [
-        ('Organisation', '@OrganisationName')
-    ]
+    # TOOLTIPS = [
+    #     ('Organisation', '@OrganisationName')
+    # ]
 
-    p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
-    p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
+    # p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
+    # p.circle(x='x', y='y', size=15, color='Color', alpha=0.7, source=geo_source)
 
-    show(p)
+    # show(p)
