@@ -15,7 +15,7 @@ class Solution(object):
         """
         
         # makes the solution properties
-        self.lining = lining 
+        self.lining = lining
         self.K = None
         self.p = p
 

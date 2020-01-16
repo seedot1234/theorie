@@ -14,6 +14,7 @@ from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.longest import longest
+from code1.algorithms.greedy_lookahead import greedy_lookahead
 from code1.algorithms.hill import state
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
@@ -23,25 +24,21 @@ import csv, io, os
 
 
 # VOOR HOLLAND, DOE DIT:
-# # creates station objects from csv
-# station_csv = os.path.join("data", "ConnectiesHolland.csv")
-# station_objects = load_data.create_station_list_holland(station_csv)
-
-# # creates connection objects from csv
-# connection_csv = os.path.join("data", "ConnectiesHolland.csv")
-# connection_objects = load_data.create_connection(connection_csv, station_objects)
-
-# VOOR NATIONAAL, DOE DIT:
-station_csv = os.path.join("data", "StationsNationaal.csv")
-station_objects = load_data.create_station_list_nationaal(station_csv)
+# creates station objects from csv
+station_csv = os.path.join("data", "ConnectiesHolland.csv")
+station_objects = load_data.create_station_list_holland(station_csv)
 
 # creates connection objects from csv
-connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
+connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-# creates list of station coordinates
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+# VOOR NATIONAAL, DOE DIT:
+# station_csv = os.path.join("data", "StationsNationaal.csv")
+# station_objects = load_data.create_station_list_nationaal(station_csv)
+
+# # creates connection objects from csv
+# connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
+# connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 # adds connections to stations
 connections_list = []
@@ -53,7 +50,22 @@ for station in station_objects:
     
 
 # voer hier een algoritme uit
-solution = random_solution_p(station_objects, connection_objects, 20, 180)
+# solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
+# print(solution)
+# for line in solution.lining:
+#     print("een trein:")
+#     for station in line.stations:
+#         print(station)
+#     print()
+# print(solution.set_K())
+# exit()
+
+# creates list of station coordinates
+# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+
+
+solution = random(station_objects, connection_objects, 7, 120)
 
 total_time = 0
 total_routes = 0
@@ -62,7 +74,7 @@ for i in range (1000):
     for route in solution:
         total_time += route.total_time
     total_routes += len(solution)
-    solution = random_solution_p(station_objects, connection_objects, 20, 180)
+    solution = random(station_objects, connection_objects, 7, 120)
     print(i)
 
 print("routes aantal: ",total_routes/1000)
