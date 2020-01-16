@@ -67,8 +67,20 @@ for station in station_objects:
 
 solution = random(station_objects, connection_objects, 7, 120)
 
-total_time = 0
-total_routes = 0
+# creates list of station coordinates
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+
+
+# total_time = 0
+# total_routes = 0
+
+# for i in range (1000):
+#     for route in solution:
+#         total_time += route.total_time
+#     total_routes += len(solution)
+#     solution = random_solution_p(station_objects, connection_objects, 20, 180)
+#     print(i)
 
 for i in range (1000):
     for route in solution:
@@ -77,18 +89,18 @@ for i in range (1000):
     solution = random(station_objects, connection_objects, 7, 120)
     print(i)
 
-print("routes aantal: ",total_routes/1000)
-print("gemiddelde total time: ", total_time / 1000)
+# print("routes aantal: ",total_routes/1000)
+# print("gemiddelde total time: ", total_time / 1000)
 
-for line in solution:
-    print(line)
-total_time = 0
-for route in solution:
-    total_time += route.total_time
-print(total_time)
-print(solution)
-print(solution.set_K())
+# for line in solution:
+#     print(line)
+# total_time = 0
+# for route in solution:
+#     total_time += route.total_time
+# print(total_time)
+# print(solution)
+# print(solution.set_K())
 
-exit()
+# exit()
 
-state(connection_objects, station_objects, solution)
+# state(connection_objects, station_objects, solution)
