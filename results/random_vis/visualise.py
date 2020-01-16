@@ -46,27 +46,36 @@ def coordinates(coordinates_csv, solution):
 
     # solution wordt in main meegegeven aan coordinates objects
     # solution bestaat uit station objecten. 
-    station_lat = []
-    station_lon = []
+    station_lat = [] #A
+    station_lon = [] #A 
 
-    for line in solution:
-        print(type(line))
-        print(line.stations)
-        for station in line.stations:
-            station_lat.append(float(station.lat))
-            station_lon.append(float(station.lon))
-            # print(station.lat)
-            # print(station)
-        break
+    for line in solution: #line is elke traject : voor elk traject/trein in de oplossing
+        route_lat = [] #B
+        route_lon = []
+        # print(type(line))
+        # print(line.stations) # stationsobjecten die in de oplossing zit : print stationsobjecten uit van het traject
+        # iterate through every station of every line in the solution 
+        
+        print('='*8)
+        
+        for station in line.stations: # voor elk station in het traject
+            # put all lat and lons from station in list.
             
-    print(station_lat)       
+            print(station) # = elk traject
+            route_lat.append(float(station.lat)) # zet de lat in de lijst > voor elke station_lat moet nog een lijst worden gemaakt. 
+            route_lon.append(float(station.lon))
+        # break
+
+        station_lat.append(route_lat)
+        station_lon.append(route_lon)
+
     # p.line(x='lon', y='lat', line_width=2, color="green", source=source)
-
+    
     p.line(station_lon, station_lat, line_width=2)
-    show(p)
+    show( p)
 
 
-
+# =====================
     # # box = ((reader.longitude.min(), reader.longitude.max(),      
     # #         reader.latitude.min(), reader.latitude.max())
 

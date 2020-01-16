@@ -39,9 +39,7 @@ station_objects = load_data.create_station_list_nationaal(station_csv)
 connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
-# creates list of station coordinates
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+
 
 # adds connections to stations
 connections_list = []
@@ -55,28 +53,34 @@ for station in station_objects:
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
 
-total_time = 0
-total_routes = 0
+# creates list of station coordinates
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
-for i in range (1000):
-    for route in solution:
-        total_time += route.total_time
-    total_routes += len(solution)
-    solution = random_solution_p(station_objects, connection_objects, 20, 180)
-    print(i)
 
-print("routes aantal: ",total_routes/1000)
-print("gemiddelde total time: ", total_time / 1000)
+# total_time = 0
+# total_routes = 0
 
-for line in solution:
-    print(line)
-total_time = 0
-for route in solution:
-    total_time += route.total_time
-print(total_time)
-print(solution)
-print(solution.set_K())
+# for i in range (1000):
+#     for route in solution:
+#         total_time += route.total_time
+#     total_routes += len(solution)
+#     solution = random_solution_p(station_objects, connection_objects, 20, 180)
+#     print(i)
 
-exit()
 
-state(connection_objects, station_objects, solution)
+# print("routes aantal: ",total_routes/1000)
+# print("gemiddelde total time: ", total_time / 1000)
+
+# for line in solution:
+#     print(line)
+# total_time = 0
+# for route in solution:
+#     total_time += route.total_time
+# print(total_time)
+# print(solution)
+# print(solution.set_K())
+
+# exit()
+
+# state(connection_objects, station_objects, solution)
