@@ -1,31 +1,37 @@
-
 """
-random.py
+longest.py
+
+Picks the first station of a route randomly.
+Then goes to the longest unused connection.
+If all connections of a station have been used already,
+pick a connection randomly.
 
 @author Heuristic Heroes
 @version
 
-random algorithm
 """
 from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
-import random
+import random  
 
 # makes new routes randomly until all connections have been used
-def random_solution(station_objects, connection_objects, route_maximum, time_maximum):
+def longest(station_objects, connection_objects, route_maximum, time_maximum):
     while True:
+
         visited_connections = []
         total_time = 0
+
+        # makes a list of the solution that matches the requirements 
         lining = []
 
         # make 'route_maximum' routes at max
         for total_routes in range(route_maximum):
 
-            # sets starting station randomly
+            # picks a random station to the begin the route from
             current_station = station_objects[randrange(len(station_objects))]
-
-            # starts new route
+            
+            # starts new route | SJ: WAT DOET DIT? 
             route = Route(total_routes, current_station)
 
             # add route to lining
@@ -34,13 +40,35 @@ def random_solution(station_objects, connection_objects, route_maximum, time_max
             # keeps on adding stations until maximum time has been reached 
             while True:
                 
-                # when all connections are used, return the lining and thus end the algorithm
+                # when all connections have been used, end the algorithm
                 if len(connection_objects) == len(visited_connections):
                     return lining
 
-                # picks a random new station out of all connections of the current station
-                new_station = random.choice(list(current_station.connections.keys()))
-                
+                # make a list of all unused connections of this station
+                unused_connections = []
+                for connection in current_station.connections:
+                    unused_connections.append(connection)
+                    for visit in visited_connections:
+                        if (visit.station_a == connection and visit.station_b == current_station) or (visit.station_b == connection and visit.station_a == current_station):
+                            unused_connections.remove(connection)
+
+                # if there are unused connections, find the shortest connection
+                if len(unused_connections) > 0:
+                    
+                    # sets a shortest connection/distance variable 
+                    longest = None
+                    for connection in unused_connections:
+                        if longest is None:
+                                longest = connection
+                        else:
+                            if current_station.connections[connection] > current_station.connections[longest]:
+                                longest = connection
+                    new_station = longest
+               
+                # if there are no unused connections, pick a random connection
+                else:
+                    new_station = random.choice(list(current_station.connections.keys()))
+
                 # finds the time for the new station 
                 time = int(current_station.connections[new_station])
                 

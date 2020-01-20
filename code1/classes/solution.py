@@ -12,7 +12,7 @@ class Solution(object):
     def __init__(self, lining, p):
                 
         # makes the solution properties
-        self.lining = lining 
+        self.lining = lining
         self.K = None
         self.p = p
         self.min = 0 
