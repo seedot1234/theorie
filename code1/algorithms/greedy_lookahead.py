@@ -38,7 +38,6 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                     for item in connection_objects:
                         if (item.station_a == current_station and item.station_b == station) or (item.station_a == station and item.station_b == current_station):
                             if item not in visited_connections:
-                                print(item.station_a, item.station_b, 'nog niet gebruikt')
                                 status = True
             
             # starts new route

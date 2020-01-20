@@ -5,8 +5,6 @@ connection.py
 @version
 """
 
-# from .station import Station
-
 class Connection(object):
     """ Creates connections between the stations. """
 

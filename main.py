@@ -40,6 +40,7 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 # connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 # connection_objects = load_data.create_connection(connection_csv, station_objects)
 
+
 # adds connections to stations
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
@@ -65,15 +66,8 @@ for station in station_objects:
 # coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
 
-solution = random(station_objects, connection_objects, 7, 120)
-
-# creates list of station coordinates
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-
-# total_time = 0
-# total_routes = 0
+total_time = 0
+total_routes = 0
 
 # for i in range (1000):
 #     for route in solution:
@@ -82,15 +76,23 @@ coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 #     solution = random_solution_p(station_objects, connection_objects, 20, 180)
 #     print(i)
 
+solution = shortest(station_objects, connection_objects, 7, 120)
+
+
+# creates list of station coordinates
+# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+
+
 for i in range (1000):
     for route in solution:
         total_time += route.total_time
     total_routes += len(solution)
-    solution = random(station_objects, connection_objects, 7, 120)
+    solution = shortest(station_objects, connection_objects, 7, 120)
     print(i)
 
-# print("routes aantal: ",total_routes/1000)
-# print("gemiddelde total time: ", total_time / 1000)
+print("routes aantal: ",total_routes/1000)
+print("gemiddelde total time: ", total_time / 1000)
 
 # for line in solution:
 #     print(line)
