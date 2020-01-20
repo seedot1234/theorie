@@ -17,7 +17,6 @@ class Route(object):
         
         # route properties
         self.number = number
-        self.first_station = first_station
         self.total_time = 0 
         self.stations = [self.first_station]
 

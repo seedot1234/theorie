@@ -1,10 +1,13 @@
 """
 greedy_lookahead.py
 
+greedy lookahead algorithm that bases itself on the highest K score.
+Looks ahead 1 extra step than a normal greedy;
+looks at all possible childs from the starting point and then calculates
+the K score for all options.
+
 @author Heuristic Heroes
 @version
-
-greedy lookahead algorithm
 """
 
 from code1.classes.station import Station

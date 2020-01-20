@@ -13,7 +13,7 @@ from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
 from code1.classes.solution import Solution
-import random   
+import random
 
 # makes new routes randomly until all connections have been used
 def random_solution_p(station_objects, connection_objects, route_maximum, time_maximum):
