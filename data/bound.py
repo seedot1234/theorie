@@ -15,35 +15,38 @@ import pandas as pd
 import math 
 
 # maximum train operating time in minutes 
-max_operating_time = 120 
+max_operating_time = 180 
+
+df = pd.read_csv('ConnectiesNationaal.csv')
 
 def state_space():
     """ displays and calculates the relevant values to find the state-space to 
         to solve the case problem. We assume the state-space lower bound is equal to zero """
 
     # number of stations extracted from the Station_objects 
-    num_stations = 22 
+    num_stations = 61
 
     # maximum number of operating trains   
-    max_routes = 7 
+    max_routes = 20
 
-    # the maximum amount of connections at a station which is True for Leiden CS, Zaandam and Amsterdam Sloterdijk
-    max_connections = 4 
+    # the maximum amount of connections at a station which is True for Rotterdam and Utrecht CS 
+    max_connections = 9
 
-    df = pd.read_csv('ConnectiesHolland.csv')
-
-    # finds the minimum amount of time of connections within Holland
+    # finds the minimum amount of time of connections within NL
     min_distance = df.Time.min()
+    print("min distance:")
     print(min_distance)
 
     # calculates the max. amount of stops of one route assuming the shortest distance 
     max_stops = max_operating_time / min_distance
+    print("max stops:")
     print(max_stops)
 
     # calculates the State-space upper bound (worst-case)
     print("="*50)
-    upper_bound = ((num_stations * max_connections**max_stops)**max_routes)
     print(num_stations * max_connections**max_stops)
+    upper_bound = ((num_stations * max_connections**max_stops)**max_routes)
+    print("upper bound:")
     print(upper_bound)
 
 def quality():
@@ -53,10 +56,12 @@ def quality():
     max_quality_score = 10000 
     
     # the sum of the distance between all connections of Holland in minutes 
-    sum_distance = 381 
+    sum_distance = df.Time.sum() 
+    print(sum_distance)
 
     # calculates the minumum amount of routes taking in account the time constraint 
     min_routes = math.ceil(sum_distance/ max_operating_time)
+    print("min_routes:")
     print(min_routes)
 
     # fraction value if all connection have been passed by route(s)   
@@ -64,6 +69,7 @@ def quality():
 
     # calculates the quality function best-case scenario 
     Best_K_Score = ((p_max * max_quality_score) - (min_routes * 100 + sum_distance))
+    print("max K:")
     print(Best_K_Score)
 
 # DIT MOET WEG!!!!
