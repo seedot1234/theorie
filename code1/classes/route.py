@@ -16,9 +16,8 @@ class Route(object):
         """
         # route properties
         self.number = route_nr
-        # self.first_station = first_station
         self.total_time = 0 
-        # self.stations = []
+        self.stations = [first_station]
         self.visited_connections = [] 
 
     # def add_station(self, station, time):
@@ -47,9 +46,9 @@ class Route(object):
         method which allows the Route object to support deleting an element         
         """
         self.total_time -= self.visited_connections[connection].time
-        del self.visited_connections[connection]      
+        del self.visited_connections[connection]
 
     def __str__(self):
-        return f"train{self.number} ({self.total_time}): {self.visited_connections}"
+        return f"train{self.number} ({self.total_time}): {self.stations}"
 
 

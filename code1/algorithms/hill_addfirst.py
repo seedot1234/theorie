@@ -15,7 +15,7 @@ from code1.classes.solution import Solution
 from code1.classes.route import Route
 from code1.classes.pcalc import Pcalc
 
-def hillclimb(connection_objects, station_objects, solution):
+def hill_addfirst(connection_objects, station_objects, solution):
   
     # picks a valid random start state (taken from random_p.py)
     state = solution 
