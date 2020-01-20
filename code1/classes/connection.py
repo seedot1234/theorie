@@ -16,8 +16,8 @@ class Connection(object):
         self.time = time
         self.visited = False 
 
-    def set_visited(self):
-        self.visitd = True
+    def set_visited(self, connection):
+        self.visited = True
 
     def __str__(self):
         return f"{self.station_a} - {self.station_b}" 

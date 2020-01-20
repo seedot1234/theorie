@@ -7,69 +7,97 @@ Uses the interative Hill Climbing algorithm
 @version 1
 
 """
-import math 
-import random 
+import copy 
 
 from code1.classes.station import Station
 from code1.classes.connection import Connection
+from code1.classes.solution import Solution
+from code1.classes.route import Route
+from code1.classes.pcalc import Pcalc
 
+def hillclimb(connection_objects, station_objects, solution):
+  
+    # picks a valid random start state (taken from random_p.py)
+    state = solution 
+                    
+    # makes a copy of the current state 
+    copy_state = copy.deepcopy(solution) 
 
-# the path intails the sequence of connections 
-# path = 
+    # sets the old quality value 
+    old_K = copy_state.set_K()
+    print(f"ORIGINAL K: {old_K}")
 
-def state(connection_objects, station_objects, solution): 
-   
-    # for i in station_objects:
-    #     print(f"{i.name} at {i.lat} {i.lon}")
-    # print("="*50) 
-
-    # creates a random path of the stations 
-    # path = random.sample(station_objects, len(station_objects))
-    print("="*50)
-
-    # these are the routes of the train 
-    paths = solution 
-   
-    # for path in paths: 
-        # K_old = 
-        # K_new = 
-        # for connection in connection: 
-        #     remove first and or last connection from connections: 
-        #     no median !!!
-            # connectie bestaan in andere route 
-
-    # for i in path: 
-    #     print(i)
-    
+    lining = []
     i = 0 
-    j = 1 
 
-    # calculates the geometric distance between two stations using the Pythagorean formula
+    # saves the improved* lining before small alteration
+    imp_lining = copy.deepcopy(copy_state.lining)
     
-    # for i, j in enumerate(path):
-    #     print(i)
+    # saves the improved* route before small alteration
+    # imp_route = imp_lining[i] # ik kan deze niet in for-loop doen anders worden route en imp-route aan elkaar gelijk??
     
+    # iterates over every route and connection within that route from the original solution
+    for i, route in enumerate(copy_state.lining):  
+            
+        # saves the improved* route before small alteration
+        imp_route = imp_lining[i]
+                
+        # resets boolean that checks whether to move to the next route 
+        next = False 
+
+        print(f"\nTHE ORIGINAL ROUTE #{route.number}")
+        print(f"\n# stops: {len(route.visited_connections)}")             
+        for connection in route.visited_connections:
+            print(connection)
+        print("-"*50) 
+                      
+        # continues making alterations until  K doesn't improve or the route is empty 
+        while next is False: 
+
+            # deletes the first connection from the route
+            del imp_route[0]
         
-        # lat_a = i.lat
-        # print(lat_a)
-        # lat_b = j.lat
-        # print(lat_b)
-        # lon_a = i.lon
-        # print(lon_a)
-        # lon_b = i.lat
-        # print(lon_b)
-       
+            # calculates the new P 
+            temp = Pcalc(imp_lining, connection_objects)
+            p = temp.set_p()
+
+            # calculates the new solution after the alteration
+            diff_solution = Solution(imp_lining, p) 
+                    
+            # calculates the new K value 
+            new_K = diff_solution.set_K()
+                                    
+            # removes the route from the lining if empty
+            if len(route.visited_connections) == 0:
+                print(f"Route {route.number} Is Empty")
+                next = True                 
+
+            elif new_K > old_K:
+                route = imp_route # doesn't work ???
+                old_K = new_K
+                
+            # if the alteration decreases K, declines the improvement and move to the next route 
+            elif new_K <= old_K: 
+                new_K = old_K
+                lining.append(route)
+                # copy_state.lining = imp_lining # doesnt work ???
+                next = True  
+
+        for route in lining:            
+            if len(route.visited_connections) == 0:
+                lining.remove(route)
+
+        print(f"THE IMPROVED ROUTE #{route.number}")
+        print(f"\n# stops: {len(route.visited_connections)}") 
+        for connection in route:
+            print(connection)
+        print(f"\nOLD K: {old_K}")
+        print(f"NEW K: {new_K}")
+        print("-"*50) 
 
     
-    # print(len(connection_objects))
-    # print("="*80)
-    # path = random.sample(station_objects, len(station_objects))
-    # for i in path:
-    #     print(i)
-    # print(len(test))
-    # return 
+       
+        
 
-
-# calculates the geometric distance between two stations using the Pythagorean formula
-# distance = math.sqrt((lat_a - lat_b)**2 + (lon_a-lon_b)**2)
-# print(distance)
+        
+                
