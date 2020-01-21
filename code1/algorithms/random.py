@@ -10,7 +10,7 @@ random algorithm
 from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
-import random   
+import random
 
 # makes new routes randomly until all connections have been used
 def random_solution(station_objects, connection_objects, route_maximum, time_maximum):
@@ -40,7 +40,6 @@ def random_solution(station_objects, connection_objects, route_maximum, time_max
 
                 # picks a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))
-
                 
                 # finds the time for the new station 
                 time = int(current_station.connections[new_station])
@@ -48,8 +47,6 @@ def random_solution(station_objects, connection_objects, route_maximum, time_max
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
                     total_time += route.total_time
-
-                    # voeg Route toe aan lijnvoering lijst
                     break
                 
                 # add a new station to the route

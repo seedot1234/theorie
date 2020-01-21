@@ -71,7 +71,7 @@ def coordinates(coordinates_csv, solution):
     for i, j, k in zip(station_lon, station_lat, colors):
         p.line(i, j, line_width=4, color=k, line_alpha=0.5) #line_alpha = opacity
     
-    # show(p)
+    show(p)
 
 
 # =====================

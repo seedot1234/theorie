@@ -13,32 +13,34 @@ from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
 from code1.classes.solution import Solution
-import random   
+import random
 
 # makes new routes randomly until all connections have been used
 def random_solution_p(station_objects, connection_objects, route_maximum, time_maximum):
     while True:
-        visited_connections = []
+        
+        # reboots the attributes to find a new, valid solution
         p = 0
         total_time = 0
-        lining = []
+        lining = []  
+        visited_connections = []
 
-        # make 'route_maximum' routes at max
-        for total_routes in range(route_maximum):
+        # creates new routes until reached the max. number of routes 
+        for route_nr in range(route_maximum):
 
-            # sets starting station randomly
+            # sets starting station using random
             current_station = station_objects[randrange(len(station_objects))]
+            
+            # makes new route by passing the route number and first station
+            route = Route(route_nr, current_station)
 
-            # starts new route
-            route = Route(total_routes, current_station)
-
-            # add route to lining
+            # adds route to lining
             lining.append(route)
-
-            # keeps on adding stations until maximum time has been reached 
+          
+            # keeps on adding connections until maximum time has been reached 
             while True:
                 
-                # when all connections are used, return the lining and thus end the algorithm
+                # p equals or is larger than 0.8, return the lining and thus end the algorithm
                 if p >= 0.8:
                     solution = Solution(lining, p)
                     return solution
@@ -46,27 +48,26 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
                 # picks a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))
 
+                # finds the connection
+                link = current_station.connections[new_station]           
                 
                 # finds the time for the new station 
-                time = int(current_station.connections[new_station])
+                time = current_station.connections[new_station].time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
                     total_time += route.total_time
                     break
-                
-                # add a new station to the route
-                route.add_station(new_station, time)
+                             
+                # adds a new connection to the route 
+                route.add_connection2(link, time)  
 
-                # find the connection that was added
-                for connection in connection_objects:
-                    if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):
-                        
-                        # if the connection wasn't used before, add it to the visited connections list
-                        if connection in visited_connections:
-                            break
-                        visited_connections.append(connection)
-                        p = len(visited_connections) /  len(connection_objects)
-                
-                # set this new station as the current station
+                # calculates what connections have been visited by the routes              
+                if link not in visited_connections:
+                   visited_connections.append(link)
+
+                # calculates p
+                p = len(visited_connections) / len(connection_objects)
+                                                                
+                # sets the new station as the current station
                 current_station = new_station
