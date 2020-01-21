@@ -11,27 +11,29 @@ Calculates the p-value
 class Pcalc(object):
     """The Solution object (..) """
 
-    def __init__(self, lining, connection_objects):
+    def __init__(self, lining, len_connections):
                 
-        self.connection_objects = connection_objects 
+        self.len_connections = len_connections 
         self.lining = lining
         self.p = None
-        self.visited_connections = []
-        self.test = 10
 
     def set_p(self):
+        print("======================")
+        self.visited_connections = []
 
         # loops over every route in the lining 
         for route in self.lining: 
 
-            for connection in route: 
-                
+            for connection in route.all_connections: 
+
                 # checks what connections have been visited               
                 if connection not in self.visited_connections:
                    self.visited_connections.append(connection)
- 
+
+        print("lengte visited connections:", len(self.visited_connections))
+
         # calculates p   
-        self.p = len(self.visited_connections) /  len(self.connection_objects)
+        self.p = len(self.visited_connections) / self.len_connections
                
         return self.p
 
