@@ -17,6 +17,7 @@ import math
 # maximum train operating time in minutes 
 max_operating_time = 120 
 
+
 def state_space():
     """ displays and calculates the relevant values to find the state-space to 
         to solve the case problem. We assume the state-space lower bound is equal to zero """
@@ -30,21 +31,22 @@ def state_space():
     # the maximum amount of connections at a station which is True for Leiden CS, Zaandam and Amsterdam Sloterdijk
     max_connections = 4 
 
-    df = pd.read_csv('ConnectiesHolland.csv')
+    df = pd.read_csv('data/ConnectiesHolland.csv')
 
     # finds the minimum amount of time of connections within Holland
     min_distance = df.Time.min()
-    print(min_distance)
+    print('min distance: ' ,min_distance)
 
     # calculates the max. amount of stops of one route assuming the shortest distance 
     max_stops = max_operating_time / min_distance
-    print(max_stops)
+    print('max stops: ', max_stops)
 
     # calculates the State-space upper bound (worst-case)
     print("="*50)
     upper_bound = ((num_stations * max_connections**max_stops)**max_routes)
-    print(num_stations * max_connections**max_stops)
-    print(upper_bound)
+    print('upper bound voor 1 traject: ', num_stations * max_connections**max_stops)
+    print('upper bound: ' ,upper_bound)
+
 
 def quality():
     """ displays and calculates the relevant values to find the highest quality score 
@@ -57,17 +59,18 @@ def quality():
 
     # calculates the minumum amount of routes taking in account the time constraint 
     min_routes = math.ceil(sum_distance/ max_operating_time)
-    print(min_routes)
+    print('quality min routes: ', min_routes)
 
     # fraction value if all connection have been passed by route(s)   
     p_max = 1
 
     # calculates the quality function best-case scenario 
     Best_K_Score = ((p_max * max_quality_score) - (min_routes * 100 + sum_distance))
-    print(Best_K_Score)
+    print('k: ', Best_K_Score)
+    
 
 # DIT MOET WEG!!!!
 if __name__ == "__main__":
 
-    state_space()
     quality()
+    state_space()

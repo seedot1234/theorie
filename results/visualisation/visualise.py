@@ -4,7 +4,7 @@ visualise.py
 @author Heuristic Heroes
 @version
 
-visualise random algorithm
+visualise algorithm
 """
 
 import json
@@ -21,16 +21,19 @@ from code1.algorithms.random_p import random_solution_p
 from bokeh.plotting import figure, show, output_file
 from bokeh.tile_providers import get_provider, Vendors
 
+from results.visualisation import style
+
 def coordinates(coordinates_csv, solution):
 
     output_file("visualise.html")
 
     # read csv file with pandas to abstract tabel
     reader = pd.read_csv('data/StationsNationaal.csv')
+    # reader = pd.read_csv('data/TestConnecties.csv')
     source = ColumnDataSource(data=reader)
 
     # coordinates of Utrecht, because that's sort of the middle of the Netherlands
-    map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="roadmap", zoom=7)
+    map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="terrain", zoom=7, styles=style.style_options)
 
     # gmap function with API key
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
@@ -62,12 +65,13 @@ def coordinates(coordinates_csv, solution):
         station_lon.append(route_lon)
 
     # list of colors for the lines
-    colors = ["maroon", "brown", "olive", "red", "pink", "beige", "yellow", "orange", "lime", "green", "sienna", "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "grey"]
+    colors = ["maroon", "deeppink", "olive", "red", "pink", "beige", "yellow", "orange", "lime", "green", "sienna", "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey"]
 
     # add lines
     for i, j, k in zip(station_lon, station_lat, colors):
-        p.line(i, j, line_width=2, color=k)
-    show(p)
+        p.line(i, j, line_width=4, color=k, line_alpha=0.5) #line_alpha = opacity
+    
+    # show(p)
 
 
 # =====================

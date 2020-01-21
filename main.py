@@ -7,7 +7,9 @@ Calls all functions in the repository 'theorie'
 
 """
 from code1.classes import connection, route, station, load_data
-from results.random_vis import visualise
+from results.visualisation import visualise
+from results.descriptives import boxplot, histogram
+from results.bound import quality
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
@@ -21,14 +23,13 @@ from random import randrange
 import random
 import csv, io, os
 
-
 # VOOR HOLLAND, DOE DIT:
-# # creates station objects from csv
+# creates station objects from csv
 # station_csv = os.path.join("data", "ConnectiesHolland.csv")
-# station_objects = load_data.create_station_list_holland(station_csv)
+# station_objects = load_data.create_station_list_nationaal(station_csv)
 
 # # creates connection objects from csv
-# connection_csv = os.path.join("data", "ConnectiesHolland.csv")
+# connection_csv = os.path.join("data", "TestConnecties.csv")
 # connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 # VOOR NATIONAAL, DOE DIT:
@@ -40,7 +41,6 @@ connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 
-
 # adds connections to stations
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
@@ -49,28 +49,59 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
     
-
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
+
+solution1 = shortest(station_objects, connection_objects, 20, 180)
 
 # creates list of station coordinates
 coordinates_csv = os.path.join("data", "StationsNationaal.csv")
 coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
 
-# total_time = 0
-# total_routes = 0
+# write to results.csv
+with open('results.csv', 'w', newline='') as csv_file:
+    # MIN = aantal minuten van alle trajecten samen, R = aantal trajecten, P = fractie bereden verbindingen, K = kwaliteit
+    fieldnames = ['result_num', 'K']
 
-# for i in range (1000):
-#     for route in solution:
+    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+    writer.writeheader()
+
+    total_time = 0
+    total_routes = 0
+
+    for i in range (50):
+        for route in solution.lining:
+            total_time += route.total_time
+        total_routes += len(solution.lining) # num_routes = len(solution.lining) = mooier?? maar werkt niet??
+        solution = random_solution_p(station_objects, connection_objects, 20, 180)
+        print(i)
+        writer.writerow({'result_num': i, 'K': round(solution.set_K(), 2)})
+        # writer.writerow({'result_num': i, 'MIN': solution.min, 'R': len(solution.lining), 'P': round(solution.p, 2), 'K': round(solution.set_K(), 2)})
+
+
+
+
+boxplot()
+# histogram()
+
+
+
+# for i in range (100):
+#     for route in solution.lining:
 #         total_time += route.total_time
-#     total_routes += len(solution)
+#     total_routes += len(solution.lining)
 #     solution = random_solution_p(station_objects, connection_objects, 20, 180)
 #     print(i)
+#     print('total time: ', route.total_time)
 
-
-# print("routes aantal: ",total_routes/1000)
-# print("gemiddelde total time: ", total_time / 1000)
+# 1 keer indenten is per stap
+# tot_routes = total_routes / 100
+# avg_time = total_time / 100
+# print("routes aantal: ",tot_routes)
+# print("gemiddelde total time: ", avg_time) 
+# check bound voor k. van kwaliteit een boxplot maken
 
 # for line in solution:
 #     print(line)
@@ -82,5 +113,3 @@ coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 # print(solution.set_K())
 
 # exit()
-
-# state(connection_objects, station_objects, solution)

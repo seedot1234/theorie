@@ -12,6 +12,7 @@ pick a connection randomly.
 """
 from code1.classes.station import Station
 from code1.classes.route import Route
+from code1.classes.solution import Solution
 from random import randrange
 import random  
 
@@ -42,7 +43,8 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                 
                 # when all connections have been used, end the algorithm
                 if len(connection_objects) == len(visited_connections):
-                    return lining
+                    solution = Solution(lining, 1)
+                    return solution
 
                 # make a list of all unused connections of this station
                 unused_connections = []

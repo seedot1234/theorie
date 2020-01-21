@@ -35,5 +35,5 @@ class Solution(object):
         self.K = ((self.p * max_quality_score) - (self.routes * 100 + self.min))
         return self.K
 
-    # def __str__(self):
-    #     return f"{self.K}"
+    def __str__(self):
+        return f"{self.K} {self.lining}"
