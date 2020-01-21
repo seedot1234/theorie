@@ -1,10 +1,7 @@
 """
 main.py
-
 Calls all functions in the repository 'theorie'
-
 10/1/20
-
 """
 from code1.classes import connection, route, station, load_data
 from results.random_vis import visualise
@@ -13,15 +10,20 @@ from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
+<<<<<<< HEAD
 from code1.algorithms.hill_first import hillclimb_first 
 from code1.algorithms.hill_last import hillclimb_last
 from code1.algorithms.longest import longest
 from code1.algorithms.greedy_lookahead import greedy_lookahead
+=======
+from code1.algorithms.hill import Hillclimber
+>>>>>>> 972dc4b3e3695441268b2bf37b4cd2cf1e091e2c
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
 from random import randrange
 import random
 import csv, io, os
+import copy
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -47,12 +49,26 @@ load_data.add_station_connection(station_objects, connection_objects)
 # set railhead stations
 for station in station_objects:
     station.set_rail_head()
-    
-# TRANSLATE voer hier een algoritme uit
+
+
+# voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
 
+len_connections = len(connection_objects)
+
 # calls upon the hill climbing algorithm 
+<<<<<<< HEAD
 hillclimb_last(connection_objects, station_objects, solution)
+=======
+hill = Hillclimber(len_connections, station_objects, solution)
+
+actions = {
+    'delete_first': hill.delete_first_connection
+}
+
+hill.run(10, hill.delete_first_connection)
+
+>>>>>>> 972dc4b3e3695441268b2bf37b4cd2cf1e091e2c
 exit()
 
 # creates list of station coordinates
@@ -66,58 +82,28 @@ exit()
 # coordinates_csv = os.path.join("data", "TestConnecties.csv")
 # coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
-# voer hier een algoritme uit
-# solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
-# print(solution)
-# for line in solution.lining:
-#     print("een trein:")
-#     for station in line.stations:
-#         print(station)
-#     print()
-# print(solution.set_K())
-# exit()
-
-# creates list of station coordinates
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-
-solution = random(station_objects, connection_objects, 7, 120)
-
-# creates list of station coordinates
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-
 # total_time = 0
+
 # total_routes = 0
 
 # for i in range (1000):
 #     for route in solution:
 #         total_time += route.total_time
 #     total_routes += len(solution)
-#     solution = random_solution_p(station_objects, connection_objects, 20, 180)
+#     solution = random_solution(station_objects, connection_objects, 20, 180)
 #     print(i)
-
-for i in range (1000):
-    for route in solution:
-        total_time += route.total_time
-    total_routes += len(solution)
-    solution = random(station_objects, connection_objects, 7, 120)
-    print(i)
-
-# print("routes aantal: ",total_routes/1000)
-# print("gemiddelde total time: ", total_time / 1000)
+#     print("routes aantal: ",total_routes/(i+1))
+#     print("gemiddelde total time: ", total_time / (i+1))
 
 # for line in solution:
 #     print(line)
+
+# total_time = 0
+# for line in solution:
+#     print(line)
+
 # total_time = 0
 # for route in solution:
 #     total_time += route.total_time
 # print(total_time)
-# print(solution)
-# print(solution.set_K())
-
-# exit()
-
-# state(connection_objects, station_objects, solution)
+ 

@@ -1,10 +1,13 @@
 """
 greedy_lookahead.py
 
+greedy lookahead algorithm that bases itself on the highest K score.
+Looks ahead 1 extra step than a normal greedy;
+looks at all possible childs from the starting point and then calculates
+the K score for all options.
+
 @author Heuristic Heroes
 @version
-
-greedy lookahead algorithm
 """
 
 from code1.classes.station import Station
@@ -38,7 +41,6 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                     for item in connection_objects:
                         if (item.station_a == current_station and item.station_b == station) or (item.station_a == station and item.station_b == current_station):
                             if item not in visited_connections:
-                                print(item.station_a, item.station_b, 'nog niet gebruikt')
                                 status = True
             
             # starts new route
