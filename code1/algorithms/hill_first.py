@@ -1,7 +1,8 @@
 """
 hill.py
 
-Uses the interative Hill Climbing algorithm 
+Uses the interative Hill Climbing algorithm in order to remove the first connection 
+from the route to improve the K score. 
 
 @author Heuristic Heroes (Sarah-Jane)
 @version 1
@@ -15,7 +16,7 @@ from code1.classes.solution import Solution
 from code1.classes.route import Route
 from code1.classes.pcalc import Pcalc
 
-def hillclimb(connection_objects, station_objects, solution):
+def hillclimb_first(connection_objects, station_objects, solution):
   
     # picks a valid random start state (taken from random_p.py)
     state = solution 
@@ -25,16 +26,11 @@ def hillclimb(connection_objects, station_objects, solution):
 
     # sets the old quality value 
     old_K = copy_state.set_K()
-    print(f"ORIGINAL K: {old_K}")
-
     lining = []
     i = 0 
 
     # saves the improved* lining before small alteration
     imp_lining = copy.deepcopy(copy_state.lining)
-    
-    # saves the improved* route before small alteration
-    # imp_route = imp_lining[i] # ik kan deze niet in for-loop doen anders worden route en imp-route aan elkaar gelijk??
     
     # iterates over every route and connection within that route from the original solution
     for i, route in enumerate(copy_state.lining):  
@@ -44,13 +40,7 @@ def hillclimb(connection_objects, station_objects, solution):
                 
         # resets boolean that checks whether to move to the next route 
         next = False 
-
-        print(f"\nTHE ORIGINAL ROUTE #{route.number}")
-        print(f"\n# stops: {len(route.visited_connections)}")             
-        for connection in route.visited_connections:
-            print(connection)
-        print("-"*50) 
-                      
+                     
         # continues making alterations until  K doesn't improve or the route is empty 
         while next is False: 
 
@@ -86,14 +76,6 @@ def hillclimb(connection_objects, station_objects, solution):
         for route in lining:            
             if len(route.visited_connections) == 0:
                 lining.remove(route)
-
-        print(f"THE IMPROVED ROUTE #{route.number}")
-        print(f"\n# stops: {len(route.visited_connections)}") 
-        for connection in route:
-            print(connection)
-        print(f"\nOLD K: {old_K}")
-        print(f"NEW K: {new_K}")
-        print("-"*50) 
 
     
        

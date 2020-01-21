@@ -32,7 +32,7 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
             current_station = station_objects[randrange(len(station_objects))]
             
             # makes new route by passing the route number and first station
-            route = Route(route_nr)
+            route = Route(route_nr, current_station)
 
             # adds route to lining
             lining.append(route)
