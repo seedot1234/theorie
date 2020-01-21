@@ -37,20 +37,6 @@ class Route(object):
 
         self.all_connections.remove(link)
         self.total_time -= link.time
-    
-    # def __getitem__(self, connection):
-    #     """
-    #     method which allows the Route object to support indexing         
-    #     """
-    #     return self.visited_connections[connection]
-
-   
-    # def __delitem__(self, connection):
-    #     """
-    #     method which allows the Route object to support deleting an element         
-    #     """
-    #     self.total_time -= self.visited_connections[connection].time
-    #     del self.visited_connections[connection]
 
     def __str__(self):
         return f"train{self.number} ({self.total_time}): {self.stations}"

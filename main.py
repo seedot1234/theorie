@@ -43,7 +43,6 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
-
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
 
@@ -52,47 +51,5 @@ len_connections = len(connection_objects)
 # calls upon the hill climbing algorithm 
 hill = Hillclimber(len_connections, station_objects, solution)
 
-actions = {
-    'delete_first': hill.delete_first_connection
-}
 
-hill.run(10, hill.delete_first_connection)
-
-exit()
-
-# creates list of station coordinates
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-# # voer hier een algoritme uit
-# solution = random_solution(station_objects, connection_objects, 7, 120)
-
-# # creates test objects from station with coordinates csv
-# coordinates_csv = os.path.join("data", "TestConnecties.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-# total_time = 0
-
-# total_routes = 0
-
-# for i in range (1000):
-#     for route in solution:
-#         total_time += route.total_time
-#     total_routes += len(solution)
-#     solution = random_solution(station_objects, connection_objects, 20, 180)
-#     print(i)
-#     print("routes aantal: ",total_routes/(i+1))
-#     print("gemiddelde total time: ", total_time / (i+1))
-
-# for line in solution:
-#     print(line)
-
-# total_time = 0
-# for line in solution:
-#     print(line)
-
-# total_time = 0
-# for route in solution:
-#     total_time += route.total_time
-# print(total_time)
- 
+hill.run(10)
