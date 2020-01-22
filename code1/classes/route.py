@@ -68,6 +68,6 @@ class Route(object):
         self.total_time -= link.time
 
     def __str__(self):
-        return f"train{self.number} ({self.total_time}): {self.stations}"
+        return f"train{self.number} ({self.total_time}): {self.connection}"
 
 

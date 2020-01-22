@@ -10,7 +10,6 @@ from code1.classes.station import Station
 from code1.classes.connection import Connection
 from code1.classes.solution import Solution
 from code1.classes.route import Route
-from code1.classes.pcalc import Pcalc
 
 class Hillclimber(object):
     """

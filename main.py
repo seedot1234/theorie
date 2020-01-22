@@ -8,7 +8,11 @@ from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
+<<<<<<< HEAD
 from code1.algorithms.greedy_lookahead import greedy_lookahead
+=======
+from code1.algorithms.trim import trim
+>>>>>>> 38985e90a8940f5b22f3088ababe2929fcdc8b7b
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.hill import Hillclimber
@@ -55,10 +59,25 @@ for station in station_objects:
 # voer hier een algoritme uit
 solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
 
+print("original version:")
+for route in solution.lining:
+    print("###")
+
+    for connection in route.all_connections:
+        print(connection)
+print("="*50)
+
+trimmed_solution = trim(solution)
+
 len_connections = len(connection_objects)
 
 # calls upon the hill climbing algorithm 
+hillclimb_last(connection_objects, station_objects, solution)
 hill = Hillclimber(len_connections, station_objects, solution)
+<<<<<<< HEAD
 
 
 answer = hill.run(1000)
+=======
+hill.run(10)
+>>>>>>> 38985e90a8940f5b22f3088ababe2929fcdc8b7b
