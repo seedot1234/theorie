@@ -8,16 +8,10 @@ from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
+from code1.algorithms.trim import trim
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
-<<<<<<< HEAD
-from code1.algorithms.hill_first import hillclimb_first 
-from code1.algorithms.hill_last import hillclimb_last
-from code1.algorithms.longest import longest
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-=======
 from code1.algorithms.hill import Hillclimber
->>>>>>> 972dc4b3e3695441268b2bf37b4cd2cf1e091e2c
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
 from random import randrange
@@ -50,60 +44,22 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
-
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
+
+print("original version:")
+for route in solution.lining:
+    print("###")
+
+    for connection in route.all_connections:
+        print(connection)
+print("="*50)
+
+trimmed_solution = trim(solution)
 
 len_connections = len(connection_objects)
 
 # calls upon the hill climbing algorithm 
-<<<<<<< HEAD
 hillclimb_last(connection_objects, station_objects, solution)
-=======
 hill = Hillclimber(len_connections, station_objects, solution)
-
-actions = {
-    'delete_first': hill.delete_first_connection
-}
-
-hill.run(10, hill.delete_first_connection)
-
->>>>>>> 972dc4b3e3695441268b2bf37b4cd2cf1e091e2c
-exit()
-
-# creates list of station coordinates
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-# # voer hier een algoritme uit
-# solution = random_solution(station_objects, connection_objects, 7, 120)
-
-# # creates test objects from station with coordinates csv
-# coordinates_csv = os.path.join("data", "TestConnecties.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
-
-# total_time = 0
-
-# total_routes = 0
-
-# for i in range (1000):
-#     for route in solution:
-#         total_time += route.total_time
-#     total_routes += len(solution)
-#     solution = random_solution(station_objects, connection_objects, 20, 180)
-#     print(i)
-#     print("routes aantal: ",total_routes/(i+1))
-#     print("gemiddelde total time: ", total_time / (i+1))
-
-# for line in solution:
-#     print(line)
-
-# total_time = 0
-# for line in solution:
-#     print(line)
-
-# total_time = 0
-# for route in solution:
-#     total_time += route.total_time
-# print(total_time)
- 
+hill.run(10)
