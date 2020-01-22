@@ -10,6 +10,8 @@ from results.bound import quality
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
+from code1.algorithms.greedy_lookahead import greedy_lookahead
+from code1.algorithms.trim import trim
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.longest import longest
@@ -54,28 +56,10 @@ solution1 = shortest(station_objects, connection_objects, 20, 180)
 
 len_connections = len(connection_objects)
 
-# calls upon the hill climbing algorithm 
-# hill = Hillclimber(len_connections, station_objects, solution)
-
-# actions = {
-#     'delete_first': hill.delete_first_connection
-# }
-
-# hill.run(10, hill.delete_first_connection)
-
-
 # creates list of station coordinates VISUALISE
 coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
-exit()
-
-# # voer hier een algoritme uit
-# solution = random_solution(station_objects, connection_objects, 7, 120)
-
-# # creates test objects from station with coordinates csv
-# coordinates_csv = os.path.join("data", "TestConnecties.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
 # write to results.csv
 with open('results.csv', 'w', newline='') as csv_file:
@@ -128,3 +112,15 @@ with open('results.csv', 'w', newline='') as csv_file:
 #     total_time += route.total_time
 # print(total_time)
  
+# voer hier een algoritme uit
+# solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
+
+# trimmed_solution = trim(solution)
+
+# len_connections = len(connection_objects)
+
+# # calls upon the hill climbing algorithm 
+# hill = Hillclimber(len_connections, station_objects, trimmed_solution)
+
+
+# answer = hill.run(1000)

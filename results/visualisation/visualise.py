@@ -38,9 +38,7 @@ def coordinates(coordinates_csv, solution):
     # create two empty lists to store the smaller lists of coordinates in
     station_lat = [] #A
     station_lon = [] #A 
-    for i in solution.lining:
-        print(i)
-    
+
     # for every route in the solution
     for line in solution.lining: 
         # create new lists with the latitudes and longitudes for the routes
@@ -62,19 +60,8 @@ def coordinates(coordinates_csv, solution):
 
     # add lines
     for i, j, k in zip(station_lon, station_lat, colors):
-        # print(i, j, k)
-        p.line(i, j, line_width=4, line_color=k) #, line_alpha=0.5) 
-    # p.line(station_lon, station_lat, line_color="red")
+        p.line(i, j, line_width=4, line_color=k, line_alpha=0.5) 
   
     output_file("visualise.html")
 
     show(p)
-
-
-# =====================
-
-    # # add lines
-    # # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
-    # # p.line(test.Station_A, test.Station_B, line_width=2, color="green")
-    # # p.line([reader.lon, reader.lat], line_width=2, color='green')
-

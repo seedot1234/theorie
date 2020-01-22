@@ -24,6 +24,7 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
         visited_connections = []
         p_per_connection = 1 / len(connection_objects)
         lining = []
+        p = 0
 
         # make 'route_maximum' routes at max
         for route_nr in range(route_maximum):
@@ -52,10 +53,15 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
             # keeps on adding stations until maximum time has been reached 
             while True:
             
-                # when all connections are used, return the lining and thus end the algorithm
-                if len(connection_objects) == len(visited_connections):
-                    solution = Solution(lining, 1)
+                # p equals or is larger than 0.8, return the lining and thus end the algorithm
+                if p >= 1:
+                    solution = Solution(lining, p)
                     return solution
+                
+                # # when all connections are used, return the lining and thus end the algorithm
+                # if len(connection_objects) == len(visited_connections):
+                #     solution = Solution(lining, 1)
+                #     return solution
             
                 options = {}
 
@@ -122,20 +128,30 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                     break
                 
                 # when it does improve the score, define the new station
-                link = best[1]
+                new_station = best[1]
 
-                # finds the time for the new station 
-                time = best[1].time
+
+                # finds the connection !!!!!!!!
+                link = current_station.connections[new_station]
+
+                # finds the time for the new station
+                time = int(current_station.connections[new_station].time)  
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
                     break
                 
-                # add a new station to the route
-                route.add_connection(link, time)
+                # adds the new connection to the route 
+                route.add_connection2(link, time)
 
-                # if the connection wasn't used before, add it to the visited connections list
-                if options[best][0] not in visited_connections:
-                    visited_connections.append(options[best][0])
+                # adds the station to the route
+                route.add_station(new_station)
+
+                # calculates what connections have been visited by the routes              
+                if link not in visited_connections:
+                   visited_connections.append(link)
+
+                # calculates p
+                p = len(visited_connections) / len(connection_objects)
 
                 current_station = new_station

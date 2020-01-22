@@ -11,11 +11,18 @@ from code1.classes.station import Station
 from code1.classes.connection import Connection
 from code1.classes.solution import Solution
 from code1.classes.route import Route
-from code1.classes.pcalc import Pcalc
 
 class Hillclimber(object):
+    """
+    The Hillclimber class holds all functionalities to perform a
+    hillclimber algorithm on a valid solution.
+    """
   
     def __init__ (self, len_connections, station_objects, solution):
+        """
+        The constructor of the Hillclimber class.
+        Parameters: len_connections, station_objects, solution
+        """
 
         self.state = copy.deepcopy(solution)  # makes a copy of the current state 
     
@@ -25,40 +32,137 @@ class Hillclimber(object):
         self.len_connections = len_connections
 
     def pick_random_route(self, potential_solution):
+        """
+        Picks a random route given a lining.
+        Parameters: potential_solution.
+        Returns:    route.
+        """
         
         # select the route of which the first station must be deleted
         route = random.choice(potential_solution.lining)
 
-        for connection in route.all_connections:
-            print(connection)
-        print()
         return route
 
+    def pick_random_action(self):
+        """
+        Picks a random action out of a list of all possible actions
+        this hillclimber can perform.
+        These actions are:  delete first connection, delete last connection,
+                            add first connection, add last connection.
+        Returns:    action.
+        """
+
+        # all possible actions
+        actions = [self.delete_first_connection, self.delete_last_connection, self.add_connection_beginning, self.add_connection_ending]
+
+        # pick a random action
+        action = random.choice(actions)
+        return action
+
     def delete_first_connection(self, route):
+        """
+        Deletes the first connection of a given route.
+        Parameters: route.
+        """
         
         selected = route.all_connections[0]
-        print("deleted:", selected)
-        print()
+        del route.stations[0]
         route.delete_connection(selected)
 
+    def delete_last_connection(self, route):
+        """
+        Deletes the last connection of a given route.
+        Parameters: route.
+        """
+
+        selected = route.all_connections[-1]
+        route.delete_connection(selected)
+        del route.stations[-1]
+
+    def add_connection_beginning(self, route):
+        """
+        When possible, adds a connection to the beginning
+        of a given route.
+        Parameters: route.
+        """
+
+        current_station = route.stations[0]
+
+        # picks a random new station out of all connections of the current station
+        new_station = random.choice(list(current_station.connections.keys()))
+
+        # finds the connection
+        link = current_station.connections[new_station]           
+
+        # finds the time for the new station 
+        time = current_station.connections[new_station].time
+        
+        ### HARDCODED. DIT NOG VERANDEREN!!! ###
+        # only accept the change if it wouldn't exceed the maximum time
+        if time + route.total_time <= 180:
+            
+            # insert the connection to the front of the connection list
+            route.insert_connection(link, time, 0)
+
+            # insert the station to the front of the station list
+            route.insert_station(new_station, 0)
+
+    def add_connection_ending(self, route):
+        """
+        When possible, adds a connection to the end
+        of a given route.
+        Parameters: route.
+        """
+
+        current_station = route.stations[-1]
+
+        # picks a random new station out of all connections of the current station
+        new_station = random.choice(list(current_station.connections.keys()))
+
+        # finds the connection
+        link = current_station.connections[new_station]           
+
+        # finds the time for the new station 
+        time = current_station.connections[new_station].time
+        
+        ############################################
+        ### HARDCODED. DIT NOG VERANDEREN!!! ###
+        ############################################
+        # only accept the change if it wouldn't exceed the maximum time
+        if time + route.total_time <= 180:
+            
+            # insert the connection to the front of the connection list
+            route.insert_connection(link, time, -1)
+
+            # insert the station to the front of the station list
+            route.insert_station(new_station, -1)
+
+
     def check_solution(self, potential_solution):
-        """calculates new and old K, compares these and accepts new when it's better."""
+        """
+        calculates new and old K, compares these and accepts new when it's better.
+        Parameters: potential_solution"""
 
         old_k = self.K
         new_k = potential_solution.set_K(self.len_connections)
-        print("oude", old_k)
-        print("nieuwe", new_k)
 
         # accept the new state when K is higher
         if new_k > old_k:
             self.state = potential_solution
             self.K = new_k
-            print("accepted\n")
-        else:
-            print("not accepted\n")
-        print()
+
+            # if the action resulted into an empty route, delete this route from the lining
+            for route in potential_solution.lining:
+                if len(route.all_connections) == 0:
+                    potential_solution.lining.remove(route)
         
-    def run(self, iterations, action):
+    def run(self, iterations):
+        """
+        Runs the hillclimber algorithm given an amout of iterations.
+        Parameters: iterations.
+        Returns:    improved_solution.
+        """
+        print(self.state.set_K(self.len_connections))
         for iteration in range(iterations):
 
             # Create a copy of the graph to simulate the change
@@ -67,67 +171,17 @@ class Hillclimber(object):
             # pick the route to alter
             random_route = self.pick_random_route(potential_solution)
 
-            # perform action (delete first)
-            action(random_route)
-            # self.delete_first_connection(random_route)
+            # pick random action to perform
+            random_action = self.pick_random_action()
+
+            # perform action
+            random_action(random_route)
 
             # check solution and take it when it's better
             self.check_solution(potential_solution)
 
-    # # saves the improved* lining before small alteration
-    # imp_lining = copy.deepcopy(copy_state.lining)
-    
-    # # saves the improved* route before small alteration
-    # # imp_route = imp_lining[i] # ik kan deze niet in for-loop doen anders worden route en imp-route aan elkaar gelijk??
-    
-    # # iterates over every route and connection within that route from the original solution
-    # for i, route in enumerate(copy_state.lining):  
-            
-    #     # saves the improved* route before small alteration
-    #     imp_route = imp_lining[i]
-                
-    #     # resets boolean that checks whether to move to the next route 
-    #     next = False 
-                      
-    #     # continues making alterations until  K doesn't improve or the route is empty 
-    #     while next is False: 
+        improved_solution = self.state
 
-    #         # deletes the first connection from the route     
-    #         deleted_time = imp_route.all_connections[0].time
-    #         del imp_route.all_connections[0]
+        print(improved_solution.set_K(self.len_connections))
 
-    #         # calculates the old P 
-    #         oldP = Pcalc(copy_state.lining, len_connections)
-    #         oldPP = oldP.set_p()
-
-    #         # calculates the new P 
-    #         temp = Pcalc(imp_lining, len_connections)
-    #         p = temp.set_p()
-
-    #         # calculates the new solution after the alteration
-    #         diff_solution = Solution(imp_lining, p) 
-
-
-    #         diff_solution.min -= deleted_time
-
-    #         # calculates the new K value 
-    #         new_K = diff_solution.set_K()
-
-    #         # removes the route from the lining if empty
-    #         if len(route.all_connections) == 0:
-    #             next = True                
-
-    #         else:
-    #             if new_K <= old_K:
-    #                 lining.append(route)
-    #                 # copy_state.lining = imp_lining # doesnt work ???
-    #                 next = True
-
-    #             else:
-    #                 # if the alteration decreases K, declines the improvement and move to the next route 
-    #                 del route.all_connections[0]
-    #                 old_K = new_K
-
-    #     for route in lining:            
-    #         if len(route.all_connections) == 0:
-    #             lining.remove(route)
+        return improved_solution
