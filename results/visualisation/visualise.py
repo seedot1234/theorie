@@ -69,45 +69,14 @@ def coordinates(coordinates_csv, solution):
 
     # add lines
     for i, j, k in zip(station_lon, station_lat, colors):
-        p.line(i, j, line_width=4, color=k, line_alpha=0.5) #line_alpha = opacity
-    
+        p.line(i, j, line_width=4, color=k, line_alpha=0.5) 
     show(p)
 
 
 # =====================
-    # # box = ((reader.longitude.min(), reader.longitude.max(),      
-    # #         reader.latitude.min(), reader.latitude.max())
-
-    # # add plot
-    # p = figure(title="Visualisatie", x_axis_label="Longitude/Lengtegraad", y_axis_label="Latitude/Breedtegraad", match_aspect=True)
-    
-    # # render scatterplot
-    # p.scatter(x='lon', y='lat', legend_label="Stations", line_width=4, source=source)
-
-    # # add hovertool for station name
-    # p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
-
-    # # x = reader.lon y = reader.lat
-    # # for i in connection_objects:
-    # #     print(i)
 
     # # add lines
     # # p.multi_line(xs='lon', ys='lat', source=source, color="red", line_width=2)
     # # p.line(test.Station_A, test.Station_B, line_width=2, color="green")
     # # p.line([reader.lon, reader.lat], line_width=2, color='green')
 
-    # # for line in solution:
-    # #     # print(line)
-    # #     testline.append(line)
-    # #     for station in line.stations:
-    # #         # print(station)
-    # #         if 'Alkmaar' in reader.Station:
-    # #             print("y")
-    # # print(reader)
-    
-            
-    # print("="*80)
-    # for i in testline:
-    #     print(i)
-
-    # show(p)

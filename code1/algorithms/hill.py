@@ -1,5 +1,6 @@
 """
 hill.py
+
 Uses the interative Hill Climbing algorithm 
 @author Heuristic Heroes (Sarah-Jane)
 @version 1

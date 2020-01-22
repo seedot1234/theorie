@@ -11,6 +11,7 @@ it selects a random station out of non-railhead stations.
 """
 from code1.classes.station import Station
 from code1.classes.route import Route
+from code1.classes.solution import Solution
 from random import randrange
 import random   
 
@@ -31,7 +32,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 non_railhead_stations.append(station)
                 
         # make 'route_maximum' routes at max
-        for total_routes in range(route_maximum):
+        for route_nr in range(route_maximum):
 
             # when railheads are available, pick one of these as a starting station
             if len(available_railheads) > 0:
@@ -45,7 +46,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 current_station = non_railhead_stations[randrange(len(non_railhead_stations))]
 
             # start new route
-            route = Route(total_routes, current_station)
+            route = Route(route_nr, current_station)
 
             # add route to lining
             lining.append(route)
@@ -55,7 +56,9 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 
                 # when all connections are used, return the lining and thus end the algorithm
                 if len(connection_objects) == len(visited_connections):
-                    return lining
+                    solution = Solution(lining, 1)
+                    return solution
+                    # return lining
 
                 # pick a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))

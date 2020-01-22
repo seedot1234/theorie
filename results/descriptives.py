@@ -7,20 +7,24 @@ import numpy as np
 
 def boxplot():
 
+    # load csv in dataframe
     results = pd.read_csv('results.csv')
-    # results1 = pd.read_csv('results1.csv')
+    print(results)
 
     # MIN = aantal minuten van alle trajecten samen, R = aantal trajecten, P = fractie bereden verbindingen, K = kwaliteit
     
-    print('max: ', max(results.K))
-    print('min: ', min(results.K))
-    print('avg: ', np.mean(results.K))
+    # print('max: ', max(results.K))
+    # print('min: ', min(results.K))
+    # print('avg: ', np.mean(results.K))
 
-    # old
     fig, axes = plt.subplots(1, 1) # (1, 1) = (row, col)
-    axes.boxplot(results.K)
-    # axes.boxplot(data)
-    axes.set_title('Kwaliteit lijnvoering: random')
+    # axes.boxplot(results.K1)
+    data = [results.K1, results.K2]
+
+    axes.boxplot(data)
+    axes.set_title('Kwaliteit lijnvoering: random en shortest')
+
+    # boxplot = df.boxplot(column=['Col1', 'Col2', 'Col3'])    
 
 
     # plt.savefig("out.png")
@@ -30,8 +34,7 @@ def boxplot():
     # axs[0, 0].boxplot(data)
     # axs[0, 0].set_title('basic plot')
 
-    # plt.boxplot(results.K)
-    # plt.set_title("ey")
+
 
 def histogram():
     results = pd.read_csv('results.csv')

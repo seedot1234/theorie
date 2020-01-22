@@ -26,7 +26,7 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
         lining = []
 
         # make 'route_maximum' routes at max
-        for total_routes in range(route_maximum):
+        for route_nr in range(route_maximum):
 
             status = False
             while status == False:
@@ -44,7 +44,7 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                                 status = True
             
             # starts new route
-            route = Route(total_routes, current_station)
+            route = Route(route_nr, current_station)
 
             # add route to lining
             lining.append(route)
@@ -122,17 +122,17 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                     break
                 
                 # when it does improve the score, define the new station
-                new_station = best[1]
+                link = best[1]
 
                 # finds the time for the new station 
-                time = int(current_station.connections[new_station])
+                time = best[1].time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
                     break
                 
                 # add a new station to the route
-                route.add_station(new_station, time)
+                route.add_connection(link, time)
 
                 # if the connection wasn't used before, add it to the visited connections list
                 if options[best][0] not in visited_connections:

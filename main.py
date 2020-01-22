@@ -12,9 +12,11 @@ from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
+from code1.algorithms.longest import longest
 from code1.algorithms.hill import Hillclimber
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
+from code1.algorithms.greedy_lookahead import greedy_lookahead
 from random import randrange
 import random
 import csv, io, os
@@ -47,7 +49,9 @@ for station in station_objects:
 
 
 # voer hier een algoritme uit
+# solution = random_solution_p(station_objects, connection_objects, 20, 180)
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
+solution1 = shortest(station_objects, connection_objects, 20, 180)
 
 len_connections = len(connection_objects)
 
@@ -61,9 +65,9 @@ len_connections = len(connection_objects)
 # hill.run(10, hill.delete_first_connection)
 
 
-# creates list of station coordinates
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+# creates list of station coordinates VISUALISE
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv, solution)
 
 # # voer hier een algoritme uit
 # solution = random_solution(station_objects, connection_objects, 7, 120)
@@ -75,11 +79,13 @@ len_connections = len(connection_objects)
 # write to results.csv
 with open('results.csv', 'w', newline='') as csv_file:
     # MIN = aantal minuten van alle trajecten samen, R = aantal trajecten, P = fractie bereden verbindingen, K = kwaliteit
-    fieldnames = ['result_num', 'K']
+    fieldnames = ['K1', 'K2']
 
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
     writer.writeheader()
+
+    # writer=csv.writer(csv_file)
 
     total_time = 0
     total_routes = 0
@@ -89,14 +95,13 @@ with open('results.csv', 'w', newline='') as csv_file:
             total_time += route.total_time
         total_routes += len(solution.lining) # num_routes = len(solution.lining) = mooier?? maar werkt niet??
         solution = random_solution_p(station_objects, connection_objects, 20, 180)
+        solution1 = shortest(station_objects, connection_objects, 20, 180)
         print(i)
-        writer.writerow({'result_num': i, 'K': round(solution.set_K(len_connections), 2)})
+        # writer.writerow([round(solution.set_K(len_connections), 2), round(solution1.set_K(len_connections), 2)])
+        writer.writerow({'K1': round(solution.set_K(len_connections), 2), 'K2': round(solution1.set_K(len_connections), 2)})
         # writer.writerow({'result_num': i, 'MIN': solution.min, 'R': len(solution.lining), 'P': round(solution.p, 2), 'K': round(solution.set_K(), 2)})
 
-
-
-
-boxplot()
+# boxplot()
 # histogram()
 
 
