@@ -13,23 +13,14 @@ import pandas as pd
 
 from bokeh.io import show, output_file
 from bokeh.models import HoverTool, ColumnDataSource, GMapOptions, GeoJSONDataSource
-from bokeh.plotting import figure, gmap
-
-from code1.algorithms.random import random_solution
-from code1.algorithms.random_p import random_solution_p
-
-from bokeh.plotting import figure, show, output_file
-from bokeh.tile_providers import get_provider, Vendors
+from bokeh.plotting import figure, show, output_file, gmap
 
 from results.visualisation import style
 
 def coordinates(coordinates_csv, solution):
 
-    output_file("visualise.html")
-
     # read csv file with pandas to abstract tabel
     reader = pd.read_csv('data/StationsNationaal.csv')
-    # reader = pd.read_csv('data/TestConnecties.csv')
     source = ColumnDataSource(data=reader)
 
     # coordinates of Utrecht, because that's sort of the middle of the Netherlands
@@ -39,7 +30,7 @@ def coordinates(coordinates_csv, solution):
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
     # add circles for all stations
-    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source,legend_label="Stations")
+    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source, legend_label="Stations")
 
     # add hovertool for station name
     p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
@@ -47,6 +38,8 @@ def coordinates(coordinates_csv, solution):
     # create two empty lists to store the smaller lists of coordinates in
     station_lat = [] #A
     station_lon = [] #A 
+    for i in solution.lining:
+        print(i)
     
     # for every route in the solution
     for line in solution.lining: 
@@ -69,7 +62,12 @@ def coordinates(coordinates_csv, solution):
 
     # add lines
     for i, j, k in zip(station_lon, station_lat, colors):
-        p.line(i, j, line_width=4, color=k, line_alpha=0.5) 
+        # print(i, j, k)
+        p.line(i, j, line_width=4, line_color=k) #, line_alpha=0.5) 
+    # p.line(station_lon, station_lat, line_color="red")
+  
+    output_file("visualise.html")
+
     show(p)
 
 

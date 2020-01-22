@@ -47,7 +47,6 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
-
 # voer hier een algoritme uit
 # solution = random_solution_p(station_objects, connection_objects, 20, 180)
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
@@ -67,7 +66,9 @@ len_connections = len(connection_objects)
 
 # creates list of station coordinates VISUALISE
 coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution)
+coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
+
+exit()
 
 # # voer hier een algoritme uit
 # solution = random_solution(station_objects, connection_objects, 7, 120)
@@ -84,8 +85,6 @@ with open('results.csv', 'w', newline='') as csv_file:
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
     writer.writeheader()
-
-    # writer=csv.writer(csv_file)
 
     total_time = 0
     total_routes = 0

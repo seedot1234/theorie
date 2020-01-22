@@ -26,7 +26,6 @@ def boxplot():
 
     # boxplot = df.boxplot(column=['Col1', 'Col2', 'Col3'])    
 
-
     # plt.savefig("out.png")
     plt.show()
 
