@@ -18,11 +18,6 @@ def trim(solution):
     trimmed = copy.deepcopy(solution)
 
     for j in range (len(solution.lining)): 
-        # print("orginal version:")
-        # for connection in route.all_connections:
-        #     print(connection)
-        # print("="*50)
-
         for i in range(len(solution.lining[j].all_connections)-1): 
             
             
@@ -30,9 +25,4 @@ def trim(solution):
                 del solution.lining[j].all_connections[i]
                 return trim(solution)
     
-    print("trimmed version:")
-    for route in solution.lining:
-        print("###")
-        for connection in route.all_connections:
-            print(connection)
-    print("="*50)
+    return solution
