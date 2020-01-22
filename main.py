@@ -8,6 +8,7 @@ from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
+from code1.algorithms.greedy_lookahead import greedy_lookahead
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.hill import Hillclimber
@@ -43,8 +44,16 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
+
+
+
+############################################################
+
+
+
+
 # voer hier een algoritme uit
-solution = random_solution_p(station_objects, connection_objects, 20, 180)
+solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
 
 len_connections = len(connection_objects)
 
@@ -52,4 +61,4 @@ len_connections = len(connection_objects)
 hill = Hillclimber(len_connections, station_objects, solution)
 
 
-hill.run(10)
+answer = hill.run(1000)

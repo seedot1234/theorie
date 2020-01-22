@@ -59,8 +59,11 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
                     total_time += route.total_time
                     break
                              
-                # adds a new connection to the route 
-                route.add_connection2(link, time)  
+                # adds the new connection to the route 
+                route.add_connection2(link, time)
+
+                # adds the station to the route
+                route.add_station(new_station)
 
                 # calculates what connections have been visited by the routes              
                 if link not in visited_connections:

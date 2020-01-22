@@ -43,7 +43,6 @@ class Solution(object):
 
         # calculates p   
         self.p = len(self.visited_connections) / len_connections
-        print("p = ", self.p)
 
         return self.p
   
@@ -52,7 +51,6 @@ class Solution(object):
         self.min = 0
         for route in self.lining:
             self.min += route.total_time
-        print("min = ", self.min)
 
 
 
