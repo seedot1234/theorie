@@ -30,10 +30,10 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 available_railheads.append(station)
             else:
                 non_railhead_stations.append(station)
-                
+        
         # make 'route_maximum' routes at max
         for route_nr in range(route_maximum):
-
+            
             # when railheads are available, pick one of these as a starting station
             if len(available_railheads) > 0:
                 current_station = available_railheads[randrange(len(available_railheads))]
@@ -68,7 +68,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                     available_railheads.remove(new_station)
 
                 # find the time for the new station 
-                time = int(current_station.connections[new_station])
+                time = current_station.connections[new_station].time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
@@ -76,9 +76,12 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                     break
                 
                 # add a new station to the route
-                route.add_station(new_station, time)
+                route.add_connection2(new_station, time)
 
-                # find the connection that was added
+                # adds the station to the route
+                route.add_station(new_station)
+
+                # find the connection that was added HIER
                 for connection in connection_objects:
                     if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):
                         

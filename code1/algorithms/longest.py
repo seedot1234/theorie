@@ -27,13 +27,13 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
         lining = []
 
         # make 'route_maximum' routes at max
-        for route_nr in range(route_maximum):
+        for total_routes in range(route_maximum):
 
             # picks a random station to the begin the route from
             current_station = station_objects[randrange(len(station_objects))]
             
             # starts new route | SJ: WAT DOET DIT? 
-            route = Route(route_nr , current_station)
+            route = Route(total_routes, current_station)
 
             # add route to lining
             lining.append(route)
@@ -45,14 +45,14 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                 if len(connection_objects) == len(visited_connections):
                     solution = Solution(lining, 1)
                     return solution
-                    # return lining
 
                 # make a list of all unused connections of this station
                 unused_connections = []
-
-                for connection in connection_objects:
-                    if connection not in visited_connections:
-                        unused_connections.append(connection)
+                for connection in current_station.connections:
+                    unused_connections.append(connection)
+                    for visit in visited_connections:
+                        if (visit.station_a == connection and visit.station_b == current_station) or (visit.station_b == connection and visit.station_a == current_station):
+                            unused_connections.remove(connection)
 
                 # if there are unused connections, find the shortest connection
                 if len(unused_connections) > 0:
@@ -63,18 +63,16 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                         if longest is None:
                                 longest = connection
                         else:
-                            if connection.time > longest.time:
+                            if current_station.connections[connection].time > current_station.connections[longest].time:
                                 longest = connection
-                    new_connection = longest
+                    new_station = longest
                
                 # if there are no unused connections, pick a random connection
                 else:
-                    new_connection = random.choice(list(current_station.connections.keys()))
-
-                link = connection
+                    new_station = random.choice(list(current_station.connections.keys()))
 
                 # finds the time for the new station 
-                time = connection.time
+                time = current_station.connections[new_station].time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
@@ -82,9 +80,19 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                     break
                 
                 # add a new station to the route
-                route.add_connection2(link, time)
+                route.add_connection2(new_station, time)
 
-                if link not in visited_connections:
-                    visited_connections.append(link)
+                # adds the station to the route
+                route.add_station(new_station)
 
-                current_station = new_connection
+                # find the connection that was added
+                for connection in connection_objects:
+                    if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):
+                        
+                        # if the connection wasn't used before, add it to the visited connections list
+                        if connection in visited_connections:
+                            break
+                        visited_connections.append(connection)
+                
+                # set this new station as the current station
+                current_station = new_station

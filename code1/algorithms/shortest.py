@@ -81,6 +81,9 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                 # add a new station to the route
                 route.add_connection2(new_station, time)
 
+                # adds the station to the route
+                route.add_station(new_station)
+
                 # find the connection that was added
                 for connection in connection_objects:
                     if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):

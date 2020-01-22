@@ -9,7 +9,6 @@ def boxplot():
 
     # load csv in dataframe
     results = pd.read_csv('results.csv')
-    print(results)
 
     # MIN = aantal minuten van alle trajecten samen, R = aantal trajecten, P = fractie bereden verbindingen, K = kwaliteit
     
@@ -19,10 +18,13 @@ def boxplot():
 
     fig, axes = plt.subplots(1, 1) # (1, 1) = (row, col)
     # axes.boxplot(results.K1)
+    # data = [results.K1, results.K2, results.K3, results.K4]
     data = [results.K1, results.K2]
 
     axes.boxplot(data)
-    axes.set_title('Kwaliteit lijnvoering: random en shortest')
+    axes.set_title('Kwaliteit lijnvoering')
+    # axes.set_xticklabels(['Random', 'Shortest', 'Longest', 'Railhead'])
+    axes.set_xticklabels(['Random', 'iets'])
 
     # boxplot = df.boxplot(column=['Col1', 'Col2', 'Col3'])    
 
