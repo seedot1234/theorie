@@ -58,7 +58,6 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 if len(connection_objects) == len(visited_connections):
                     solution = Solution(lining, 1)
                     return solution
-                    # return lining
 
                 # pick a random new station out of all connections of the current station
                 new_station = random.choice(list(current_station.connections.keys()))
@@ -66,6 +65,8 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 # if new station is a railhead, remove it from list
                 if new_station.rail_head and new_station in available_railheads:
                     available_railheads.remove(new_station)
+
+                link = current_station.connections[new_station]
 
                 # find the time for the new station 
                 time = current_station.connections[new_station].time
@@ -81,14 +82,9 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 # adds the station to the route
                 route.add_station(new_station)
 
-                # find the connection that was added HIER
-                for connection in connection_objects:
-                    if (connection.station_a == current_station and connection.station_b == new_station) or (connection.station_a == new_station and connection.station_b == current_station):
-                        
-                        # if the connection wasn't used before, add it to the visited connections list
-                        if connection in visited_connections:
-                            break
-                        visited_connections.append(connection)
+                # if the connection wasn't used before, add it to the visited connections list
+                if link not in visited_connections:
+                    visited_connections.append(link)
                 
                 # set this new station as the current station
                 current_station = new_station

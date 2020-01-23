@@ -3,10 +3,10 @@ main.py
 Calls all functions in the repository 'theorie'
 10/1/20
 """
+import csv, os
+
 from code1.classes import connection, route, station, load_data
 from results.visualisation import visualise
-from results.descriptives import boxplot, histogram
-from results.bound import quality
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
@@ -15,14 +15,13 @@ from code1.algorithms.trim import trim
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.longest import longest
-from code1.algorithms.hill import Hillclimber
 from code1.algorithms.unused import unused
-from code1.algorithms.master import master
 from code1.algorithms.greedy_lookahead import greedy_lookahead
-from random import randrange
-import random
-import csv, io, os
-import copy
+from code1.algorithms.hill import Hillclimber
+
+# nodig?
+from results.bound import quality
+from results.descriptives import boxplot, histogram
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -45,29 +44,25 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
 
-# set railhead stations
-for station in station_objects:
-    station.set_rail_head()
-
 # voer hier een algoritme uit
 solution = random_solution_p(station_objects, connection_objects, 20, 180)
 # solution1 = shortest(station_objects, connection_objects, 20, 180)
 # solution2 = longest(station_objects, connection_objects, 20, 180)
 # solution3 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-solution4 = railhead(station_objects, connection_objects, 20, 180)
-
+# solution4 = railhead(station_objects, connection_objects, 20, 180)
+# solution5 = unused(station_objects, connection_objects, 20, 180)
 
 len_connections = len(connection_objects)
 
 # creates list of station coordinates VISUALISE
-coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-coordinates_objects = visualise.coordinates(coordinates_csv, solution3)
+# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, solution3)
 
 
 # write to results.csv
 with open('results.csv', 'w', newline='') as csv_file:
     # K = kwaliteit
-    fieldnames = ['K1', 'K2', 'K3'] #, 'K2', 'K3', 'K4']
+    fieldnames = ['K1'] #, 'K2', 'K3', 'K4']
 
     # write csv file into dictionary
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -85,12 +80,14 @@ with open('results.csv', 'w', newline='') as csv_file:
         # solution1 = shortest(station_objects, connection_objects, 20, 180)
         # solution2 = longest(station_objects, connection_objects, 20, 180)
         # solution3 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-        solution4 = railhead(station_objects, connection_objects, 20, 180)
+        # solution4 = railhead(station_objects, connection_objects, 20, 180)
+        # solution5 = unused(station_objects, connection_objects, 20, 180)
         print(i)
         # writer.writerow({'K1': round(solution.set_K(len_connections), 2), 'K2': round(solution1.set_K(len_connections), 2), 'K3': round(solution2.set_K(len_connections), 2), 'K4': round(solution3.set_K(len_connections), 2)})
-        writer.writerow({'K1': round(solution.set_K(len_connections), 2), 'K2': round(solution4.set_K(len_connections), 2)})
+        # writer.writerow({'K1': round(solution.set_K(len_connections), 2), 'K2': round(solution5.set_K(len_connections), 2)})
+        writer.writerow({'K1': round(solution.set_K(len_connections), 2)})
 
-boxplot ()
+boxplot()
 # histogram()
 
 
