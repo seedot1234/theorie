@@ -101,6 +101,6 @@ def add_station_connection(station_objects, connection_objects):
 
             # if the station is in the connection object, add its corresponding connected station
             if station == connection.station_a:
-                station.add_connection(connection.station_b, connection) #.time)
+                station.add_connection(connection.station_b, connection)
             if station == connection.station_b:
                 station.add_connection(connection.station_a, connection)

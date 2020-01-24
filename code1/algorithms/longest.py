@@ -43,7 +43,7 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                 
                 # when all connections have been used, end the algorithm
                 if len(connection_objects) == len(visited_connections):
-                    solution = Solution(lining, 1)
+                    solution = Solution(lining, 0.8)
                     return solution
 
                 # make a list of all unused connections of this station
@@ -71,8 +71,11 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                 else:
                     new_station = random.choice(list(current_station.connections.keys()))
 
+                 # finds the connection
+                link = current_station.connections[new_station] 
+
                 # finds the time for the new station 
-                time = current_station.connections[new_station].time
+                time = link.time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
@@ -80,7 +83,7 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                     break
                 
                 # add a new station to the route
-                route.add_connection2(new_station, time)
+                route.add_connection2(link, time)
 
                 # adds the station to the route
                 route.add_station(new_station)

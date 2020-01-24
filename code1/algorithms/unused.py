@@ -23,6 +23,7 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
 
         visited_connections = []
         total_time = 0
+        p = 0
 
         # makes a list of the solution that matches the requirements 
         lining = []
@@ -42,11 +43,10 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
             # keeps on adding stations until maximum time has been reached 
             while True:
                 
-                # when all connections have been used, end the algorithm
-                if len(connection_objects) == len(visited_connections):
-                    solution = Solution(lining, 1)
+                # p equals or is larger than 0.8, return the lining and thus end the algorithm
+                if p >= 0.8:
+                    solution = Solution(lining, p)
                     return solution
-                    # return lining
 
                 # make a list of all unused connections of this station
                 unused_connections = []
@@ -58,15 +58,14 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
                 # if there are unused connections, pick one randomly
                 if len(unused_connections) > 0:
                     new_station = random.choice(list(unused_connections))
-               
+                    link = new_station 
                 # if there are no unused connections, pick a random connection
                 else:
                     new_station = random.choice(list(current_station.connections.keys()))
-
-                link = connection
+                    link = current_station.connections[new_station]
 
                 # finds the time for the new station 
-                time = connection.time
+                time = link.time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
@@ -76,8 +75,14 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
                 # add a new station to the route
                 route.add_connection2(link, time)
 
+                # adds the station to the route
+                route.add_station(new_station)
+
                 if link not in visited_connections:
                     visited_connections.append(link)    
+
+                # calculates p
+                p = len(visited_connections) / len(connection_objects)
                 
                 # set this new station as the current station
                 current_station = new_station

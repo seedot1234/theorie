@@ -66,8 +66,8 @@ class Hillclimber(object):
         """
         
         selected = route.all_connections[0]
-        del route.stations[0]
         route.delete_connection(selected)
+        del route.stations[0]
 
     def delete_last_connection(self, route):
         """
@@ -95,7 +95,7 @@ class Hillclimber(object):
         link = current_station.connections[new_station]           
 
         # finds the time for the new station 
-        time = current_station.connections[new_station].time
+        time = link.time
         
         ### HARDCODED. DIT NOG VERANDEREN!!! ###
         # only accept the change if it wouldn't exceed the maximum time
@@ -184,4 +184,7 @@ class Hillclimber(object):
 
         print(improved_solution.set_K(self.len_connections))
 
-        return improved_solution
+        improved_solution.set_K(self.len_connections)
+
+        # zo return je alleen de k
+        return improved_solution.K

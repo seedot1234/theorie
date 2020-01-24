@@ -24,12 +24,12 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
         lining = []
         available_railheads = []
         non_railhead_stations = []
+        p = 0
 
         for station in station_objects:
             if station.rail_head is True:
                 available_railheads.append(station)
-            else:
-                non_railhead_stations.append(station)
+            non_railhead_stations.append(station)
         
         # make 'route_maximum' routes at max
         for route_nr in range(route_maximum):
@@ -54,9 +54,9 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
             # keep on adding stations until maximum time has been reached 
             while True:
                 
-                # when all connections are used, return the lining and thus end the algorithm
-                if len(connection_objects) == len(visited_connections):
-                    solution = Solution(lining, 1)
+                # p equals or is larger than 0.8, return the lining and thus end the algorithm
+                if p >= 0.8:
+                    solution = Solution(lining, p)
                     return solution
 
                 # pick a random new station out of all connections of the current station
@@ -69,7 +69,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 link = current_station.connections[new_station]
 
                 # find the time for the new station 
-                time = current_station.connections[new_station].time
+                time = link.time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
@@ -77,7 +77,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                     break
                 
                 # add a new station to the route
-                route.add_connection2(new_station, time)
+                route.add_connection2(link, time)
 
                 # adds the station to the route
                 route.add_station(new_station)
@@ -85,6 +85,9 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 # if the connection wasn't used before, add it to the visited connections list
                 if link not in visited_connections:
                     visited_connections.append(link)
+
+                # calculates p
+                p = len(visited_connections) / len(connection_objects)
                 
                 # set this new station as the current station
                 current_station = new_station

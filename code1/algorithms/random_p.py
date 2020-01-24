@@ -53,7 +53,7 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
                 link = current_station.connections[new_station]           
                 
                 # finds the time for the new station 
-                time = current_station.connections[new_station].time
+                time = link.time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:

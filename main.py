@@ -44,52 +44,64 @@ connection_objects = load_data.create_connection(connection_csv, station_objects
 connections_list = []
 load_data.add_station_connection(station_objects, connection_objects)
 
-# voer hier een algoritme uit
-solution = random_solution_p(station_objects, connection_objects, 20, 180)
-# solution1 = shortest(station_objects, connection_objects, 20, 180)
-# solution2 = longest(station_objects, connection_objects, 20, 180)
-# solution3 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-# solution4 = railhead(station_objects, connection_objects, 20, 180)
-# solution5 = unused(station_objects, connection_objects, 20, 180)
-
+# length of connections
 len_connections = len(connection_objects)
 
-# creates list of station coordinates VISUALISE
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution3)
-
+# for i in range(100):
+#     solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
+#     print(solution1.set_K(len_connections)) # to print the K
 
 # write to results.csv
 with open('results.csv', 'w', newline='') as csv_file:
     # K = kwaliteit
-    fieldnames = ['K1'] #, 'K2', 'K3', 'K4']
-
+    fieldnames = ['K0', 'KH0', 'K1', 'KH1', 'K2', 'KH2', 'K3', 'KH3', 'K4', 'KH4']
     # write csv file into dictionary
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
     writer.writeheader()
 
-    total_time = 0
-    total_routes = 0
+    for i in range (1000):
+        solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
+        trimmed_solution0 = trim(solution0)
+        hill0 = Hillclimber(len_connections, station_objects, trimmed_solution0)
+        answer0 = hill0.run(1000)
 
-    for i in range (50):
-        for route in solution.lining:
-            total_time += route.total_time
-        total_routes += len(solution.lining) # num_routes = len(solution.lining) = mooier?? maar werkt niet??
-        solution = random_solution_p(station_objects, connection_objects, 20, 180)
-        # solution1 = shortest(station_objects, connection_objects, 20, 180)
-        # solution2 = longest(station_objects, connection_objects, 20, 180)
-        # solution3 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-        # solution4 = railhead(station_objects, connection_objects, 20, 180)
+        solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
+        trimmed_solution1 = trim(solution1)
+        hill1 = Hillclimber(len_connections, station_objects, trimmed_solution1)
+        answer1 = hill1.run(1000)
+
+        solution2 = shortest(station_objects, connection_objects, 20, 180) #shortest
+        trimmed_solution2 = trim(solution2)
+        hill2 = Hillclimber(len_connections, station_objects, trimmed_solution2)
+        answer2 = hill2.run(1000)
+
+        solution3 = longest(station_objects, connection_objects, 20, 180)
+        trimmed_solution3 = trim(solution1)
+        hill3 = Hillclimber(len_connections, station_objects, trimmed_solution3)
+        answer3 = hill3.run(1000)
+
+        solution4 = railhead(station_objects, connection_objects, 20, 180)
+        trimmed_solution4 = trim(solution1)
+        hill4 = Hillclimber(len_connections, station_objects, trimmed_solution4)
+        answer4 = hill1.run(1000)
+
         # solution5 = unused(station_objects, connection_objects, 20, 180)
+
         print(i)
-        # writer.writerow({'K1': round(solution.set_K(len_connections), 2), 'K2': round(solution1.set_K(len_connections), 2), 'K3': round(solution2.set_K(len_connections), 2), 'K4': round(solution3.set_K(len_connections), 2)})
-        # writer.writerow({'K1': round(solution.set_K(len_connections), 2), 'K2': round(solution5.set_K(len_connections), 2)})
-        writer.writerow({'K1': round(solution.set_K(len_connections), 2)})
+        writer.writerow({'K0': round(solution0.set_K(len_connections), 2), 'KH0': answer0, 
+                            'K1': round(solution1.set_K(len_connections), 2), 'KH1': answer1, 
+                            'K2': round(solution2.set_K(len_connections), 2), 'KH2': answer2, 
+                            'K3': round(solution3.set_K(len_connections), 2), 'KH3': answer3, 
+                            'K4': round(solution4.set_K(len_connections), 2), 'KH4': answer4}) 
+                            #'K5': round(solution5.set_K(len_connections), 2)})
 
 boxplot()
 # histogram()
 
+# creates list of station coordinates VISUALISE
+# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, solution3)
 
 
 # for i in range (100):
@@ -115,15 +127,3 @@ boxplot()
 #     total_time += route.total_time
 # print(total_time)
  
-# voer hier een algoritme uit
-# solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
-
-# trimmed_solution = trim(solution)
-
-# len_connections = len(connection_objects)
-
-# # calls upon the hill climbing algorithm 
-# hill = Hillclimber(len_connections, station_objects, trimmed_solution)
-
-
-# answer = hill.run(1000)

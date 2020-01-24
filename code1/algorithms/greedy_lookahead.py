@@ -130,7 +130,6 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                 # when it does improve the score, define the new station
                 new_station = best[1]
 
-
                 # finds the connection !!!!!!!!
                 link = current_station.connections[new_station]
 
