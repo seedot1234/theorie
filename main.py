@@ -1,13 +1,16 @@
 """
+
 main.py
 Calls all functions in the repository 'theorie'
 10/1/20
+
 """
 from code1.classes import connection, route, station, load_data
 from results.random_vis import visualise
 from code1.classes.route import Route
 from code1.algorithms.random import random_solution
-from code1.algorithms.random_p import random_solution_p
+# from code1.algorithms.random_p import random_solution_p # is nu random_k
+from code1.algorithms.random_k import random_solution_k # is nu random_p
 from code1.algorithms.greedy_lookahead import greedy_lookahead
 from code1.algorithms.trim import trim
 from code1.algorithms.railhead import railhead
@@ -16,6 +19,8 @@ from code1.algorithms.hill import Hillclimber
 from code1.algorithms.unused import unused
 from code1.algorithms.master import master
 from random import randrange
+from code1.classes.solution import Solution
+
 import random
 import csv, io, os
 import copy
@@ -45,20 +50,18 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
-
-
-
 ############################################################
-
-
-
+len_connections = len(connection_objects)
 
 # voer hier een algoritme uit
-solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
+solution = random_solution_p(station_objects, len_connections, 20, 180) 
+# solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
 
 trimmed_solution = trim(solution)
 
-len_connections = len(connection_objects)
+
+exit()
+
 
 # calls upon the hill climbing algorithm 
 hill = Hillclimber(len_connections, station_objects, trimmed_solution)

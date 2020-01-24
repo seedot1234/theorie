@@ -9,12 +9,12 @@ solution.py
 class Solution(object):
     """The Solution object (..) """
 
-    def __init__(self, lining, p):
+    def __init__(self, lining):
                 
         # makes the solution properties
         self.lining = lining
-        self.K = None
-        self.p = p
+        self.K = 0
+        self.p = 0
         self.min = 0 
 
         for route in self.lining: 
@@ -51,7 +51,3 @@ class Solution(object):
         self.min = 0
         for route in self.lining:
             self.min += route.total_time
-
-
-
-
