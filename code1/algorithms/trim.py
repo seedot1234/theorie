@@ -15,8 +15,6 @@ from code1.classes.route import Route
 
 def trim(solution):
 
-    trimmed = copy.deepcopy(solution)
-
     for j in range (len(solution.lining)): 
         for i in range(len(solution.lining[j].all_connections)-1): 
             
@@ -25,4 +23,9 @@ def trim(solution):
                 del solution.lining[j].all_connections[i]
                 return trim(solution)
     
+    for route in solution.lining:
+        if route.total_time == 0:
+            solution.lining.remove(route)
+            return trim(solution)
+
     return solution

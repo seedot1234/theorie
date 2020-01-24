@@ -10,6 +10,8 @@ from code1.classes.station import Station
 from code1.classes.connection import Connection
 from code1.classes.solution import Solution
 from code1.classes.route import Route
+import random
+from random import randrange
 
 class Hillclimber(object):
     """
@@ -29,6 +31,7 @@ class Hillclimber(object):
         self.K = self.state.set_K(len_connections)
         self.lining = []
         self.len_connections = len_connections
+        self.station_objects = station_objects
 
     def pick_random_route(self, potential_solution):
         """
@@ -52,13 +55,13 @@ class Hillclimber(object):
         """
 
         # all possible actions
-        actions = [self.delete_first_connection, self.delete_last_connection, self.add_connection_beginning, self.add_connection_ending]
+        actions = [self.delete_first_connection, self.delete_last_connection, self.add_connection_beginning, self.add_connection_ending]#, self.add_route]
 
         # pick a random action
         action = random.choice(actions)
         return action
 
-    def delete_first_connection(self, route):
+    def delete_first_connection(self, route, potential_solution):
         """
         Deletes the first connection of a given route.
         Parameters: route.
@@ -68,7 +71,7 @@ class Hillclimber(object):
         del route.stations[0]
         route.delete_connection(selected)
 
-    def delete_last_connection(self, route):
+    def delete_last_connection(self, route, potential_solution):
         """
         Deletes the last connection of a given route.
         Parameters: route.
@@ -78,7 +81,7 @@ class Hillclimber(object):
         route.delete_connection(selected)
         del route.stations[-1]
 
-    def add_connection_beginning(self, route):
+    def add_connection_beginning(self, route, potential_solution):
         """
         When possible, adds a connection to the beginning
         of a given route.
@@ -106,7 +109,7 @@ class Hillclimber(object):
             # insert the station to the front of the station list
             route.insert_station(new_station, 0)
 
-    def add_connection_ending(self, route):
+    def add_connection_ending(self, route, potential_solution):
         """
         When possible, adds a connection to the end
         of a given route.
@@ -137,6 +140,43 @@ class Hillclimber(object):
             route.insert_station(new_station, -1)
 
 
+        ############################################
+        ##### HARDCODED. DIT NOG VERANDEREN!!! #####
+        ############################################
+    def add_route(self, route, potential_solution):
+        """
+        Adds a new route to the lining, starting with a random station.
+        Adds one connection to this route, also randomly chosen.
+        Parameters: potential_solution.
+        """
+
+        if len(potential_solution.lining) < 20:
+            pass        
+            # sets starting station randomly
+            current_station = self.station_objects[randrange(len(self.station_objects))]
+            
+            # starts new route
+            route = Route(len(potential_solution.lining) + 1, current_station)
+
+            # add route to lining
+            potential_solution.lining.append(route)
+
+            # picks a random new station out of all connections of the current station
+            new_station = random.choice(list(current_station.connections.keys()))
+
+            # finds the connection
+            link = current_station.connections[new_station]           
+            
+            # finds the time for the new station 
+            time = current_station.connections[new_station].time
+                            
+            # adds the new connection to the route 
+            route.add_connection2(link, time)
+
+            # adds the station to the route
+            route.add_station(new_station)
+
+
     def check_solution(self, potential_solution):
         """
         calculates new and old K, compares these and accepts new when it's better.
@@ -161,9 +201,7 @@ class Hillclimber(object):
         Parameters: iterations.
         Returns:    improved_solution.
         """
-        print(self.state.set_K(self.len_connections))
         for iteration in range(iterations):
-
             # Create a copy of the graph to simulate the change
             potential_solution = copy.deepcopy(self.state)
 
@@ -174,13 +212,11 @@ class Hillclimber(object):
             random_action = self.pick_random_action()
 
             # perform action
-            random_action(random_route)
+            random_action(random_route, potential_solution)
 
             # check solution and take it when it's better
             self.check_solution(potential_solution)
 
         improved_solution = self.state
-
-        print(improved_solution.set_K(self.len_connections))
 
         return improved_solution

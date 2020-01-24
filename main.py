@@ -51,17 +51,24 @@ for station in station_objects:
 ############################################################
 
 
-
-
-# voer hier een algoritme uit
-solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
-
-trimmed_solution = trim(solution)
-
 len_connections = len(connection_objects)
 
-# calls upon the hill climbing algorithm 
-hill = Hillclimber(len_connections, station_objects, trimmed_solution)
+# voer hier een algoritme uit
+for i in range (100):
+    solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
+    # print(solution.set_K(len_connections))
+    trimmed_solution = trim(solution)
+    print(trimmed_solution.set_K(len_connections))
+    # calls upon the hill climbing algorithm 
+    hill = Hillclimber(len_connections, station_objects, trimmed_solution)
+    answer = hill.run(1000)
 
+    print(answer.K)
+exit()
 
-answer = hill.run(1000)
+while answer.set_K(len_connections) < 7040:
+    solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
+    trimmed_solution = trim(solution)
+    hill = Hillclimber(len_connections, station_objects, trimmed_solution)
+    answer = hill.run(100)
+    print(answer.K)
