@@ -36,8 +36,8 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
             non_railhead_stations.append(station)
                 
         # make 'route_maximum' routes at max
-        for total_routes in range(route_maximum):
-
+        for route_nr in range(route_maximum):
+            
             # when railheads are available, pick one of these as a starting station
             if len(available_railheads) > 0:
                 current_station = available_railheads[randrange(len(available_railheads))]
@@ -50,7 +50,7 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 current_station = non_railhead_stations[randrange(len(non_railhead_stations))]
 
             # start new route
-            route = Route(total_routes, current_station)
+            route = Route(route_nr, current_station)
 
             # add route to lining
             lining.append(route)

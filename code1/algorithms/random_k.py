@@ -9,11 +9,12 @@ instead of 100.
 
 random algorithm
 """
+import random
+
 from code1.classes.station import Station
 from code1.classes.route import Route
 from random import randrange
 from code1.classes.solution import Solution
-import random
 
 # makes new routes randomly until all connections have been used
 def random_solution_k(station_objects, len_connections, route_maximum, time_maximum):
@@ -32,7 +33,7 @@ def random_solution_k(station_objects, len_connections, route_maximum, time_maxi
             # sets starting station using random
             current_station = station_objects[randrange(len(station_objects))]
             
-            # makes new route by passing the route number and first station
+            # makes new route by passing the route number and current station
             route = Route(route_nr, current_station)
 
             # adds route to lining

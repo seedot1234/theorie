@@ -17,7 +17,9 @@ import math
 # maximum train operating time in minutes 
 max_operating_time = 180 
 
-df = pd.read_csv('ConnectiesNationaal.csv')
+# df = pd.read_csv('ConnectiesNationaal.csv')
+df = pd.read_csv('data/ConnectiesHolland.csv')
+
 
 def state_space():
     """ displays and calculates the relevant values to find the state-space to 
@@ -29,6 +31,7 @@ def state_space():
     # maximum number of operating trains   
     max_routes = 20
 
+
     # the maximum amount of connections at a station which is True for Rotterdam and Utrecht CS 
     max_connections = 9
 
@@ -39,9 +42,8 @@ def state_space():
 
     # calculates the max. amount of stops of one route assuming the shortest distance 
     max_stops = max_operating_time / min_distance
-    print("max stops:")
-    print(max_stops)
-
+    print("max stops:", max_stops)
+    
     # calculates the State-space upper bound (worst-case)
     print("="*50)
     print(num_stations * max_connections**max_stops)
@@ -61,19 +63,18 @@ def quality():
 
     # calculates the minumum amount of routes taking in account the time constraint 
     min_routes = math.ceil(sum_distance/ max_operating_time)
-    print("min_routes:")
-    print(min_routes)
+    print('quality min routes: ', min_routes)
 
     # fraction value if all connection have been passed by route(s)   
     p_max = 1
 
     # calculates the quality function best-case scenario 
     Best_K_Score = ((p_max * max_quality_score) - (min_routes * 100 + sum_distance))
-    print("max K:")
-    print(Best_K_Score)
+    print('k: ', Best_K_Score)
+    
 
 # DIT MOET WEG!!!!
 if __name__ == "__main__":
 
-    state_space()
     quality()
+    state_space()

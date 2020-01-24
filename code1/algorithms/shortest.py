@@ -12,6 +12,7 @@ pick a connection randomly.
 """
 from code1.classes.station import Station
 from code1.classes.route import Route
+from code1.classes.solution import Solution
 from random import randrange
 import random  
 
@@ -21,7 +22,6 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
 
         visited_connections = []
         total_time = 0
-
         # makes a list of the solution that matches the requirements 
         lining = []
 
@@ -42,7 +42,8 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                 
                 # when all connections have been used, end the algorithm
                 if len(connection_objects) == len(visited_connections):
-                    return lining
+                    solution = Solution(lining, 1)
+                    return solution
 
                 # make a list of all unused connections of this station
                 unused_connections = []
@@ -61,7 +62,7 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                         if shortest is None:
                                 shortest = connection
                         else:
-                            if current_station.connections[connection] < current_station.connections[shortest]:
+                            if current_station.connections[connection].time < current_station.connections[shortest].time:
                                 shortest = connection
                     new_station = shortest
                
@@ -70,7 +71,7 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                     new_station = random.choice(list(current_station.connections.keys()))
 
                 # finds the time for the new station 
-                time = int(current_station.connections[new_station])
+                time = current_station.connections[new_station].time
                 
                 # stops adding stations until the total time would exceed the maximum time
                 if time + route.total_time > time_maximum:
@@ -78,7 +79,10 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                     break
                 
                 # add a new station to the route
-                route.add_station(new_station, time)
+                route.add_connection2(new_station, time)
+
+                # adds the station to the route
+                route.add_station(new_station)
 
                 # find the connection that was added
                 for connection in connection_objects:
