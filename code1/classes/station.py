@@ -12,7 +12,6 @@ class Station(object):
     def __init__(self, name, lat, lon):
         """
         Constructor of the Station class.
-        Parameters: name, x_cor, y_cor.
         """
 
         # station properties

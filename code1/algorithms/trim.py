@@ -14,7 +14,6 @@ from code1.classes.solution import Solution
 from code1.classes.route import Route
 
 def trim(solution):
-
     for j in range (len(solution.lining)): 
         for i in range(len(solution.lining[j].all_connections)-1): 
             

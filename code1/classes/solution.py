@@ -9,12 +9,12 @@ solution.py
 class Solution(object):
     """The Solution object (..) """
 
-    def __init__(self, lining, p):
+    def __init__(self, lining):
                 
         # makes the solution properties
         self.lining = lining
-        self.K = None
-        self.p = p
+        self.K = 0
+        self.p = 0
         self.min = 0 
 
         for route in self.lining: 
@@ -30,6 +30,7 @@ class Solution(object):
 
         self.K = round(((self.p * max_quality_score) - (len(self.lining) * 100 + self.min)))
         return self.K
+
 
     def set_p(self, len_connections):
         self.visited_connections = []
@@ -50,3 +51,8 @@ class Solution(object):
         self.min = 0
         for route in self.lining:
             self.min += route.total_time
+
+    def __str__(self):
+        return f"{self.K} {self.lining}"
+
+

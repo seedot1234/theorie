@@ -27,7 +27,7 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
         p = 0
 
         # make 'route_maximum' routes at max
-        for total_routes in range(route_maximum):
+        for route_nr in range(route_maximum):
 
             status = False
             while status == False:
@@ -43,7 +43,7 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                                 status = True
             
             # starts new route
-            route = Route(total_routes, current_station)
+            route = Route(route_nr, current_station)
 
             # add route to lining
             lining.append(route)

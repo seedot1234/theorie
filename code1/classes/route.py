@@ -9,7 +9,7 @@ from code1.classes.connection import Connection
 class Route(object):
     """The Route object creates routes by chaining Connections together."""
 
-    def __init__(self, route_nr, first_station):
+    def __init__(self, route_nr, current_station):
         """
         Constructor of the Route class.
         Parameters: number.
@@ -17,7 +17,7 @@ class Route(object):
         # route properties
         self.number = route_nr
         self.total_time = 0 
-        self.stations = [first_station]
+        self.stations = [current_station]
         self.all_connections = [] 
 
     def add_station(self, station):
@@ -45,7 +45,6 @@ class Route(object):
         """
 
         self.stations.insert(index, station)
-
 
     def insert_connection(self, link, time, index):
         """
