@@ -72,7 +72,6 @@ for i in range (100):
     hill = Hillclimber(len_connections, station_objects, trimmed_solution)
     answer = hill.run(1000)
     print(answer.K - solution.set_K(len_connections))
-    print("#############")
 
 exit()
 
