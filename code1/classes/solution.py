@@ -9,7 +9,7 @@ solution.py
 class Solution(object):
     """The Solution object (..) """
 
-    def __init__(self, lining):
+    def __init__(self, lining, p):
                 
         # makes the solution properties
         self.lining = lining

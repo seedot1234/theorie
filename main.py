@@ -14,6 +14,7 @@ from code1.algorithms.random import random_solution
 # from code1.algorithms.random_p import random_solution_p # is nu random_k
 from code1.algorithms.random_k import random_solution_k # is nu random_p
 from code1.algorithms.greedy_lookahead import greedy_lookahead
+from code1.algorithms.greedy_lookahead_test import greedy_lookahead_test
 from code1.algorithms.trim import trim
 from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
@@ -21,11 +22,12 @@ from code1.algorithms.longest import longest
 from code1.algorithms.unused import unused
 from random import randrange
 from code1.classes.solution import Solution
+from code1.algorithms.hill import Hillclimber
 import random
 import csv, io, os
 import copy
 from results.bound import quality
-from results.descriptives import boxplot, histogram
+# from results.descriptives import boxplot, histogram
 
 # VOOR HOLLAND, DOE DIT:
 
@@ -53,22 +55,25 @@ load_data.add_station_connection(station_objects, connection_objects)
 for station in station_objects:
     station.set_rail_head()
 
+
 ############################################################
 
 
 len_connections = len(connection_objects)
 
+
 # voer hier een algoritme uit
 for i in range (100):
-    solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
-    # print(solution.set_K(len_connections))
+    solution = greedy_lookahead_test(station_objects, connection_objects, 20, 180)
+
     trimmed_solution = trim(solution)
-    print(trimmed_solution.set_K(len_connections))
+
     # calls upon the hill climbing algorithm 
     hill = Hillclimber(len_connections, station_objects, trimmed_solution)
     answer = hill.run(1000)
+    print(answer.K - solution.set_K(len_connections))
+    print("#############")
 
-    print(answer.K)
 exit()
 
 while answer.set_K(len_connections) < 7040:

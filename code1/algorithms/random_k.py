@@ -73,7 +73,7 @@ def random_solution_k(station_objects, len_connections, route_maximum, time_maxi
                    visited_connections.append(link)
 
                 # calculates k
-                solution = Solution(lining)
+                solution = Solution(lining, None)
                 K = solution.set_K(len_connections)
                                                                       
                 # sets the new station as the current station

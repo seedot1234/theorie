@@ -36,7 +36,7 @@ def greedy_lookahead_test(station_objects, connection_objects, route_maximum, ti
                 current_station = station_objects[randrange(len(station_objects))]
             
                 for connection in current_station.connections:
-                    if connection not in visited_connections:
+                    if current_station.connections[connection] not in visited_connections:
                         status = True
 
             # starts new route
