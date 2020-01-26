@@ -63,15 +63,29 @@ len_connections = len(connection_objects)
 
 
 # voer hier een algoritme uit
-for i in range (100):
-    solution = greedy_lookahead_test(station_objects, connection_objects, 20, 180)
+# for i in range(100):
+#     solution = shortest(station_objects, connection_objects, 20, 180)
 
-    trimmed_solution = trim(solution)
+#     # trimmed_solution = trim(solution, connection_objects)
 
-    # calls upon the hill climbing algorithm 
-    hill = Hillclimber(len_connections, station_objects, trimmed_solution)
-    answer = hill.run(1000)
-    print(answer.K - solution.set_K(len_connections))
+#     # for route in trimmed_solution.lining:
+#     #     for station in route.stations:
+#     #         print(station)
+#     #     print()
+#     #     for connection in route.all_connections:
+#     #         print(connection)
+#     #     print("###########")
+
+#     for route in solution.lining:
+#         if len(route.stations) == 2 and len(route.all_connections) != 1:
+#             print("problems")
+
+solution = shortest(station_objects, connection_objects, 20, 180)
+
+# calls upon the hill climbing algorithm 
+hill = Hillclimber(len_connections, station_objects, solution)
+answer = hill.run(1000)
+print(answer.K - solution.set_K(len_connections))
 
 exit()
 

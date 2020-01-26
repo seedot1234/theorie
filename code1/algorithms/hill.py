@@ -44,6 +44,9 @@ class Hillclimber(object):
         # select the route of which the first station must be deleted
         route = random.choice(potential_solution.lining)
 
+        if len(route.stations) == 2 and len(route.all_connections) != 1:
+            print("PROBLEMS when picking")
+
         return route
 
     def pick_random_action(self):
@@ -56,7 +59,7 @@ class Hillclimber(object):
         """
 
         # all possible actions
-        actions = [self.delete_first_connection, self.delete_last_connection, self.add_connection_beginning, self.add_connection_ending]#, self.add_route]
+        actions = [self.delete_first_connection, self.delete_last_connection, self.add_connection_beginning, self.add_connection_ending]
 
         # pick a random action
         action = random.choice(actions)
@@ -69,8 +72,14 @@ class Hillclimber(object):
         """
         
         selected = route.all_connections[0]
-        del route.stations[0]
-        route.delete_connection(selected)
+
+        # als dit de laatste connectie in de route is, verwijder de hele route
+        if len(route.all_connections) == 1:
+            potential_solution.lining.remove(route)
+
+        else:
+            del route.stations[0]
+            route.delete_connection(selected)
 
     def delete_last_connection(self, route, potential_solution):
         """
@@ -79,8 +88,14 @@ class Hillclimber(object):
         """
 
         selected = route.all_connections[-1]
-        route.delete_connection(selected)
-        del route.stations[-1]
+        
+        # als dit de laatste connectie in de route is, verwijder de hele route
+        if len(route.all_connections) == 1:
+            potential_solution.lining.remove(route)
+
+        else:
+            del route.stations[-1]
+            route.delete_connection(selected)
 
     def add_connection_beginning(self, route, potential_solution):
         """
@@ -100,7 +115,9 @@ class Hillclimber(object):
         # finds the time for the new station 
         time = current_station.connections[new_station].time
         
+        ########################################
         ### HARDCODED. DIT NOG VERANDEREN!!! ###
+        ########################################
         # only accept the change if it wouldn't exceed the maximum time
         if time + route.total_time <= 180:
             
@@ -141,43 +158,6 @@ class Hillclimber(object):
             route.insert_station(new_station, -1)
 
 
-        ############################################
-        ##### HARDCODED. DIT NOG VERANDEREN!!! #####
-        ############################################
-    def add_route(self, route, potential_solution):
-        """
-        Adds a new route to the lining, starting with a random station.
-        Adds one connection to this route, also randomly chosen.
-        Parameters: potential_solution.
-        """
-
-        if len(potential_solution.lining) < 20:
-            pass        
-            # sets starting station randomly
-            current_station = self.station_objects[randrange(len(self.station_objects))]
-            
-            # starts new route
-            route = Route(len(potential_solution.lining) + 1, current_station)
-
-            # add route to lining
-            potential_solution.lining.append(route)
-
-            # picks a random new station out of all connections of the current station
-            new_station = random.choice(list(current_station.connections.keys()))
-
-            # finds the connection
-            link = current_station.connections[new_station]           
-            
-            # finds the time for the new station 
-            time = current_station.connections[new_station].time
-                            
-            # adds the new connection to the route 
-            route.add_connection2(link, time)
-
-            # adds the station to the route
-            route.add_station(new_station)
-
-
     def check_solution(self, potential_solution):
         """
         calculates new and old K, compares these and accepts new when it's better.
@@ -193,8 +173,13 @@ class Hillclimber(object):
 
             # if the action resulted into an empty route, delete this route from the lining
             for route in potential_solution.lining:
-                if len(route.all_connections) == 0:
-                    potential_solution.lining.remove(route)
+                if len(route.stations) == 0 or len(route.all_connections) == 0:
+                    print("problems after check")
+                    # for station in route.stations:
+                    #     print(station)
+                    # for connection in route.all_connections:
+                    #     print(connection)
+                    # potential_solution.lining.remove(route)
         
     def run(self, iterations):
         """
