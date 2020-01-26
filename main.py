@@ -80,7 +80,8 @@ len_connections = len(connection_objects)
 #         if len(route.stations) == 2 and len(route.all_connections) != 1:
 #             print("problems")
 
-solution = shortest(station_objects, connection_objects, 20, 180)
+solution = unused(station_objects, connection_objects, 20, 180)
+
 
 # calls upon the hill climbing algorithm 
 hill = Hillclimber(len_connections, station_objects, solution)
