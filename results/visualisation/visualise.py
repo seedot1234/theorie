@@ -56,33 +56,16 @@ def coordinates(coordinates_csv, solution):
         station_lon.append(route_lon)
 
     # list of colors for the lines
-    colors = ["maroon", "deeppink", "olive", "red", "pink", "beige", "yellow", "orange", "lime", "green", "sienna", "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey"]
+    colors = [
+        "maroon", "deeppink", "olive", "red", "pink", "yellow", "orange", "lime", "green", "sienna", 
+        "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey", "beige"]
 
-    # add lines
-    with open('stations.csv', 'w', newline='') as csv_file:
-        fieldnames = ['station', 'lon', 'lat', 'color']
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        writer.writeheader()
-
-        # for line in solution.lining:
-        #     for station in line.stations:
-        #         writer.writerow({'station': station})
-
-        for i, j, k in zip(station_lon, station_lat, colors):
-            show(p)
-            p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
-            writer.writerow({'lon': i, 'lat': j, 'color': k})
+    for i, j, k in zip(station_lon, station_lat, colors):
+        show(p) # WEGHALEN IN EIND
+        p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
+        writer.writerow({'lon': i, 'lat': j, 'color': k})
 
     output_file("visualise.html")
 
     show(p)
 
-    # write to csv for gif
-    # with open('stations.csv', 'w', newline='') as csv_file:
-    #     fieldnames = ['station']
-    #     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-    #     writer.writeheader()
-
-    #     for line in solution.lining:
-    #         for station in line.stations:
-    #             writer.writerow({'station': station})

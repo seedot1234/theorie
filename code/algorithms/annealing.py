@@ -1,69 +1,61 @@
 """
+hill.py
 
-annealing.py
 Uses the interative Hill Climbing algorithm 
 @author Heuristic Heroes (Sarah-Jane)
 @version 1
-
 """
-
+import copy 
 import random
-import math
+import math 
 
-from .hill import HillClimber
+from .hill import Hillclimber
 
-
-class SimulatedAnnealing(HillClimber):
+class SimulatedAnnealing(Hillclimber):
     """
-    The SimulatedAnnealing class that changes a random node in the graph to a random valid value.
-    Each improvement or equivalent solution is kept for the next iteration.
-    Also sometimes accepts solutions that are worse, depending on the current temperature.
-    Most of the functions are similar to those of the HillClimber class, which is why
-    we use that as a parent class.
+    The SimulatedAnnealing class makes a random to a route from in the lining 
+    of the solution. Each improvement or equivalent solution is kept for the next 
+    iteration. Different from HillClimber, this class sometimes accepts solutions
+    that give a lower K, depending on the current temperature. 
+    
+    Most of the functions are similar to those of the HillClimber class, which is why 
+    we use that as a parent class. 
     """
-    def __init__(self, graph, transmitters, K=2000):
-        
-        # Use the init of the Hillclimber class
+  
+    def __init__ (self, len_connections, station_objects, solution, temperature=1):
+
+        # uses the init of the Hillclimber class 
         super().__init__(len_connections, station_objects, solution)
+        
+        # starting temperature and current temperature
+        self.T0 = temperature
+        self.T = temperature
 
-        # starting quality score and current quality score(K)
-        self.K0 = K
-        self.K = K    
-
-    def update_K(self):
+    def update_temperature(self):
         """
         This function implements a *linear* cooling scheme.
         Temperature will become zero after all iterations passed to the run()
         method have passed.
+
         """
-        self.K = self.K - (self.K0 / self.iterations)
+        self.T = self.T - (self.T0 / self.iterations)
 
-        # Exponential would look like this:
-        # alpha = 0.99
-        # self.T = self.T * alpha se
-
-        # where alpha can be any value below 1
-
-    def check_solution(self, new_graph):
+    def check_solution(self, potential_solution):
         """
-        Checks and accepts better solutions than the current solution.
-        Also sometimes accepts solutions that are worse, depending on the current
-        temperature.
-        """
-        new_value = new_graph.calculate_value()
-        old_value = self.value
+        Calculates new and old K, compares these and accepts new when it's better.
+        Parameters: potential_solution"""
 
-        # Calculate the probability of accepting this new graph
-        delta = new_value - old_value
+        old_k = self.K
+        new_k = potential_solution.set_K(self.len_connections)
+
+        # calculate the probability of accepting this change 
+        delta = old_k - new_k
         probability = math.exp(-delta / self.T)
 
-        # NOTE: Keep in mind that if we want to maximize the value, we use:
-        # delta = old_value - new_value
-
-        # Pull a random number between 0 and 1 and see if we accept the graph!
+        # pull a random number between 0 and 1 and see if we accept the graph!
         if random.random() < probability:
-            self.graph = new_graph
-            self.value = new_value
+            self.state = potential_solution
+            self.k = new_k
 
         # Update the temperature
         self.update_temperature()

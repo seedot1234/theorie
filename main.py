@@ -7,28 +7,28 @@ Calls all functions in the repository 'theorie'
 """
 import csv, os
 
-from code.classes import connection, route, station, load_data
+from code1.classes import connection, route, station, load_data
 from results.visualisation import visualise
-from code.classes.route import Route
-from code.algorithms.random import random_solution
-# from code1.algorithms.random_p import random_solution_p # is nu random_k
-from code.algorithms.random_k import random_solution_k # is nu random_p
-from code.algorithms.greedy_lookahead import greedy_lookahead
-from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
-from code.algorithms.trim import trim
-from code.algorithms.railhead import railhead
-from code.algorithms.shortest import shortest
-from code.algorithms.longest import longest
-from code.algorithms.unused import unused
+from code1.classes.route import Route
+from code1.algorithms.random import random_solution
+from code1.algorithms.random_p import random_solution_p # is nu random_k
+from code1.algorithms.random_k import random_solution_k # is nu random_p
+from code1.algorithms.greedy_lookahead import greedy_lookahead
+from code1.algorithms.greedy_lookahead_test import greedy_lookahead_test
+from code1.algorithms.trim import trim
+from code1.algorithms.railhead import railhead
+from code1.algorithms.shortest import shortest
+from code1.algorithms.longest import longest
+from code1.algorithms.unused import unused
 from random import randrange
-from code.classes.solution import Solution
-from code.algorithms.hill import Hillclimber
+from code1.classes.solution import Solution
+from code1.algorithms.hill import Hillclimber
 import random
 import csv, io, os
 import copy
 from results.bound import quality
-from results.descriptives import boxplot, histogram
-from results.descriptives import descriptive
+# from results.descriptives import boxplot, histogram
+# from results.descriptives import descriptive
 
 # VOOR HOLLAND, DOE DIT:
 
@@ -58,6 +58,7 @@ len_connections = len(connection_objects)
 # get descriptives
 # descriptive(len_connections, station_objects, connection_objects)
 # boxplot()
+<<<<<<< HEAD
  
 # creates list of station coordinates VISUALISE
 # solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
@@ -72,12 +73,19 @@ coordinates_csv = os.path.join("data", "StationsNationaal.csv")
 coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
 
 ########
+=======
 
-#     # trimmed_solution = trim(solution, connection_objects)
 
-# for i in range(100):
-#     solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-#     print(solution1.set_K(len_connections)) # to print the K
+
+solution = random_solution_p(station_objects, connection_objects, 20, 180)
+>>>>>>> d88109a4db82b5438843667b5329aadad4ce3657
+
+trimmed_solution = trim(solution, connection_objects)
+
+# calls upon the hill climbing algorithm 
+hill = Hillclimber(len_connections, station_objects, solution)
+answer = hill.run(1000)
+print(answer.K - solution.set_K(len_connections))
 
 #     for route in solution.lining:
 #         total_time += route.total_time
@@ -104,15 +112,15 @@ coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
 #         if len(route.stations) == 2 and len(route.all_connections) != 1:
 #             print("problems")
 
-# solution = unused(station_objects, connection_objects, 20, 180)
+solution = unused(station_objects, connection_objects, 20, 180)
 
 
-# # calls upon the hill climbing algorithm 
-# hill = Hillclimber(len_connections, station_objects, solution)
-# answer = hill.run(1000)
-# print(answer.K - solution.set_K(len_connections))
+# calls upon the hill climbing algorithm 
+hill = Hillclimber(len_connections, station_objects, solution)
+answer = hill.run(1000)
+print(answer.K - solution.set_K(len_connections))
 
-# exit()
+exit()
 
 # while answer.set_K(len_connections) < 7040:
 #     solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
@@ -120,3 +128,4 @@ coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
 #     hill = Hillclimber(len_connections, station_objects, trimmed_solution)
 #     answer = hill.run(100)
 #     print(answer.K)
+# ~~
