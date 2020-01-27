@@ -7,6 +7,10 @@ Calls all functions in the repository 'theorie'
 """
 import csv, os
 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
 from code.classes import connection, route, station, load_data
 from results.visualisation import visualise
 from code.classes.route import Route
@@ -23,12 +27,14 @@ from code.algorithms.unused import unused
 from random import randrange
 from code.classes.solution import Solution
 from code.algorithms.hill import Hillclimber
+from code.algorithms.annealing import SimulatedAnnealing
 import random
 import csv, io, os
 import copy
 from results.bound import quality
-# from results.descriptives import boxplot, histogram
-# from results.descriptives import descriptive
+from results.descriptives import boxplot, histogram
+from results.descriptives import descriptive
+from code.algorithms.annealing import SimulatedAnnealing
 
 # VOOR HOLLAND, DOE DIT:
 
@@ -55,25 +61,30 @@ load_data.add_station_connection(station_objects, connection_objects)
 # length of connections
 len_connections = len(connection_objects)
 
-<<<<<<< HEAD
 # get descriptives
 # descriptive(len_connections, station_objects, connection_objects)
 # boxplot()
-=======
->>>>>>> 6775f9585e091347cce6666ac5304cddcf55eb9e
 
 
+ 
+# creates list of station coordinates VISUALISE
+# solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
+# solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
+# solution2 = shortest(station_objects, connection_objects, 20, 180) 
+# solution3 = longest(station_objects, connection_objects, 20, 180)
+# solution4 = railhead(station_objects, connection_objects, 20, 180)
+# solution5 = unused(station_objects, connection_objects, 20, 180)
 
-solution = shortest(station_objects, connection_objects, 20, 180)
+# visualise
+# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+# coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
 
-# trimmed_solution = trim(solution, connection_objects)
+#     # trimmed_solution = trim(solution, connection_objects)
 
-# calls upon the hill climbing algorithm 
-hill = Hillclimber(len_connections, station_objects, solution)
-answer = hill.run(1000)
-print(answer.K - solution.set_K(len_connections))
+# for i in range(100):
+#     solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
+#     print(solution1.set_K(len_connections)) # to print the K
 
-<<<<<<< HEAD
 #     for route in solution.lining:
 #         total_time += route.total_time
 #     total_routes += len(solution.lining)
@@ -99,16 +110,41 @@ print(answer.K - solution.set_K(len_connections))
 #         if len(route.stations) == 2 and len(route.all_connections) != 1:
 #             print("problems")
 
-solution = unused(station_objects, connection_objects, 20, 180)
-
+solution = greedy_lookahead_test(station_objects, len_connections, 20, 180)
 
 # calls upon the hill climbing algorithm 
 hill = Hillclimber(len_connections, station_objects, solution)
-answer = hill.run(1000)
-print(answer.K - solution.set_K(len_connections))
+answer = hill.run(2000)
+print(answer.K)
+# print(answer.K - solution.set_K(len_connections))
 
-=======
->>>>>>> 6775f9585e091347cce6666ac5304cddcf55eb9e
+# calls upon the simulated annealing algorithm 
+
+print("Setting up Simulated Annealing...")
+simanneal = SimulatedAnnealing(len_connections, station_objects, solution, temperature=35)
+
+print("Running Simulated Annealing...")
+simanneal.run(2000)
+
+        
+
+print("K  after annealing...")
+print(simanneal.K)
+
+
+# load csv in dataframe
+results = pd.read_csv('annealing.csv')
+
+# create histogram with K from results dataframe
+results.K.plot() 
+
+# sets labels and title
+plt.xlabel('Number of Iterations x 10')
+plt.ylabel('Kwaliteitsscore (K)')
+
+# show plot
+plt.show()
+
 exit()
 
 # while answer.set_K(len_connections) < 7040:
