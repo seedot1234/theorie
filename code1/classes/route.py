@@ -57,14 +57,14 @@ class Route(object):
         self.total_time += time
 
 
-    def delete_connection(self, connection, index):
+    def delete_connection(self, link, index):
         """
         Deletes a given connection from the connection list.
         Parameters: link.
         """
 
         del self.all_connections[index]
-        self.total_time -= connection.time
+        self.total_time -= link.time
 
     def __str__(self):
         return f"train{self.number} ({self.total_time}): {self.stations}"
