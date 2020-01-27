@@ -11,7 +11,7 @@ import json
 import csv
 import pandas as pd
 
-from bokeh.io import show, output_file
+from bokeh.io import show, output_file, export_png
 from bokeh.models import HoverTool, ColumnDataSource, GMapOptions, GeoJSONDataSource
 from bokeh.plotting import figure, show, output_file, gmap
 
@@ -30,7 +30,7 @@ def coordinates(coordinates_csv, solution):
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
     # add circles for all stations
-    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source, legend_label="Stations")
+    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source) #, legend_label="Stations")
 
     # add hovertool for station name
     p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
@@ -50,7 +50,7 @@ def coordinates(coordinates_csv, solution):
             # put all lat and lons from route station in list.
             route_lat.append(float(station.lat)) 
             route_lon.append(float(station.lon))
-
+            
         # put the smaller coordinates lists for every route in the big list 
         station_lat.append(route_lat)
         station_lon.append(route_lon)
@@ -59,9 +59,37 @@ def coordinates(coordinates_csv, solution):
     colors = ["maroon", "deeppink", "olive", "red", "pink", "beige", "yellow", "orange", "lime", "green", "sienna", "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey"]
 
     # add lines
-    for i, j, k in zip(station_lon, station_lat, colors):
-        p.line(i, j, line_width=4, line_color=k, line_alpha=0.5) 
+    with open('stations.csv', 'w', newline='') as csv_file:
+        fieldnames = ['station', 'lon', 'lat', 'color']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+
+        # for line in solution.lining:
+        #     for station in line.stations:
+        #         writer.writerow({'station': station})
+
+        for i, j, k in zip(station_lon, station_lat, colors):
+            # show(p)
+            # export_png(p, filename="plot.png")
+            p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
+            writer.writerow({'lon': i, 'lat': j, 'color': k})
+
+
+    # elke stap tekenen en opslaan  
+     
   
     output_file("visualise.html")
 
+    # p.savefig("out.png")
+    # export_png(p, filename="plot.png")
     show(p)
+
+    # write to csv for gif
+    # with open('stations.csv', 'w', newline='') as csv_file:
+    #     fieldnames = ['station']
+    #     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+    #     writer.writeheader()
+
+    #     for line in solution.lining:
+    #         for station in line.stations:
+    #             writer.writerow({'station': station})

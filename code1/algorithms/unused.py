@@ -57,7 +57,7 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
 
                 # if there are unused connections, pick one randomly
                 if len(unused_connections) > 0:
-                    new_station = random.choice(list(unused_connections))
+                    new_station = random.choice(unused_connections)
                     link = new_station 
                 # if there are no unused connections, pick a random connection
                 else:

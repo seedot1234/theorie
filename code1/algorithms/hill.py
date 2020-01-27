@@ -116,11 +116,16 @@ class Hillclimber(object):
 
         current_station = route.stations[-1]
 
-        # picks a random new station out of all connections of the current station
-        new_station = random.choice(list(current_station.connections.keys()))
+        if random.choice(list(current_station.connections.keys())):
+            # picks a random new station out of all connections of the current station
+            new_station = random.choice(list(current_station.connections.keys()))
 
-        # finds the connection
-        link = current_station.connections[new_station]           
+            # finds the connection
+            link = current_station.connections[new_station]    
+        else:
+            new_station = random.choice(list(unused_connections))
+            link = new_station 
+
 
         # finds the time for the new station 
         time = current_station.connections[new_station].time
