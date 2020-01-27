@@ -17,15 +17,16 @@ from random import randrange
 from code1.classes.solution import Solution
 
 # makes new routes randomly until all connections have been used
-def random_solution_k(station_objects, len_connections, route_maximum, time_maximum):
+def random_solution_p(station_objects, connection_objects, route_maximum, time_maximum):
     
     # while true, reboots the attributes to find a new, valid solution
     while True:
     
-        K = 0
+        p = 0
         total_time = 0
         lining = []  
         visited_connections = []
+        len_connections = len(connection_objects)
 
         # creates new routes until reached the max. number of routes 
         for route_nr in range(route_maximum):
@@ -43,9 +44,8 @@ def random_solution_k(station_objects, len_connections, route_maximum, time_maxi
             while True:
                                 
                 # p equals or is larger than 0.8, return the lining and thus end the algorithm
-                if K >= 4000:
-                    print(solution.p)
-                    print(K)
+                if p >= 0.8:
+                    solution = Solution(lining, p)
                     return solution
 
                 # picks a random new station out of all connections of the current station
@@ -73,8 +73,7 @@ def random_solution_k(station_objects, len_connections, route_maximum, time_maxi
                    visited_connections.append(link)
 
                 # calculates k
-                solution = Solution(lining, None)
-                K = solution.set_K(len_connections)
+                p = len(visited_connections) / len_connections
                                                                       
                 # sets the new station as the current station
                 current_station = new_station

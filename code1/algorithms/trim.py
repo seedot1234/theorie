@@ -20,29 +20,20 @@ def trim(solution, connection_objects):
 
         route = solution.lining[i]
         for j in range(len(route.stations) - 3):
-    
+
             if route.stations[j] == route.stations[j+2] and route.stations[j+1] == route.stations[j+3]:
 
                 # find the corresponding connection of these two stations
                 selected_connection = route.all_connections[j+2]
 
-
-                for station in route.stations:
-                    print(station)
-                for connection in route.all_connections:
-                    print(connection)
-
-                # delete this connection
+                # delete this connection twice
                 route.delete_connection(selected_connection, j+2)
+                route.delete_connection(selected_connection, j+1)
+
 
                 # delete the stations from the route
                 del route.stations[j+3]
                 del route.stations[j+2]
-                
-                for station in route.stations:
-                    print(station)
-                for connection in route.all_connections:
-                    print(connection)
 
                 return trim(solution, connection_objects)
     
