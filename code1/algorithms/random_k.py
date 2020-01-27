@@ -17,11 +17,12 @@ from random import randrange
 from code1.classes.solution import Solution
 
 # makes new routes randomly until all connections have been used
-def random_solution_p(station_objects, connection_objects, route_maximum, time_maximum):
+def random_solution_k(station_objects, len_connections, route_maximum, time_maximum):
+    
+    # while true, reboots the attributes to find a new, valid solution
     while True:
-        
-        # reboots the attributes to find a new, valid solution
-        p = 0
+    
+        K = 0
         total_time = 0
         lining = []  
         visited_connections = []
@@ -40,10 +41,11 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
           
             # keeps on adding connections until maximum time has been reached 
             while True:
-                
-                # p equals or is larger than 0.8, return the solution and thus end the algorithm
-                if p >= 0.8:
-                    solution = Solution(lining, p)
+                                
+                # p equals or is larger than 0.8, return the lining and thus end the algorithm
+                if K >= 4000:
+                    print(solution.p)
+                    print(K)
                     return solution
 
                 # picks a random new station out of all connections of the current station
@@ -70,8 +72,11 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
                 if link not in visited_connections:
                    visited_connections.append(link)
 
-                # calculates p
-                p = len(visited_connections) / len(connection_objects)
-                                                                
+                # calculates k
+                solution = Solution(lining, None)
+                K = solution.set_K(len_connections)
+                                                                      
                 # sets the new station as the current station
-                current_station = new_station
+                current_station = new_station  
+                
+                

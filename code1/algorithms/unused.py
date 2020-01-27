@@ -34,7 +34,7 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
             # picks a random station to the begin the route from
             current_station = station_objects[randrange(len(station_objects))]
             
-            # starts new route | SJ: WAT DOET DIT? 
+            # starts new route 
             route = Route(route_nr, current_station)
 
             # add route to lining
@@ -50,10 +50,10 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
 
                 # make a list of all unused connections of this station
                 unused_connections = []
-
-                for connection in connection_objects:
-                    if connection not in visited_connections:
+                for connection in current_station.connections:
+                    if current_station.connections[connection] not in visited_connections:
                         unused_connections.append(connection)
+
 
                 # if there are unused connections, pick one randomly
                 if len(unused_connections) > 0:
@@ -62,7 +62,8 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
                 # if there are no unused connections, pick a random connection
                 else:
                     new_station = random.choice(list(current_station.connections.keys()))
-                    link = current_station.connections[new_station]
+
+                link = current_station.connections[new_station]
 
                 # finds the time for the new station 
                 time = link.time
@@ -72,10 +73,10 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
                     total_time += route.total_time
                     break
                 
-                # add a new station to the route
+                # add a new connection to the route
                 route.add_connection2(link, time)
 
-                # adds the station to the route
+                # add new station to the route
                 route.add_station(new_station)
 
                 if link not in visited_connections:

@@ -13,8 +13,8 @@ class Solution(object):
                 
         # makes the solution properties
         self.lining = lining
-        self.K = None
-        self.p = p
+        self.K = 0
+        self.p = 0
         self.min = 0 
 
         for route in self.lining: 
@@ -34,13 +34,12 @@ class Solution(object):
 
     def set_p(self, len_connections):
         self.visited_connections = []
-
         # loops over every route in the lining 
         for route in self.lining: 
             for connection in route.all_connections: 
                 # checks what connections have been visited               
                 if connection not in self.visited_connections:
-                   self.visited_connections.append(connection)
+                    self.visited_connections.append(connection)
 
         # calculates p   
         self.p = len(self.visited_connections) / len_connections

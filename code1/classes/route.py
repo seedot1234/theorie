@@ -46,7 +46,6 @@ class Route(object):
 
         self.stations.insert(index, station)
 
-
     def insert_connection(self, link, time, index):
         """
         Inserts a connection to the connection list,
@@ -69,5 +68,3 @@ class Route(object):
 
     def __str__(self):
         return f"train{self.number} ({self.total_time}): {self.stations}"
-
-

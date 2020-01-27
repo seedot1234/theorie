@@ -9,16 +9,19 @@ it selects a random station out of non-railhead stations.
 @version
 
 """
+import random   
+
 from code1.classes.station import Station
 from code1.classes.route import Route
 from code1.classes.solution import Solution
 from random import randrange
-import random   
 
 def railhead(station_objects, connection_objects, route_maximum, time_maximum):
     
+    # while true, reboots the attributes to find a new, valid solution
     while True: 
         
+        p = 0 
         visited_connections = []
         total_time = 0
         lining = []
@@ -26,11 +29,13 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
         non_railhead_stations = []
         p = 0
 
+        # DIT KAN VAST EENVOUDIGER (SJ)
+        # checks whether a station is a railhead and adds to list, else adds it to a non-railhead list 
         for station in station_objects:
             if station.rail_head is True:
                 available_railheads.append(station)
             non_railhead_stations.append(station)
-        
+                
         # make 'route_maximum' routes at max
         for route_nr in range(route_maximum):
             
@@ -66,8 +71,9 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 if new_station.rail_head and new_station in available_railheads:
                     available_railheads.remove(new_station)
 
-                link = current_station.connections[new_station]
-
+                # finds the connection
+                link = current_station.connections[new_station]           
+                
                 # find the time for the new station 
                 time = link.time
                 
@@ -75,19 +81,19 @@ def railhead(station_objects, connection_objects, route_maximum, time_maximum):
                 if time + route.total_time > time_maximum:
                     total_time += route.total_time
                     break
-                
-                # add a new station to the route
+
+                # adds the new connection to the route 
                 route.add_connection2(link, time)
 
                 # adds the station to the route
                 route.add_station(new_station)
-
-                # if the connection wasn't used before, add it to the visited connections list
+                
+                # calculates what connections have been visited by the routes              
                 if link not in visited_connections:
-                    visited_connections.append(link)
+                   visited_connections.append(link)
 
                 # calculates p
                 p = len(visited_connections) / len(connection_objects)
-                
+               
                 # set this new station as the current station
                 current_station = new_station

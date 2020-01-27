@@ -31,7 +31,7 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
             # picks a random station to the begin the route from
             current_station = station_objects[randrange(len(station_objects))]
             
-            # starts new route | SJ: WAT DOET DIT? 
+            # starts new route
             route = Route(total_routes, current_station)
 
             # add route to lining
@@ -51,19 +51,16 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                     if current_station.connections[connection] not in visited_connections:
                         unused_connections.append(connection)
 
-                    # unused_connections.append(connection)
-                    # for visit in visited_connections:
-                    #     if (visit.station_a == connection and visit.station_b == current_station) or (visit.station_b == connection and visit.station_a == current_station):
-                    #         unused_connections.remove(connection)
-
                 # if there are unused connections, find the shortest connection
                 if len(unused_connections) > 0:
                     
                     # sets a shortest connection/distance variable 
                     shortest = None
                     for connection in unused_connections:
+                        # connection = current_station.connections[connection]
                         if shortest is None:
                                 shortest = connection
+
                         else:
                             if current_station.connections[connection].time < current_station.connections[shortest].time:
                                 shortest = connection
@@ -73,8 +70,8 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                 else:
                     new_station = random.choice(list(current_station.connections.keys()))
 
-                # finds the connection
-                link = current_station.connections[new_station]           
+                # find the corresponding connection
+                link = current_station.connections[new_station]
 
                 # finds the time for the new station 
                 time = link.time
@@ -83,14 +80,14 @@ def shortest(station_objects, connection_objects, route_maximum, time_maximum):
                 if time + route.total_time > time_maximum:
                     total_time += route.total_time
                     break
-                
-                # add a new station to the route
+
+                # add the new connection to the route
                 route.add_connection2(link, time)
 
-                # adds the station to the route
+                # add the station to the route
                 route.add_station(new_station)
 
-                # if the connection wasn't used before, add it to the visited connections list
+                # update visited connections:
                 if link not in visited_connections:
                     visited_connections.append(link)
                 

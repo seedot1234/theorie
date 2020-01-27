@@ -33,17 +33,5 @@ class Station(object):
         if len(self.connections) == 1:
             self.rail_head = True
 
-    # def __getitem__(self, station):
-    #     """
-    #     method which allows the Route object to support indexing         
-    #     """
-    #     return self.connections[station]
-
-    # def __delitem__(self, station):
-    #     """
-    #     method which allows the Route object to support deleting an element         
-    #     """
-    #     del self.connections[station]
-
     def __str__(self):
         return f"{self.name}"
