@@ -27,8 +27,8 @@ import random
 import csv, io, os
 import copy
 from results.bound import quality
-from results.descriptives import boxplot, histogram
-from results.descriptives import descriptive
+# from results.descriptives import boxplot, histogram
+# from results.descriptives import descriptive
 
 # VOOR HOLLAND, DOE DIT:
 
@@ -55,30 +55,25 @@ load_data.add_station_connection(station_objects, connection_objects)
 # length of connections
 len_connections = len(connection_objects)
 
+<<<<<<< HEAD
 # get descriptives
 # descriptive(len_connections, station_objects, connection_objects)
 # boxplot()
+=======
+>>>>>>> 6775f9585e091347cce6666ac5304cddcf55eb9e
 
 
- 
-# creates list of station coordinates VISUALISE
-# solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
-# solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-# solution2 = shortest(station_objects, connection_objects, 20, 180) 
-# solution3 = longest(station_objects, connection_objects, 20, 180)
-# solution4 = railhead(station_objects, connection_objects, 20, 180)
-# solution5 = unused(station_objects, connection_objects, 20, 180)
 
-# visualise
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
+solution = shortest(station_objects, connection_objects, 20, 180)
 
-#     # trimmed_solution = trim(solution, connection_objects)
+# trimmed_solution = trim(solution, connection_objects)
 
-# for i in range(100):
-#     solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-#     print(solution1.set_K(len_connections)) # to print the K
+# calls upon the hill climbing algorithm 
+hill = Hillclimber(len_connections, station_objects, solution)
+answer = hill.run(1000)
+print(answer.K - solution.set_K(len_connections))
 
+<<<<<<< HEAD
 #     for route in solution.lining:
 #         total_time += route.total_time
 #     total_routes += len(solution.lining)
@@ -112,6 +107,8 @@ hill = Hillclimber(len_connections, station_objects, solution)
 answer = hill.run(1000)
 print(answer.K - solution.set_K(len_connections))
 
+=======
+>>>>>>> 6775f9585e091347cce6666ac5304cddcf55eb9e
 exit()
 
 # while answer.set_K(len_connections) < 7040:
