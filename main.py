@@ -56,8 +56,8 @@ load_data.add_station_connection(station_objects, connection_objects)
 len_connections = len(connection_objects)
 
 # get descriptives
-descriptive(len_connections, station_objects, connection_objects)
-boxplot()
+# descriptive(len_connections, station_objects, connection_objects)
+# boxplot()
 
 
  
@@ -104,15 +104,15 @@ boxplot()
 #         if len(route.stations) == 2 and len(route.all_connections) != 1:
 #             print("problems")
 
-# solution = unused(station_objects, connection_objects, 20, 180)
+solution = unused(station_objects, connection_objects, 20, 180)
 
 
-# # calls upon the hill climbing algorithm 
-# hill = Hillclimber(len_connections, station_objects, solution)
-# answer = hill.run(1000)
-# print(answer.K - solution.set_K(len_connections))
+# calls upon the hill climbing algorithm 
+hill = Hillclimber(len_connections, station_objects, solution)
+answer = hill.run(1000)
+print(answer.K - solution.set_K(len_connections))
 
-# exit()
+exit()
 
 # while answer.set_K(len_connections) < 7040:
 #     solution = greedy_lookahead(station_objects, connection_objects, 20, 180)
@@ -120,3 +120,4 @@ boxplot()
 #     hill = Hillclimber(len_connections, station_objects, trimmed_solution)
 #     answer = hill.run(100)
 #     print(answer.K)
+# ~~
