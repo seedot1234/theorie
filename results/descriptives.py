@@ -2,15 +2,16 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from code1.algorithms.random_p import random_solution_p
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-from code1.algorithms.trim import trim
-from code1.algorithms.railhead import railhead
-from code1.algorithms.shortest import shortest
-from code1.algorithms.longest import longest
-from code1.algorithms.unused import unused
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-from code1.algorithms.hill import Hillclimber
+# from code1.algorithms.random_p import random_solution_p
+from code.algorithms.random_k import random_solution_k
+from code.algorithms.greedy_lookahead import greedy_lookahead
+from code.algorithms.trim import trim
+from code.algorithms.railhead import railhead
+from code.algorithms.shortest import shortest
+from code.algorithms.longest import longest
+from code.algorithms.unused import unused
+from code.algorithms.greedy_lookahead import greedy_lookahead
+from code.algorithms.hill import Hillclimber
 
 # nodig om avg etc te berekenen
 import numpy as np
@@ -29,32 +30,32 @@ def descriptive(len_connections, station_objects, connection_objects):
         writer.writeheader()
 
         for i in range (10):
-            solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
+            solution0 = random_solution_k(station_objects, len_connections, 20, 180)     
             # trimmed_solution0 = trim(solution0)
             # hill0 = Hillclimber(len_connections, station_objects, trimmed_solution0)
             # answer0 = hill0.run(1000) 
 
-            # solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
+            # solution1 = greedy_lookahead(station_objects, len_connections, 20, 180)
             # trimmed_solution1 = trim(solution1)
             # hill1 = Hillclimber(len_connections, station_objects, trimmed_solution1)
             # answer1 = hill1.run(1000)
 
-            # solution2 = shortest(station_objects, connection_objects, 20, 180) #shortest
+            # solution2 = shortest(station_objects, len_connections, 20, 180) 
             # trimmed_solution2 = trim(solution2)
             # hill2 = Hillclimber(len_connections, station_objects, trimmed_solution2)
             # answer2 = hill2.run(1000)
 
-            # solution3 = longest(station_objects, connection_objects, 20, 180)
+            # solution3 = longest(station_objects, len_connections, 20, 180)
             # trimmed_solution3 = trim(solution1)
             # hill3 = Hillclimber(len_connections, station_objects, trimmed_solution3)
             # answer3 = hill3.run(1000)
 
-            # solution4 = railhead(station_objects, connection_objects, 20, 180)
+            # solution4 = railhead(station_objects, len_connections, 20, 180)
             # trimmed_solution4 = trim(solution1)
             # hill4 = Hillclimber(len_connections, station_objects, trimmed_solution4)
             # answer4 = hill4.run(1000)
 
-            # solution5 = unused(station_objects, connection_objects, 20, 180)
+            # solution5 = unused(station_objects, len_connections, 20, 180)
             # trimmed_solution5 = trim(solution5)
             # hill5 = Hillclimber(len_connections, station_objects, trimmed_solution5)
             # answer5 = hill5.run(1000)
