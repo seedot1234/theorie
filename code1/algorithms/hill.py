@@ -1,6 +1,5 @@
 """
 hill.py
-
 Uses the interative Hill Climbing algorithm 
 @author Heuristic Heroes (Sarah-Jane)
 @version 1
@@ -44,9 +43,6 @@ class Hillclimber(object):
         # select the route of which the first station must be deleted
         route = random.choice(potential_solution.lining)
 
-        if len(route.stations) == 2 and len(route.all_connections) != 1:
-            print("PROBLEMS when picking")
-
         return route
 
     def pick_random_action(self):
@@ -70,16 +66,16 @@ class Hillclimber(object):
         Deletes the first connection of a given route.
         Parameters: route.
         """
-        
         selected = route.all_connections[0]
 
         # als dit de laatste connectie in de route is, verwijder de hele route
         if len(route.all_connections) == 1:
             potential_solution.lining.remove(route)
 
+        # verwijder het eerste station en eerste connectie
         else:
             del route.stations[0]
-            route.delete_connection(selected)
+            route.delete_connection(selected, 0)
 
     def delete_last_connection(self, route, potential_solution):
         """
@@ -95,7 +91,7 @@ class Hillclimber(object):
 
         else:
             del route.stations[-1]
-            route.delete_connection(selected)
+            route.delete_connection(selected, -1)
 
     def add_connection_beginning(self, route, potential_solution):
         """
@@ -113,7 +109,7 @@ class Hillclimber(object):
         link = current_station.connections[new_station]           
 
         # finds the time for the new station 
-        time = link.time
+        time = current_station.connections[new_station].time
         
         ########################################
         ### HARDCODED. DIT NOG VERANDEREN!!! ###
@@ -136,16 +132,11 @@ class Hillclimber(object):
 
         current_station = route.stations[-1]
 
-        if random.choice(list(current_station.connections.keys())):
-            # picks a random new station out of all connections of the current station
-            new_station = random.choice(list(current_station.connections.keys()))
+        # picks a random new station out of all connections of the current station
+        new_station = random.choice(list(current_station.connections.keys()))
 
-            # finds the connection
-            link = current_station.connections[new_station]    
-        else:
-            new_station = random.choice(list(unused_connections))
-            link = new_station 
-
+        # finds the connection
+        link = current_station.connections[new_station]           
 
         # finds the time for the new station 
         time = current_station.connections[new_station].time
@@ -175,16 +166,6 @@ class Hillclimber(object):
         if new_k > old_k:
             self.state = potential_solution
             self.K = new_k
-
-            # if the action resulted into an empty route, delete this route from the lining
-            for route in potential_solution.lining:
-                if len(route.stations) == 0 or len(route.all_connections) == 0:
-                    print("problems after check")
-                    # for station in route.stations:
-                    #     print(station)
-                    # for connection in route.all_connections:
-                    #     print(connection)
-                    # potential_solution.lining.remove(route)
         
     def run(self, iterations):
         """

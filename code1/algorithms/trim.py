@@ -22,17 +22,28 @@ def trim(solution, connection_objects):
         for j in range(len(route.stations) - 3):
     
             if route.stations[j] == route.stations[j+2] and route.stations[j+1] == route.stations[j+3]:
-                station_1 = route.stations[j+3]
-                station_2 = route.stations[j+2]
 
-                # zoek de connectie die bij deze stations hoort
-                for connection in connection_objects:
-                    if (connection.station_a == station_1 and connection.station_b == station_2) or (connection.station_a == station_2 and connection.station_b == station_1):
-                        route.delete_connection(connection)
+                # find the corresponding connection of these two stations
+                selected_connection = route.all_connections[j+2]
 
-                # verwijder de stations uit de route
+
+                for station in route.stations:
+                    print(station)
+                for connection in route.all_connections:
+                    print(connection)
+
+                # delete this connection
+                route.delete_connection(selected_connection, j+2)
+
+                # delete the stations from the route
                 del route.stations[j+3]
                 del route.stations[j+2]
+                
+                for station in route.stations:
+                    print(station)
+                for connection in route.all_connections:
+                    print(connection)
+
                 return trim(solution, connection_objects)
     
     for route in solution.lining:
