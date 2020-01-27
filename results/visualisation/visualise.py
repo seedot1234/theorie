@@ -11,8 +11,8 @@ import json
 import csv
 import pandas as pd
 
-from bokeh.io import show, output_file, export_png
-from bokeh.models import HoverTool, ColumnDataSource, GMapOptions, GeoJSONDataSource
+from bokeh.io import show, output_file
+from bokeh.models import HoverTool, ColumnDataSource, GMapOptions
 from bokeh.plotting import figure, show, output_file, gmap
 
 from results.visualisation import style
@@ -69,19 +69,12 @@ def coordinates(coordinates_csv, solution):
         #         writer.writerow({'station': station})
 
         for i, j, k in zip(station_lon, station_lat, colors):
-            # show(p)
-            # export_png(p, filename="plot.png")
+            show(p)
             p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
             writer.writerow({'lon': i, 'lat': j, 'color': k})
 
-
-    # elke stap tekenen en opslaan  
-     
-  
     output_file("visualise.html")
 
-    # p.savefig("out.png")
-    # export_png(p, filename="plot.png")
     show(p)
 
     # write to csv for gif

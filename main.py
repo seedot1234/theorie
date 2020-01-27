@@ -56,22 +56,22 @@ load_data.add_station_connection(station_objects, connection_objects)
 len_connections = len(connection_objects)
 
 # get descriptives
-descriptive(len_connections, station_objects, connection_objects)
-boxplot()
-
-
+# descriptive(len_connections, station_objects, connection_objects)
+# boxplot()
  
 # creates list of station coordinates VISUALISE
 # solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
-# solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
+solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
 # solution2 = shortest(station_objects, connection_objects, 20, 180) 
 # solution3 = longest(station_objects, connection_objects, 20, 180)
 # solution4 = railhead(station_objects, connection_objects, 20, 180)
 # solution5 = unused(station_objects, connection_objects, 20, 180)
 
 # visualise
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
+coordinates_csv = os.path.join("data", "StationsNationaal.csv")
+coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
+
+########
 
 #     # trimmed_solution = trim(solution, connection_objects)
 

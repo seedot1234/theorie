@@ -79,8 +79,8 @@ def boxplot():
     fig, axes = plt.subplots(1, 1) # (row, col)
 
     # puts solution results in a list
-    data = [results.K0, results.KH0, results.K1, results.KH1, results.K2, results.KH2, results.K3, results.KH3, results.K4, results.KH4, results.K5] # , results.KH5
-    # data = [results.K0, results.KH0, results.K5]
+    data = [results.K0, results.KH0, results.K1, results.KH1, results.K2, results.KH2, results.K3, results.KH3, 
+        results.K4, results.KH4, results.K5] # , results.KH5
 
     # puts data in boxplot function
     axes.boxplot(data)
@@ -89,7 +89,8 @@ def boxplot():
     axes.set_title('Kwaliteit lijnvoering: Nederland')
 
     # sets boxplot labels to corresponding algorithm
-    axes.set_xticklabels(['Random', 'Random Hill', 'Lookahead', 'Lookahead Hill', 'Shortest', 'Shortest Hill', 'Longest', 'Longest Hill', 'Railhead', 'Railhead Hill', 'Unused'])
+    axes.set_xticklabels(['Random', 'Random Hill', 'Lookahead', 'Lookahead Hill', 'Shortest', 'Shortest Hill', 'Longest', 'Longest Hill', 
+        'Railhead', 'Railhead Hill', 'Unused'])
 
     # show or save the plot
     plt.show()
