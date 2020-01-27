@@ -13,8 +13,6 @@ from code.algorithms.unused import unused
 from code.algorithms.greedy_lookahead import greedy_lookahead
 from code.algorithms.hill import Hillclimber
 
-# nodig om avg etc te berekenen
-import numpy as np
 
 
 def descriptive(len_connections, station_objects, connection_objects):
