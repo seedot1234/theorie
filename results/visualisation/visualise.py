@@ -30,7 +30,7 @@ def coordinates(coordinates_csv, solution):
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
     # add circles for all stations
-    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source) #, legend_label="Stations")
+    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source, legend_label="Stations")
 
     # add hovertool for station name
     p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
@@ -58,10 +58,11 @@ def coordinates(coordinates_csv, solution):
     # list of colors for the lines
     colors = [
         "maroon", "deeppink", "olive", "red", "pink", "yellow", "orange", "lime", "green", "sienna", 
-        "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey", "beige"]
+        "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey", "beige"
+    ]
 
     for i, j, k in zip(station_lon, station_lat, colors):
-        show(p) # WEGHALEN IN EIND
+        # show(p) # WEGHALEN IN EIND
         p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
         writer.writerow({'lon': i, 'lat': j, 'color': k})
 

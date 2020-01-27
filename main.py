@@ -58,7 +58,6 @@ len_connections = len(connection_objects)
 # get descriptives
 # descriptive(len_connections, station_objects, connection_objects)
 # boxplot()
-<<<<<<< HEAD
  
 # creates list of station coordinates VISUALISE
 # solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
@@ -73,12 +72,6 @@ coordinates_csv = os.path.join("data", "StationsNationaal.csv")
 coordinates_objects = visualise.coordinates(coordinates_csv, solution1)
 
 ########
-=======
-
-
-
-solution = random_solution_p(station_objects, connection_objects, 20, 180)
->>>>>>> d88109a4db82b5438843667b5329aadad4ce3657
 
 trimmed_solution = trim(solution, connection_objects)
 

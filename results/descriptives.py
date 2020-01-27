@@ -59,12 +59,14 @@ def descriptive(len_connections, station_objects, connection_objects):
             # answer5 = hill5.run(1000)
 
             print(i)
-            writer.writerow({'K0': round(solution0.set_K(len_connections), 2)}) #, 'KH0': answer0, 
-                                # 'K1': round(solution1.set_K(len_connections), 2), 'KH1': answer1,
-                                # 'K2': round(solution2.set_K(len_connections), 2), 'KH2': answer2, 
-                                # 'K3': round(solution3.set_K(len_connections), 2), 'KH3': answer3, 
-                                # 'K4': round(solution4.set_K(len_connections), 2), 'KH4': answer4,
-                                # 'K5': round(solution5.set_K(len_connections), 2)}) #, 'KH5': answer5})
+            writer.writerow({
+                'K0': round(solution0.set_K(len_connections), 2)}) #, 'KH0': answer0, 
+                # 'K1': round(solution1.set_K(len_connections), 2), 'KH1': answer1,
+                # 'K2': round(solution2.set_K(len_connections), 2), 'KH2': answer2, 
+                # 'K3': round(solution3.set_K(len_connections), 2), 'KH3': answer3, 
+                # 'K4': round(solution4.set_K(len_connections), 2), 'KH4': answer4,
+                # 'K5': round(solution5.set_K(len_connections), 2)}) #, 'KH5': answer5
+            # })
 
 
 def boxplot():
@@ -77,8 +79,10 @@ def boxplot():
     fig, axes = plt.subplots(1, 1) # (row, col)
 
     # puts solution results in a list
-    data = [results.K0, results.KH0, results.K1, results.KH1, results.K2, results.KH2, results.K3, results.KH3, 
-        results.K4, results.KH4, results.K5] # , results.KH5
+    data = [
+        results.K0, results.KH0, results.K1, results.KH1, results.K2, results.KH2, 
+        results.K3, results.KH3, results.K4, results.KH4, results.K5
+    ] # , results.KH5
 
     # puts data in boxplot function
     axes.boxplot(data)
@@ -87,8 +91,10 @@ def boxplot():
     axes.set_title('Kwaliteit lijnvoering: Nederland')
 
     # sets boxplot labels to corresponding algorithm
-    axes.set_xticklabels(['Random', 'Random Hill', 'Lookahead', 'Lookahead Hill', 'Shortest', 'Shortest Hill', 'Longest', 'Longest Hill', 
-        'Railhead', 'Railhead Hill', 'Unused'])
+    axes.set_xticklabels([
+        'Random', 'Random Hill', 'Lookahead', 'Lookahead Hill', 'Shortest', 'Shortest Hill', 
+        'Longest', 'Longest Hill', 'Railhead', 'Railhead Hill', 'Unused'
+    ])
 
     # show or save the plot
     plt.show()
