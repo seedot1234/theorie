@@ -22,17 +22,19 @@ from random import randrange
 from code1.classes.solution import Solution
 from code1.algorithms.hill import Hillclimber
 from code1.algorithms.annealing import SimulatedAnnealing
-import random
-import csv, io, os
-import copy
 from results.bound import quality
 from interface.interface import UI
 
+import random
+import csv, io, os
+import copy
+import pandas as pd 
+import matplotlib.pyplot as plt
 
 
-print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
-interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
-interface.run()
+# print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
+# interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
+# interface.run()
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -87,7 +89,6 @@ simanneal.run(2000)
 print("K  after annealing...")
 print(simanneal.K)
 
-
 # load csv in dataframe
 results = pd.read_csv('annealing.csv')
 
@@ -95,7 +96,7 @@ results = pd.read_csv('annealing.csv')
 results.K.plot() 
 
 # sets labels and title
-plt.xlabel('Number of Iterations x 10')
+plt.xlabel('Aantal iteraties')
 plt.ylabel('Kwaliteitsscore (K)')
 
 # show plot

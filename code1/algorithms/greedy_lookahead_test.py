@@ -17,12 +17,12 @@ from random import randrange
 import random
 
 
-def greedy_lookahead_test(station_objects, connection_objects, route_maximum, time_maximum):
+def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_maximum):
 
     while True:
 
         visited_connections = []
-        p_per_connection = 1 / len(connection_objects)
+        p_per_connection = 1 / len_connections
         lining = []
         p = 0
 
@@ -136,6 +136,6 @@ def greedy_lookahead_test(station_objects, connection_objects, route_maximum, ti
                    visited_connections.append(link)
 
                 # calculates p
-                p = len(visited_connections) / len(connection_objects)
+                p = len(visited_connections) / len_connections
 
                 current_station = new_station
