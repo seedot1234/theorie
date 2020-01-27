@@ -4,7 +4,7 @@ route.py
 @author Heuristic Heroes
 @version
 """
-from code1.classes.connection import Connection
+from code.classes.connection import Connection
 
 class Route(object):
     """The Route object creates routes by chaining Connections together."""
@@ -57,14 +57,14 @@ class Route(object):
         self.total_time += time
 
 
-    def delete_connection(self, connection, index):
+    def delete_connection(self, link, index):
         """
         Deletes a given connection from the connection list.
         Parameters: link.
         """
 
         del self.all_connections[index]
-        self.total_time -= connection.time
+        self.total_time -= link.time
 
     def __str__(self):
         return f"train{self.number} ({self.total_time}): {self.stations}"

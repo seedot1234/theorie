@@ -1,15 +1,16 @@
 """
 hill.py
+
 Uses the interative Hill Climbing algorithm 
 @author Heuristic Heroes (Sarah-Jane)
 @version 1
 """
 import copy 
 import random
-from code1.classes.station import Station
-from code1.classes.connection import Connection
-from code1.classes.solution import Solution
-from code1.classes.route import Route
+from code.classes.station import Station
+from code.classes.connection import Connection
+from code.classes.solution import Solution
+from code.classes.route import Route
 import random
 from random import randrange
 
@@ -169,7 +170,7 @@ class Hillclimber(object):
         
     def run(self, iterations):
         """
-        Runs the hillclimber algorithm given an amout of iterations.
+        Runs the hillclimber algorithm given an amount of iterations.
         Parameters: iterations.
         Returns:    improved_solution.
         """

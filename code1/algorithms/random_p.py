@@ -17,7 +17,7 @@ from random import randrange
 from code1.classes.solution import Solution
 
 # makes new routes randomly until all connections have been used
-def random_solution_p(station_objects, connection_objects, route_maximum, time_maximum):
+def random_solution_p(station_objects, len_connections, route_maximum, time_maximum):
     
     # while true, reboots the attributes to find a new, valid solution
     while True:
@@ -26,7 +26,6 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
         total_time = 0
         lining = []  
         visited_connections = []
-        len_connections = len(connection_objects)
 
         # creates new routes until reached the max. number of routes 
         for route_nr in range(route_maximum):
@@ -44,7 +43,7 @@ def random_solution_p(station_objects, connection_objects, route_maximum, time_m
             while True:
                                 
                 # p equals or is larger than 0.8, return the lining and thus end the algorithm
-                if p >= 0.8:
+                if p >= 0.9:
                     solution = Solution(lining, p)
                     return solution
 

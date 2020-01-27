@@ -19,7 +19,7 @@ from code.classes.solution import Solution
 # makes new routes randomly until all connections have been used
 def random_solution_k(station_objects, len_connections, route_maximum, time_maximum):
     
-    # while true, reboots the attributes until it finds a valid solution
+    # while true, reboots the attributes to find a new, valid solution
     while True:
     
         K = 0
@@ -77,4 +77,6 @@ def random_solution_k(station_objects, len_connections, route_maximum, time_maxi
                 K = solution.set_K(len_connections)
                                                                       
                 # sets the new station as the current station
-                current_station = new_station
+                current_station = new_station  
+                
+                
