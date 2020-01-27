@@ -174,7 +174,10 @@ class Hillclimber(object):
         Parameters: iterations.
         Returns:    improved_solution.
         """
-        for iteration in range(iterations):
+
+        self.iterations = iterations
+
+        for iteration in range(self.iterations):
             # Create a copy of the graph to simulate the change
             potential_solution = copy.deepcopy(self.state)
 

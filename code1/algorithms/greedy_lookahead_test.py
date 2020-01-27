@@ -10,19 +10,33 @@ the K score for all options.
 @version
 """
 
+<<<<<<< HEAD
 from code.classes.station import Station
 from code.classes.route import Route
 from code.classes.solution import Solution
+=======
+from code1.classes.station import Station
+from code1.classes.route import Route
+from code1.classes.solution import Solution
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
 from random import randrange
 import random
 
 
+<<<<<<< HEAD
 def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_maximum):
+=======
+def greedy_lookahead_test(station_objects, connection_objects, route_maximum, time_maximum):
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
 
     while True:
 
         visited_connections = []
+<<<<<<< HEAD
         p_per_connection = 1 / len_connections
+=======
+        p_per_connection = 1 / len(connection_objects)
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
         lining = []
         p = 0
 
@@ -49,7 +63,11 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
             while True:
             
                 # p equals or is larger than x, return the lining and thus end the algorithm
+<<<<<<< HEAD
                 if p >= 0.9:
+=======
+                if p >= 1:
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
                     solution = Solution(lining, p)
                     return solution
 
@@ -136,6 +154,11 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
                    visited_connections.append(link)
 
                 # calculates p
+<<<<<<< HEAD
                 p = len(visited_connections) / len_connections
                 
+=======
+                p = len(visited_connections) / len(connection_objects)
+
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
                 current_station = new_station

@@ -11,14 +11,24 @@ out of all connections
 @version
 
 """
+<<<<<<< HEAD
 from code.classes.station import Station
 from code.classes.route import Route
 from code.classes.solution import Solution
+=======
+from code1.classes.station import Station
+from code1.classes.route import Route
+from code1.classes.solution import Solution
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
 from random import randrange
 import random  
 
 # makes new routes randomly until all connections have been used
+<<<<<<< HEAD
 def unused(station_objects, len_connections, route_maximum, time_maximum):
+=======
+def unused(station_objects, connection_objects, route_maximum, time_maximum):
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
     while True:
 
         visited_connections = []
@@ -44,7 +54,11 @@ def unused(station_objects, len_connections, route_maximum, time_maximum):
             while True:
                 
                 # p equals or is larger than 0.8, return the lining and thus end the algorithm
+<<<<<<< HEAD
                 if p >= 0.9:
+=======
+                if p >= 0.8:
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
                     solution = Solution(lining, p)
                     return solution
 
@@ -83,7 +97,11 @@ def unused(station_objects, len_connections, route_maximum, time_maximum):
                     visited_connections.append(link)    
 
                 # calculates p
+<<<<<<< HEAD
                 p = len(visited_connections) / len_connections
+=======
+                p = len(visited_connections) / len(connection_objects)
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
                 
                 # set this new station as the current station
                 current_station = new_station

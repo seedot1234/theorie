@@ -10,14 +10,24 @@ pick a connection randomly.
 @version
 
 """
+<<<<<<< HEAD
 from code.classes.station import Station
 from code.classes.route import Route
 from code.classes.solution import Solution
+=======
+from code1.classes.station import Station
+from code1.classes.route import Route
+from code1.classes.solution import Solution
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
 from random import randrange
 import random  
 
 # makes new routes randomly until all connections have been used
+<<<<<<< HEAD
 def shortest(station_objects, len_connections, route_maximum, time_maximum):
+=======
+def shortest(station_objects, connection_objects, route_maximum, time_maximum):
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
     while True:
 
         visited_connections = []
@@ -41,8 +51,13 @@ def shortest(station_objects, len_connections, route_maximum, time_maximum):
             while True:
                 
                 # when all connections have been used, end the algorithm
+<<<<<<< HEAD
                 if len_connections == len(visited_connections):
                     solution = Solution(lining, 0.9)
+=======
+                if len(connection_objects) == len(visited_connections):
+                    solution = Solution(lining, 1)
+>>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
                     return solution
 
                 # make a list of all unused connections of this station
