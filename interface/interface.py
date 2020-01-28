@@ -7,7 +7,7 @@ Calls all functions in the repository 'theorie'
 """
 
 from code.classes import connection, route, station, load_data
-from results.visualisation import visualise
+from code.visualisation import visualise
 from code.classes.route import Route
 from code.algorithms.random import random_solution
 from code.algorithms.greedy_lookahead import greedy_lookahead
@@ -22,7 +22,7 @@ import random
 import csv, io, os
 from os import system, name
 import copy
-from results.descriptives import descriptive, boxplot, histogram
+from code.visualisation.descriptives import descriptive, boxplot, histogram
 
 
 class UI(object):
@@ -48,10 +48,6 @@ class UI(object):
         # adds connections to stations
         connections_list = []
         load_data.add_station_connection(self.station_objects, self.connection_objects)
-
-        # set railhead stations
-        for station in self.station_objects:
-            station.set_rail_head()
 
     def ask_algorithm(self):
         """
