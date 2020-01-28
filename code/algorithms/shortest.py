@@ -84,7 +84,7 @@ def shortest(station_objects, len_connections, route_maximum, time_maximum, requ
                     break
 
                 # add the new connection to the route
-                route.add_connection2(link, time)
+                route.add_connection(link, time)
 
                 # add the station to the route
                 route.add_station(new_station)

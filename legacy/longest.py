@@ -83,7 +83,7 @@ def longest(station_objects, connection_objects, route_maximum, time_maximum):
                     break
                 
                 # add a new station to the route
-                route.add_connection2(link, time)
+                route.add_connection(link, time)
 
                 # adds the station to the route
                 route.add_station(new_station)

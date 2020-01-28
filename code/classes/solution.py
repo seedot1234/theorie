@@ -1,17 +1,16 @@
 """
 solution.py
 
+Calculates the K, P and MIN for the lining.
+
 @author Heuristic Heroes
-@version 1 
+@version 28-1-2020
 """
-# from .connection import Connection
 
 class Solution(object):
-    """The Solution object (..) """
+    """The Solution class calculates the K, P and MIN for the given lining """
 
     def __init__(self, lining, p):
-                
-        # makes the solution properties
         self.lining = lining
         self.K = 0
         self.p = 0
@@ -21,23 +20,32 @@ class Solution(object):
             self.min += route.total_time
         
     def set_K(self, len_connections):
-       
+        """
+        Calculates K, the quality score
+        """
+
         self.set_p(len_connections)
 
         self.set_min()
 
         max_quality_score = 10000 
 
+        # given formula to calculate K
         self.K = round(((self.p * max_quality_score) - (len(self.lining) * 100 + self.min)))
+
         return self.K
 
-
     def set_p(self, len_connections):
+        """ 
+        Recalculates p if the route is changed.
+        """
+
         visited_connections = []
-        # loops over every route in the lining 
+        
         for route in self.lining: 
             for connection in route.all_connections: 
-                # checks what connections have been visited               
+
+                # check what connections have been visited               
                 if connection not in visited_connections:
                     visited_connections.append(connection)
 
@@ -47,6 +55,9 @@ class Solution(object):
         return self.p
   
     def set_min(self):
+        """
+        Calculates min: total time of lining.
+        """
 
         self.min = 0
         for route in self.lining:

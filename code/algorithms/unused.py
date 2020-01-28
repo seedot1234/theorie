@@ -74,7 +74,7 @@ def unused(station_objects, len_connections, route_maximum, time_maximum, reques
                     break
                 
                 # add a new connection to the route
-                route.add_connection2(link, time)
+                route.add_connection(link, time)
 
                 # add new station to the route
                 route.add_station(new_station)

@@ -49,7 +49,7 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
             while True:
             
                 # p equals or is larger than x, return the lining and thus end the algorithm
-                if p >= 1:
+                if p >= 0.9:
                     solution = Solution(lining, p)
                     return solution
 
@@ -126,7 +126,7 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
                     break
                 
                 # adds the new connection to the route 
-                route.add_connection2(link, time)
+                route.add_connection(link, time)
 
                 # adds the station to the route
                 route.add_station(new_station)
@@ -137,5 +137,6 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
 
                 # calculates p
                 p = len(visited_connections) / len_connections
+                
 
                 current_station = new_station
