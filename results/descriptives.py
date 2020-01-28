@@ -1,23 +1,28 @@
+"""
+descriptives.py
+Creates descriptive graphs such as boxplots, histograms and linecharts.
+"""
+
 import csv
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
-# from code1.algorithms.random_p import random_solution_p
-from code1.algorithms.random_k import random_solution_k
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-from code1.algorithms.trim import trim
-from code1.algorithms.railhead import railhead
-from code1.algorithms.shortest import shortest
-from code1.algorithms.longest import longest
-from code1.algorithms.unused import unused
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-from code1.algorithms.hill import Hillclimber
-
+import pandas as pd
+from code.algorithms.annealing import SimulatedAnnealing
+from code.algorithms.greedy_lookahead import greedy_lookahead
+from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
+from code.algorithms.hill import Hillclimber
+from code.algorithms.longest import longest
+from code.algorithms.railhead import railhead
+from code.algorithms.random_p import random_solution_p
+from code.algorithms.shortest import shortest
+from code.algorithms.trim import trim
+from code.algorithms.unused import unused
 
 
 def descriptive(len_connections, station_objects, algorithm, iterations, requested_p):
-    
+    """
+
+    """
     # write to results.csv
     with open('results.csv', 'w', newline='') as csv_file:
         
@@ -93,11 +98,8 @@ def histogram(problem, algorithm):
     plt.ylabel('Frequentie')
     plt.title(f'Kwaliteit lijnvoering: {problem} - {str(algorithm)}')
 
+    # print('max: ', max(results.K1))
+    # print('min: ', min(results.K1))
+    
     # show plot
     plt.show()
-    # plt.savefig("out.png")
-
-# print('max: ', max(results.K))
-# print('min: ', min(results.K))
-# print('avg: ', np.mean(results.K))
-# gemiddelde k, gemiddelde min, gemiddelde p, gemiddelde,t 

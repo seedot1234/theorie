@@ -170,11 +170,14 @@ class Hillclimber(object):
         
     def run(self, iterations):
         """
-        Runs the hillclimber algorithm given an amout of iterations.
+        Runs the hillclimber algorithm given an amount of iterations.
         Parameters: iterations.
         Returns:    improved_solution.
         """
-        for iteration in range(iterations):
+
+        self.iterations = iterations 
+        
+        for iteration in range(self.iterations):
             # Create a copy of the graph to simulate the change
             potential_solution = copy.deepcopy(self.state)
 

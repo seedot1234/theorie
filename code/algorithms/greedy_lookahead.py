@@ -10,40 +10,37 @@ the K score for all options.
 @version
 """
 
-from code1.classes.station import Station
-from code1.classes.route import Route
-from code1.classes.solution import Solution
+from code.classes.station import Station
+from code.classes.route import Route
+from code.classes.solution import Solution
 from random import randrange
 import random
 
 
-def greedy_lookahead(station_objects, connection_objects, route_maximum, time_maximum):
+def greedy_lookahead(station_objects, len_connections, route_maximum, time_maximum, requested_p):
 
     while True:
 
         visited_connections = []
-        p_per_connection = 1 / len(connection_objects)
+        p_per_connection = 1 / len_connections
         lining = []
         p = 0
 
         # make 'route_maximum' routes at max
-        for route_nr in range(route_maximum):
+        for total_routes in range(route_maximum):
 
             status = False
             while status == False:
 
-                # kies een beginstation
+                # kies een beginstation dat nog ongebruikte connecties heeft
                 current_station = station_objects[randrange(len(station_objects))]
-
-                # loop over connecties van dit station
-                for station in current_station.connections:
-                    for item in connection_objects:
-                        if (item.station_a == current_station and item.station_b == station) or (item.station_a == station and item.station_b == current_station):
-                            if item not in visited_connections:
-                                status = True
             
+                for connection in current_station.connections:
+                    if current_station.connections[connection] not in visited_connections:
+                        status = True
+
             # starts new route
-            route = Route(route_nr, current_station)
+            route = Route(total_routes, current_station)
 
             # add route to lining
             lining.append(route)
@@ -51,54 +48,33 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
             # keeps on adding stations until maximum time has been reached 
             while True:
             
-                # p equals or is larger than 0.8, return the lining and thus end the algorithm
-                if p >= 1:
+                # p equals or is larger than x, return the lining and thus end the algorithm
+                if p >= requested_p:
                     solution = Solution(lining, p)
                     return solution
-                
-                # # when all connections are used, return the lining and thus end the algorithm
-                # if len(connection_objects) == len(visited_connections):
-                #     solution = Solution(lining, 1)
-                #     return solution
+
             
                 options = {}
 
+                # loop over all possibilities for this station
                 for connection in current_station.connections:
 
+                    # for each of these options, find all their children
                     for child_connection in connection.connections:
+                        
+                        option = [current_station]
+                        option.append(connection)
+                        option.append(child_connection)
 
-                        for child2_connection in child_connection.connections:
+                        # find the connection that was added
+                        future_connections = []
 
-                            option = [current_station]
-                            option.append(connection)
-                            option.append(child_connection)
-                            option.append(child2_connection)
+                        link1 = current_station.connections[connection]
+                        link2 = connection.connections[child_connection]
+                        future_connections.append(link1)
+                        future_connections.append(link2)
 
-                            # find the connection that was added
-                            future_connections = []
-
-                            for item in connection_objects:
-                                if (item.station_a == current_station and item.station_b == connection) or (item.station_a == connection and item.station_b == current_station):
-                                    
-                                    # add this connection to the future connections
-                                    future_connections.append(item)
-
-                            # find the connection that was added
-                            for item in connection_objects:
-                                if (item.station_a == connection and item.station_b == child_connection) or (item.station_a == child_connection and item.station_b == connection):
-                                   
-                                    # add this connection to the future connections
-                                    future_connections.append(item)
-
-                            # find the connection that was added
-                            for item in connection_objects:
-                                if (item.station_a == child_connection and item.station_b == child2_connection) or (item.station_a == child2_connection and item.station_b == child_connection):
-                                   
-                                    # add this connection to the future connections
-                                    future_connections.append(item)
-
-
-                            options[tuple(option)] = tuple(future_connections)
+                        options[tuple(option)] = tuple(future_connections)
 
                 possible_k = {}
                 
@@ -160,6 +136,6 @@ def greedy_lookahead(station_objects, connection_objects, route_maximum, time_ma
                    visited_connections.append(link)
 
                 # calculates p
-                p = len(visited_connections) / len(connection_objects)
+                p = len(visited_connections) / len_connections
 
                 current_station = new_station
