@@ -30,24 +30,24 @@ from random import randrange
 from interface.interface import UI
 
 
-def clear():
-    """Clears the console screen"""
+# def clear():
+#     """Clears the console screen"""
 
-    if name == 'nt':
-        _ = system('cls')
+#     if name == 'nt':
+#         _ = system('cls')
 
-    else:
-        _ = system('clear')
+#     else:
+#         _ = system('clear')
 
 
-clear()
+# clear()
 
-print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
-# VRAAG NAAR WELKE MAP ZE WILLEN GEBRUIKEN
-interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
-interface.run()
+# print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
+# # VRAAG NAAR WELKE MAP ZE WILLEN GEBRUIKEN
+# interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
+# interface.run()
 
-exit()
+# exit()
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -108,29 +108,51 @@ boxplot()
 # answer = hill.run(1000)
 # print(answer.K - solution.set_K(len_connections))
 
-# exit()
+# # exit()
+# def ask_problem_set():
+#     choice = input("Choose what problem set you want to use\nFor options type HELP\n")
+#     choice_options = ['1', '2', 'HELP']
 
+#     while choice.upper() not in choice_options:
+#         print("That was not a valid command.")
+#         choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
+    
+#     if choice.upper() == 'HELP':
+#         clear()
+#         print("1 = Holland\n2 = Nederland\n")
+#         return ask_problem_set()
+    
+#     elif choice == '1':
+#         problem_set = 'Holland'
 
-# print("Running Simulated Annealing...")
-# simanneal.run(2000)
+#     elif choice == '2':
+#         problem_set = 'Nederland'
 
+#     else:
+#         print("That was not a valid command.")
+#         choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
 
-# print("K  after annealing...")
-# print(simanneal.K)
+#     return problem_set
 
+# if __name__ == "__main__":
 
-# # load csv in dataframe
-# results = pd.read_csv('annealing.csv')
+#     clear()
 
-solution = unused(station_objects, connection_objects, 20, 180)
+#     print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.\n")
 
-# trimmed_solution = trim(solution, connection_objects)
+#     # ask what problem set the user want to use
+#     problem_set = ask_problem_set()
 
-for i in range (250):
-# calls upon the hill climbing algorithm 
-    solution = unused(station_objects, connection_objects, 20, 180)
-    hill = Hillclimber(len_connections, station_objects, solution)
-    answer = hill.run(1000)
-    print(answer.K - solution.set_K(len_connections))
+#     # create the corresponding datastructure
+#     if problem_set == 'Holland':
+#         interface = UI(os.path.join("data", "StationsHolland.csv"), os.path.join("data", "ConnectiesHolland.csv"), max_routes=7, max_minutes=120)
 
-# solution = unused(station_objects, connection_objects, 20, 180)
+#     elif problem_set == 'Nederland':
+#         interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"), max_routes=20, max_minutes=180)
+
+#     # if we get here, something went wrong
+#     else:
+#         exit()
+
+#     # run the UI
+#     interface.run()

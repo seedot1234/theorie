@@ -20,7 +20,7 @@ class Hillclimber(object):
     hillclimber algorithm on a valid solution.
     """
   
-    def __init__ (self, len_connections, station_objects, solution):
+    def __init__ (self, len_connections, station_objects, solution, max_minutes):
         """
         The constructor of the Hillclimber class.
         Parameters: len_connections, station_objects, solution
@@ -33,6 +33,7 @@ class Hillclimber(object):
         self.lining = []
         self.len_connections = len_connections
         self.station_objects = station_objects
+        self.max_minutes = max_minutes
 
     def pick_random_route(self, potential_solution):
         """
@@ -116,7 +117,7 @@ class Hillclimber(object):
         ### HARDCODED. DIT NOG VERANDEREN!!! ###
         ########################################
         # only accept the change if it wouldn't exceed the maximum time
-        if time + route.total_time <= 180:
+        if time + route.total_time <= self.max_minutes:
             
             # insert the connection to the front of the connection list
             route.insert_connection(link, time, 0)
@@ -146,7 +147,7 @@ class Hillclimber(object):
         ### HARDCODED. DIT NOG VERANDEREN!!! ###
         ############################################
         # only accept the change if it wouldn't exceed the maximum time
-        if time + route.total_time <= 180:
+        if time + route.total_time <= self.max_minutes:
             
             # insert the connection to the front of the connection list
             route.insert_connection(link, time, -1)

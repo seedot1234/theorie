@@ -13,7 +13,7 @@ from code.classes.connection import Connection
 from code.classes.solution import Solution
 from code.classes.route import Route
 
-def trim(solution, connection_objects):
+def trim(solution):
 
     for i in range (len(solution.lining)):
 
@@ -34,11 +34,11 @@ def trim(solution, connection_objects):
                 del route.stations[j+3]
                 del route.stations[j+2]
 
-                return trim(solution, connection_objects)
+                return trim(solution)
     
     for route in solution.lining:
         if route.total_time == 0:
             solution.lining.remove(route)
-            return trim(solution, connection_objects)
+            return trim(solution)
 
     return solution
