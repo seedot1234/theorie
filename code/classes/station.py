@@ -1,35 +1,41 @@
 """
 station.py
 
+Create station objects
+
 @author Heuristic Heroes
-@version
+@version 28-1-2020
 """
-# from .connection import Connection
 
 class Station(object):
-    """The Station class creates stations based on the railmap csv."""
+    """
+    The Station class creates station objects. Saves additional information such as its coordinates.
+    """
 
     def __init__(self, name, lat, lon):
-        """
-        Constructor of the Station class.
-        """
-
-        # station properties
+        
         self.name = name
-        self.lat = lat # 52
-        self.lon = lon # 4
+
+        # latitude
+        self.lat = lat 
+        #longitude
+        self.lon = lon 
+
         self.connections = {}
         self.rail_head = False
 
     def add_connection(self, destination, connection):
-        """ Dictionary with connections """
+        """ 
+        Dictionary with connections where the given destination is the key and the given connection is the value. 
+        """
 
         self.connections[destination] = connection 
 
     def set_rail_head(self):
+        """
+        If a station only has 1 connection, set rail_head boolean to True.
+        """
 
-        # of dit moet een functie zijn die True returnt als het een railhead is?
-        # misschien is dat handiger in gebruik
         if len(self.connections) == 1:
             self.rail_head = True
 
