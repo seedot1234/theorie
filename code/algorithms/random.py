@@ -4,16 +4,15 @@ random.py
 Completely random, stops when a requested p has been reached.
 
 @author Heuristic Heroes
-@version
-
-random algorithm
+@version 28-1-2020
 """
 import random
 
 from code.classes.station import Station
 from code.classes.route import Route
-from random import randrange
 from code.classes.solution import Solution
+from random import randrange
+
 
 # makes new routes randomly until all connections have been used
 def random_solution(station_objects, len_connections, route_maximum, time_maximum, requested_p):
@@ -26,7 +25,7 @@ def random_solution(station_objects, len_connections, route_maximum, time_maximu
         lining = []  
         visited_connections = []
 
-        # creates new routes until reached the max. number of routes 
+        # creates new routes until reached the max. number of routes
         for route_nr in range(route_maximum):
 
             # sets starting station using random
@@ -50,7 +49,7 @@ def random_solution(station_objects, len_connections, route_maximum, time_maximu
                 new_station = random.choice(list(current_station.connections.keys()))
 
                 # finds the connection
-                link = current_station.connections[new_station]           
+                link = current_station.connections[new_station]
                 
                 # finds the time for the new station 
                 time = link.time
@@ -61,12 +60,12 @@ def random_solution(station_objects, len_connections, route_maximum, time_maximu
                     break
                              
                 # adds the new connection to the route 
-                route.add_connection2(link, time)
+                route.add_connection(link, time)
 
                 # adds the station to the route
                 route.add_station(new_station)
 
-                # calculates what connections have been visited by the routes              
+                # calculates what connections have been visited by the routes
                 if link not in visited_connections:
                    visited_connections.append(link)
 
@@ -75,22 +74,3 @@ def random_solution(station_objects, len_connections, route_maximum, time_maximu
                                                                       
                 # sets the new station as the current station
                 current_station = new_station
-
-# alle_trajecten = []
-# for i in range(max_trajecten):
-#     traject = []
-#     current_station = station_objects[randrange(len(station_objects))]
-            
-#     # makes new route by passing the route number and current station
-#     route = Route(route_nr, current_station)
-
-#     # adds route to lining
-#     traject.append(route)
-#     p = 0
-#     while p < 0.9:
-#         # voeg verbindingen toe
-#         pass
-
-#     # voeg aan trajectenb toe
-#     alle_trajecten.append(traject)
-        

@@ -9,13 +9,12 @@ the K score for all options.
 @author Heuristic Heroes
 @version
 """
+import random
 
 from code.classes.station import Station
 from code.classes.route import Route
 from code.classes.solution import Solution
 from random import randrange
-import random
-
 
 def greedy_lookahead(station_objects, len_connections, route_maximum, time_maximum, requested_p):
 

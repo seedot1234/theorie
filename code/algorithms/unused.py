@@ -11,11 +11,12 @@ out of all connections
 @version
 
 """
+import random  
+
 from code.classes.station import Station
 from code.classes.route import Route
 from code.classes.solution import Solution
 from random import randrange
-import random  
 
 # makes new routes randomly until all connections have been used
 def unused(station_objects, len_connections, route_maximum, time_maximum, requested_p):

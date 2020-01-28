@@ -2,9 +2,7 @@
 visualise.py
 
 @author Heuristic Heroes
-@version
-
-visualise algorithm
+@version 28-01-2020
 """
 
 import json
@@ -13,9 +11,9 @@ import pandas as pd
 
 from bokeh.io import show, output_file
 from bokeh.models import HoverTool, ColumnDataSource, GMapOptions
-from bokeh.plotting import figure, show, output_file, gmap
-
+from bokeh.plotting import gmap
 from code.visualisation import style
+
 
 def coordinates(coordinates_csv, solution):
 
@@ -30,28 +28,23 @@ def coordinates(coordinates_csv, solution):
     p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
 
     # add circles for all stations
-    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source) #, legend_label="Stations")
+    p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source, legend_label="Stations")
 
     # add hovertool for station name
     p.add_tools(HoverTool(tooltips=[('Station', '@Station')]))
 
-    # create two empty lists to store the smaller lists of coordinates in
-    station_lat = [] #A
-    station_lon = [] #A 
+    station_lat = [] 
+    station_lon = [] 
 
-    # for every route in the solution
     for line in solution.lining: 
-        # create new lists with the latitudes and longitudes for the routes
-        route_lat = [] #B
+
+        route_lat = [] 
         route_lon = []
 
-        # for every station in the route
         for station in line.stations: 
-            # put all lat and lons from route station in list.
             route_lat.append(float(station.lat)) 
             route_lon.append(float(station.lon))
             
-        # put the smaller coordinates lists for every route in the big list 
         station_lat.append(route_lat)
         station_lon.append(route_lon)
 
@@ -61,8 +54,8 @@ def coordinates(coordinates_csv, solution):
         "cyan", "teal", "navy", "blue", "purple", "lavender", "magenta", "black", "dimgrey", "beige"
     ]
 
+    # draw solution lines
     for i, j, k in zip(station_lon, station_lat, colors):
-        show(p) # WEGHALEN IN EIND
         p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
 
     output_file("visualise.html")

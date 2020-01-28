@@ -1,27 +1,22 @@
 """
-
 interface.py
-Calls all functions in the repository 'theorie'
-27/01/2020
+Creates a user-interface to run the whole program.
+
+@author Heuristic Heroes
+@version 28/01/2020
 
 """
 
-from code.classes import connection, route, station, load_data
+from code.classes import load_data
 from code.visualisation import visualise
-from code.classes.route import Route
 from code.algorithms.random import random_solution
 from code.algorithms.greedy_lookahead import greedy_lookahead
 from code.algorithms.trim import trim
 from code.algorithms.shortest import shortest
 from code.algorithms.unused import unused
-from random import randrange
-from code.classes.solution import Solution
-from code.algorithms.hill import Hillclimber
+from code.algorithms.hillclimber import Hillclimber
 from code.algorithms.annealing import SimulatedAnnealing
-import random
-import csv, io, os
 from os import system, name
-import copy
 from code.visualisation.descriptives import descriptive, boxplot, histogram
 
 
@@ -55,21 +50,16 @@ class UI(object):
         """
 
         # ask user what algorithm they want to use
-        choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
-        choice_options = ['1', '2', '3', '4', 'HELP']
+        choice = input("Choose what algorithm you want to use.\n1 = Random\n2 = Shortest\n3 = Unused\n4 = Greedy Lookahead\n")
+        choice_options = ['1', '2', '3', '4']
 
         # ensure proper usage
         while choice.upper() not in choice_options:
             print("That was not a valid command.")
-            choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
-        
-        # help user when needed
-        if choice.upper() == 'HELP':
-            print("1 = random\n2 = shortest\n3 = unused\n4 = greedy lookahead")
-            return self.ask_algorithm()
+            choice = input("Choose what algorithm you want to use.\n1 = Random\n2 = Shortest\n3 = Unused\n4 = Greedy Lookahead\n")
         
         # define the requested algorithm
-        elif choice == '1':
+        if choice == '1':
             algorithm = random_solution
 
         elif choice == '2':
@@ -92,7 +82,7 @@ class UI(object):
         # ask user for input, ensure proper usage
         while True:
             try:
-                p = float(input("What p-level do you want?\n"))
+                p = float(input("What p-level do you want? It must be a float\n"))
                 break
             except ValueError:
                 print("It must be a float")
@@ -227,7 +217,7 @@ class UI(object):
         """
 
         # run algorithm multiple times and write its results to a csv
-        statistics = descriptive(len(self.connection_objects), self.station_objects, algorithm, iterations, requested_p, self.max_routes, self.max_minutes)
+        statistics = descriptive(len(self.connection_objects), self.station_objects, algorithm, iterations, requested_p, self.max_minutes, self.max_routes)
 
         # when requested, create a boxplot
         if boxplot_option == True:
@@ -263,18 +253,13 @@ class UI(object):
         """
 
         # prompt user for iterative algorithm choice
-        algorithm_choice = input("What iterative algorithm do you want to perform on the solution?\nFor options type HELP\n")
+        algorithm_choice = input("What iterative algorithm do you want to perform on the solution?\n1 = Hillclimbing\n2 = Simulated Annealing\n")
        
         # ensure proper usage
-        possible_inputs = ['1', '2', 'HELP']
+        possible_inputs = ['1', '2']
         while algorithm_choice not in possible_inputs:
             return self.perform_iterative_algorithm(solution)
     
-        # aid user when requested
-        if algorithm_choice.upper() == 'HELP':
-            print("1 = hill\n2 = simulated annealing")
-            return self.perform_iterative_algorithm(solution)
-
         # prompt for amount of iterations and ensure proper usage
         while True:
             try:

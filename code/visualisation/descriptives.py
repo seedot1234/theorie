@@ -1,25 +1,21 @@
 """
 descriptives.py
+
 Creates descriptive graphs such as boxplots, histograms and linecharts.
+
+@author Heuristic Heroes
+@version 28-1-2020
 """
 
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from code.algorithms.annealing import SimulatedAnnealing
-from code.algorithms.greedy_lookahead import greedy_lookahead
-from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
-from code.algorithms.hill import Hillclimber
-from code.algorithms.random_p import random_solution_p
-from code.algorithms.shortest import shortest
-from code.algorithms.trim import trim
-from code.algorithms.unused import unused
 
 
-def descriptive(len_connections, station_objects, algorithm, iterations, requested_p):
+def descriptive(len_connections, station_objects, algorithm, iterations, requested_p, max_minutes, max_routes):
     """
-
+    Generates a solution given a specified algorithm and p-value. Writes the results to a csv file.
     """
     # write to results.csv
     with open('results.csv', 'w', newline='') as csv_file:
@@ -33,7 +29,7 @@ def descriptive(len_connections, station_objects, algorithm, iterations, request
         writer.writeheader()
 
         for i in range (iterations):
-            solution = algorithm(station_objects, len_connections, 20, 180, requested_p)     
+            solution = algorithm(station_objects, len_connections, max_routes, max_minutes, requested_p)     
 
             writer.writerow(
                 {
@@ -55,9 +51,8 @@ def descriptive(len_connections, station_objects, algorithm, iterations, request
 
     return statistics
 
-
-def boxplot(problem, algorithm):
-    """ Creates boxplots of all algorithms """
+def boxplot(algorithm):
+    """ Creates boxplots of algorithm """
 
     # load csv in dataframe
     results = pd.read_csv('results.csv')
@@ -72,7 +67,7 @@ def boxplot(problem, algorithm):
     axes.boxplot(data)
 
     # sets plot title
-    axes.set_title(f'Kwaliteit lijnvoering: {problem}')
+    axes.set_title(f'Kwaliteit lijnvoering')
 
     # sets boxplot labels to corresponding algorithm
     axes.set_xticklabels([f'{str(algorithm)}'])
@@ -80,9 +75,7 @@ def boxplot(problem, algorithm):
     # show or save the plot
     plt.show()
 
-
-
-def histogram(problem, algorithm):
+def histogram(algorithm):
     """ Creates a histogram of algorithm """
 
     # load csv in dataframe
@@ -94,7 +87,7 @@ def histogram(problem, algorithm):
     # sets labels and title
     plt.xlabel('Kwaliteit')
     plt.ylabel('Frequentie')
-    plt.title(f'Kwaliteit lijnvoering: {problem} - {str(algorithm)}')
+    plt.title(f'Kwaliteit lijnvoering: {str(algorithm)}')
 
     # print('max: ', max(results.K1))
     # print('min: ', min(results.K1))

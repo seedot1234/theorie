@@ -21,7 +21,8 @@ De code kan worden gerund door het volgende aan te roepen:
 ```
 python main.py
 ```
-Vervolgens krijgt u instructies te zien die u verder door het programma helpen. 
+Vervolgens wordt er een user interface gestart.
+
 
 ### Structuur
 De onderstaande lijst beschrijft de belangrijkste mappen en files in het proejct, en waar u ze kan vinden:
