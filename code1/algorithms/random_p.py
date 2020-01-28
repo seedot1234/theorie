@@ -76,3 +76,22 @@ def random_solution_p(station_objects, len_connections, route_maximum, time_maxi
                                                                       
                 # sets the new station as the current station
                 current_station = new_station
+
+# alle_trajecten = []
+# for i in range(max_trajecten):
+#     traject = []
+#     current_station = station_objects[randrange(len(station_objects))]
+            
+#     # makes new route by passing the route number and current station
+#     route = Route(route_nr, current_station)
+
+#     # adds route to lining
+#     traject.append(route)
+#     p = 0
+#     while p < 0.9:
+#         # voeg verbindingen toe
+#         pass
+
+#     # voeg aan trajectenb toe
+#     alle_trajecten.append(traject)
+        

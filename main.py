@@ -1,13 +1,16 @@
 """
 main.py
-Calls all functions in the repository 'theorie'
-10/1/20
+Main file
+Calls functions in the repository 'theorie'
+28/1/2020
 
 """
+import random
+import csv, io, os
+import copy
+import pandas as pd 
+import matplotlib.pyplot as plt
 
-from code1.classes import connection, route, station, load_data
-from results.visualisation import visualise
-from code1.classes.route import Route
 from code1.algorithms.random import random_solution
 from code1.algorithms.random_p import random_solution_p
 from code1.algorithms.random_k import random_solution_k
@@ -18,20 +21,17 @@ from code1.algorithms.railhead import railhead
 from code1.algorithms.shortest import shortest
 from code1.algorithms.longest import longest
 from code1.algorithms.unused import unused
-from random import randrange
-from code1.classes.solution import Solution
+from code1.classes import connection, route, station, load_data
+from code1.classes.route import Route
 from code1.algorithms.hill import Hillclimber
 from code1.algorithms.annealing import SimulatedAnnealing
+from code1.classes.solution import Solution
+from results.visualisation import visualise
 from results.bound import quality
-from results.descriptives import boxplot, histogram, linechart
-from results.descriptives import descriptive
-from interface.interface import UI
+from results.descriptives import * 
 
-import random
-import csv, io, os
-import copy
-import pandas as pd 
-import matplotlib.pyplot as plt
+from random import randrange
+from interface.interface import UI
 
 
 # print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
@@ -65,7 +65,7 @@ len_connections = len(connection_objects)
 
 # get descriptives
 descriptive(len_connections, station_objects, connection_objects)
-# boxplot()
+boxplot()
 # histogram()
  
 # creates list of station coordinates VISUALISE
