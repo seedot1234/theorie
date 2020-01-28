@@ -11,21 +11,21 @@ import copy
 import pandas as pd 
 import matplotlib.pyplot as plt
 
-from code1.algorithms.random import random_solution
-from code1.algorithms.random_p import random_solution_p
-from code1.algorithms.random_k import random_solution_k
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-from code1.algorithms.greedy_lookahead_test import greedy_lookahead_test
-from code1.algorithms.trim import trim
-from code1.algorithms.railhead import railhead
-from code1.algorithms.shortest import shortest
-from code1.algorithms.longest import longest
-from code1.algorithms.unused import unused
-from code1.classes import connection, route, station, load_data
-from code1.classes.route import Route
-from code1.algorithms.hill import Hillclimber
-from code1.algorithms.annealing import SimulatedAnnealing
-from code1.classes.solution import Solution
+from code.algorithms.random import random_solution
+from code.algorithms.random_p import random_solution_p
+from code.algorithms.random_k import random_solution_k
+from code.algorithms.greedy_lookahead import greedy_lookahead
+from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
+from code.algorithms.trim import trim
+from code.algorithms.railhead import railhead
+from code.algorithms.shortest import shortest
+from code.algorithms.longest import longest
+from code.algorithms.unused import unused
+from code.classes import connection, route, station, load_data
+from code.classes.route import Route
+from code.algorithms.hill import Hillclimber
+from code.algorithms.annealing import SimulatedAnnealing
+from code.classes.solution import Solution
 from results.visualisation import visualise
 from results.bound import quality
 from results.descriptives import * 
