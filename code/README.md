@@ -24,3 +24,7 @@ Deze onderdelen zijn:
   * load_data.py: Deze functies zorgen ervoor dat er daadwerkelijk station en connection objecten aangemaakt worden aan de hand van data uit csv-files. Alle overige objecten zijn combinaties van (delen van) station en connection.
 
 ### Visualisation:
+Hierin staan de verschillende manieren van visualeren geschreven. De verschillende manieren zijn
+* descriptives.py: hier staan drie functies. Descriptive schrijft resultaten naar een csv file zodat dat kan worden gebruikt in berekeningen. Boxplot maakt een boxplot van de opgegeven resultaten. Histogram maakt een histogram van de opgegeven resultaten.
+* style.py: hierin worden verschillende javascript onderdelen aangepast. Dit wordt gebruikt in visualise om de gegenereerde kaart aan te passen. 
+* visualise.py: in visualise staat een functie om een kaart te generen van Nederland. In de kaart staan alle stations aangegeven en daartussen worden de trajecten getekend. 
