@@ -6,13 +6,8 @@ load_data.py
 
 one file that loads all data
 """
-<<<<<<< HEAD
-from code.classes.station import Station
-from code.classes.connection import Connection
-=======
 from code1.classes.station import Station
 from code1.classes.connection import Connection
->>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
 import csv, io, os
 
 def create_station_list_holland(station_csv):

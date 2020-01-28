@@ -7,13 +7,8 @@ random.py
 
 random algorithm
 """
-<<<<<<< HEAD
-from code.classes.station import Station
-from code.classes.route import Route
-=======
 from code1.classes.station import Station
 from code1.classes.route import Route
->>>>>>> 74bc6e20a60b0e7cecdf01ac17e0f923a856f8a6
 from random import randrange
 import random
 

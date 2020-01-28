@@ -32,9 +32,9 @@ from interface.interface import UI
 
 
 
-print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
-interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
-interface.run()
+# print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
+# interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
+# interface.run()
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -63,7 +63,7 @@ len_connections = len(connection_objects)
 
 # get descriptives
 descriptive(len_connections, station_objects, connection_objects)
-boxplot()
+# boxplot()
 # histogram()
  
 # creates list of station coordinates VISUALISE
@@ -89,8 +89,8 @@ boxplot()
 
 # solution = unused(station_objects, connection_objects, 20, 180)
 
-print("Setting up Simulated Annealing...")
-simanneal = SimulatedAnnealing(len_connections, station_objects, solution, temperature=35)
+# print("Setting up Simulated Annealing...")
+# simanneal = SimulatedAnnealing(len_connections, station_objects, solution, temperature=35)
 
 # # calls upon the hill climbing algorithm 
 # hill = Hillclimber(len_connections, station_objects, solution)
@@ -100,9 +100,6 @@ simanneal = SimulatedAnnealing(len_connections, station_objects, solution, tempe
 # exit()
 
 
-
-# if __name__ == "__main__":
-#     print("Welcome to RailNL")
 # print("Running Simulated Annealing...")
 # simanneal.run(2000)
 
