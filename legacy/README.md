@@ -1,0 +1,2 @@
+# Legacy
+De map Legacy bevat een aantal algoritmes die werken, maar die wij niet gebruiken in het eindproduct. Na al het harde werken doet het ons te veel pijn om de algoritmes weg te gooien, daarom staan de algoritmes bewaard in dit mapje. 
