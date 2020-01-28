@@ -9,6 +9,8 @@ De kwaliteit van de lijnvoering wordt berekend aan de hand van de volgende formu
 - **T**: het aantal trajecten 
 - **Min**: het aantal minuten van alle trajecten samen
 
+Dit programma dient ervoor om het bovenstaande probleem op te lossen. Via verschillende algortimen is er geprobeerd om de K-score zo hoog mogelijk te krijgen. Meer informatie over de werking van deze algoritmen kan gevonden worden in de README in de /code/ map.
+
 ## Aan de slag
 ### Vereisten
 Deze codebase is volledig geschreven in Python 3.7. In requirements.txt staan alle packages die nodig zijn om de code succesvol te runnen. De packages zijn gemakkelijk te installeren via pip door de volgende instructies te volgen:
