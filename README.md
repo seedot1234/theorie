@@ -21,7 +21,26 @@ De code kan worden gerund door het volgende aan te roepen:
 ```
 python main.py
 ```
-Vervolgens krijgt u instructies te zien die u verder door het programma helpen. 
+Vervolgens wordt u door het volgede keuzemenu geleid:
+* Over welke probleemgrootte wilt u een algortime runnen?
+  * Holland: een probleem met 21 stations en 28 connecties.
+  * Nederland: een probleem met 61 stations en 89 connecties.
+* Welk algoritme wilt u gebruiken bij het maken van trajecten in het probleem?
+  * Random: random algoritme. Kiest een random beginstation kiest vanuit daar random connecties.
+  * Unused: greedy algoritme. Kiest een random beginstation en kiest vanuit daar een random ongebruikte connectie.
+  * Shortest: greedy algortime. Kiest een random beginstation en kiest vanuit daar de kortste ongebruikte connectie.
+  * Greedy lookahead: greedy algoritme dat twee diep vooruit kijkt. Baseert zich op de K score die behaald wordt bij ieder mogelijk kind twee diep vanaf het huidige station.
+* Hoe vaak wilt u het algoritme runnen?
+* Keuzes over statistieken:
+  * U krijgt altijd algemene statistieken te zien over uw algoritme
+  * Wanneer u het algortime 1x runt, kunt u ervoor kiezen om een visualisatie te laten maken van de oplossing
+  * Wanneer u het algoritme meerdere keren runt kunt u ervoor kiezen om een boxplot en/of een histrogram te laten maken van de oplossing.
+Wanneer u het algortime 1x runt, krijgt u ook nog de optie om een interatief algortime af te spelen over de gegenereerde oplossing:
+* Zo ja, welk iteratief algortime wilt u gebruiken?
+  * Hillclimber: een hillclimber algoritme dat uit de oplossing random één route kiest en hier dan één van de vier mogelijke mutaties op doet. Deze nieuwe staat wordt geaccepteerd indien de K-score is verbeterd.
+  * Simulated Annealing: doet dezelfde mutaties als de hillclimber, maar heeft een acceptatiekans die varieert gedurende het iteratieproces.
+* Hoeveel iteraties wilt u het iteratief algoritme laten runnen?
+Vervolgens krijgt u dezelfde statistieken als eerder te zien, maar dan na het runnen van de hillclimber of simulated annealing.
 
 ### Structuur
 De onderstaande lijst beschrijft de belangrijkste mappen en files in het proejct, en waar u ze kan vinden:
