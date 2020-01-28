@@ -10,31 +10,28 @@ from code.classes import connection, route, station, load_data
 from results.visualisation import visualise
 from code.classes.route import Route
 from code.algorithms.random import random_solution
-from code.algorithms.random_p import random_solution_p
-from code.algorithms.random_k import random_solution_k
 from code.algorithms.greedy_lookahead import greedy_lookahead
-from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
 from code.algorithms.trim import trim
-from code.algorithms.railhead import railhead
 from code.algorithms.shortest import shortest
-from code.algorithms.longest import longest
 from code.algorithms.unused import unused
 from random import randrange
 from code.classes.solution import Solution
+from code.algorithms.hill import Hillclimber
+from code.algorithms.annealing import SimulatedAnnealing
 import random
 import csv, io, os
 from os import system, name
 import copy
-from results.bound import quality
 from results.descriptives import descriptive, boxplot, histogram
+
 
 class UI(object):
 
-    def __init__(self, station_csv, connection_csv):
+    def __init__(self, station_csv, connection_csv, max_routes, max_minutes):
         self.station_csv = station_csv
         self.connection_csv = connection_csv
-        self.max_routes = 20
-        self.max_minutes = 180
+        self.max_routes = max_routes
+        self.max_minutes = max_minutes
 
     def create_objects(self):
         """
@@ -43,7 +40,7 @@ class UI(object):
         """
         
         # create station objects from csv
-        self.station_objects = load_data.create_station_list_nationaal(self.station_csv)
+        self.station_objects = load_data.create_station_list(self.station_csv)
         
         # create connection objects from csv
         self.connection_objects = load_data.create_connection(self.connection_csv, self.station_objects)
@@ -61,20 +58,23 @@ class UI(object):
         Asks the user what algorithm must be performed.
         """
 
+        # ask user what algorithm they want to use
         choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
         choice_options = ['1', '2', '3', '4', 'HELP']
 
+        # ensure proper usage
         while choice.upper() not in choice_options:
             print("That was not a valid command.")
             choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
         
-
+        # help user when needed
         if choice.upper() == 'HELP':
             print("1 = random\n2 = shortest\n3 = unused\n4 = greedy lookahead")
             return self.ask_algorithm()
         
+        # define the requested algorithm
         elif choice == '1':
-            algorithm = random_solution_p
+            algorithm = random_solution
 
         elif choice == '2':
             algorithm = shortest
@@ -83,7 +83,7 @@ class UI(object):
             algorithm = unused
 
         elif choice == '4':
-            algorithm = greedy_lookahead_test
+            algorithm = greedy_lookahead
 
         return algorithm
 
@@ -93,6 +93,7 @@ class UI(object):
         Returns:    p.
         """
 
+        # ask user for input, ensure proper usage
         while True:
             try:
                 p = float(input("What p-level do you want?\n"))
@@ -100,6 +101,7 @@ class UI(object):
             except ValueError:
                 print("It must be a float")
         
+        # ensure proper usage
         while p <= 0.0 or p > 1:
             return self.ask_p()
 
@@ -111,13 +113,15 @@ class UI(object):
         algorithm to be performed.
         """
 
+        # ask user input, ensure proper usage
         while True:
             try:
-                iterations = int(input("How often do you want to run the algorithm?\nWARNING: with more than 1 iteration, a csv file will be created in /XXX/XXX/XXX\n"))
+                iterations = int(input("How often do you want to run the algorithm?\nWARNING: with more than 1 iteration, a csv file called 'results.csv' will be created in the main folder of this project\n"))
                 break
             except ValueError:
                 print("It must be a positive integer")
         
+        # ensure proper usage
         while iterations <= 0:
             return self.ask_iterations()
         
@@ -125,14 +129,17 @@ class UI(object):
 
 
     def ask_visualisation(self):
+        """Ask user whether they want a visualisation of their results."""
 
+        # prompt user for input
         choice = input("Do you want a visualisation (map) of the result?\nIt will open in your browser.\nY / N\n")
 
+        # ensure proper usage
         possible_inputs = ['Y', 'YES', 'N', 'NO']
-
         while choice.upper() not in possible_inputs:
             return self.ask_visualisation()
         
+        # process user choice
         if choice.upper() == 'Y' or choice.upper() == 'YES':
             visualisation = True
         elif choice.upper() == 'N' or choice.upper() == 'NO':
@@ -147,19 +154,21 @@ class UI(object):
     def ask_boxplot(self):
         """Asks user whether they want a boxplot made out of their results."""
 
+        # prompt user for boxplot input
         choice = input("Do you want a boxplot made of the results?\nIt will open in a python window and not save unless you say so.\nY / N\n")
 
+        # ensure proper usage
         possible_inputs = ['Y', 'YES', 'N', 'NO']
-
         while choice.upper() not in possible_inputs:
             return self.ask_boxplot()
         
+        # process user inpit
         if choice.upper() == 'Y' or choice.upper() == 'YES':
             boxplot_option = True
         elif choice.upper() == 'N' or choice.upper() == 'NO':
             boxplot_option = False
         
-        # standard is no visualisation
+        # standard choice is no boxplot
         else:
             boxplot_option = False
 
@@ -168,13 +177,15 @@ class UI(object):
     def ask_histrogram(self):
         """Asks user whether thay want a histogram made out of their results."""
 
+        # prompt user for histogram choice
         choice = input("Do you want a histogram made of the results?\nIt will open in a python window and not save unless you say so.\nY / N\n")
 
+        # ensure proper usage
         possible_inputs = ['Y', 'YES', 'N', 'NO']
-
         while choice.upper() not in possible_inputs:
             return self.ask_histrogram()
         
+        # process user prompt
         if choice.upper() == 'Y' or choice.upper() == 'YES':
             histrogram_option = True
         elif choice.upper() == 'N' or choice.upper() == 'NO':
@@ -186,19 +197,49 @@ class UI(object):
 
         return histrogram_option
 
+    def ask_iterative(self):
+        """
+        Asks user whether they want to perform an iterative algorithm on their results.
+        Returns:    iterative.
+        """
+
+        # prompt user for iterative algorithm
+        choice = input("Do you want to use an iterative algorithm on this result?\nY / N\n")
+
+        # ensure proper usage
+        possible_inputs = ['Y', 'YES', 'N', 'NO']
+        while choice.upper() not in possible_inputs:
+            return self.ask_iterative()
+        
+        # process user prompt
+        if choice.upper() == 'Y' or choice.upper() == 'YES':
+            iterative = True
+        elif choice.upper() == 'N' or choice.upper() == 'NO':
+            iterative = False
+        
+        # standard is no iterative algorithm
+        else:
+            iterative = False
+
+        return iterative
+
+
     def perform_algorithm_multiple(self, algorithm, iterations, requested_p, boxplot_option, histrogram_option):
         """
         Performs an algorithm for a specified number of times and saves its results to a csv.
         Returns:    statistics.
         """
 
-        statistics = descriptive(len(self.connection_objects), self.station_objects, algorithm, iterations, requested_p)
+        # run algorithm multiple times and write its results to a csv
+        statistics = descriptive(len(self.connection_objects), self.station_objects, algorithm, iterations, requested_p, self.max_routes, self.max_minutes)
 
+        # when requested, create a boxplot
         if boxplot_option == True:
-            boxplot('Nederland', algorithm)
+            boxplot(algorithm)
 
+        # when requested, create a histogram
         if histrogram_option == True:
-            histogram('Nederland', algorithm)
+            histogram(algorithm)
 
         return statistics
 
@@ -208,15 +249,65 @@ class UI(object):
         Returns:    solution.
         """
 
+        # perform the requested algoritm
         solution = algorithm(self.station_objects, len(self.connection_objects), self.max_routes, self.max_minutes, requested_p)
         solution.set_K(len(self.connection_objects))
 
-
+        # when requested generate visualisation of the results
         if visualisation == True:
             self.visualise_solution(solution)
 
         return solution
 
+    def perform_iterative_algorithm(self, solution):
+        """
+        Ask user what iterative algorithm they want to perform, and how many times.
+        Then executes that algorithm on the given solution.
+        Returns:    statistics.
+        """
+
+        # prompt user for iterative algorithm choice
+        algorithm_choice = input("What iterative algorithm do you want to perform on the solution?\nFor options type HELP\n")
+       
+        # ensure proper usage
+        possible_inputs = ['1', '2', 'HELP']
+        while algorithm_choice not in possible_inputs:
+            return self.perform_iterative_algorithm(solution)
+    
+        # aid user when requested
+        if algorithm_choice.upper() == 'HELP':
+            print("1 = hill\n2 = simulated annealing")
+            return self.perform_iterative_algorithm(solution)
+
+        # prompt for amount of iterations and ensure proper usage
+        while True:
+            try:
+                iterations_choice = int(input("How many iterations do you want in the algorithm?\n"))
+                break
+            except ValueError:
+                print("It must be a positive integer")
+
+        # ensure proper usage
+        while iterations_choice <= 0:
+            return self.perform_iterative_algorithm(solution)
+
+        # preprocess the solution
+        trimmed_solution = trim(solution)
+        
+        # excecute hillclimber
+        if algorithm_choice == '1':
+        
+            hill = Hillclimber(len(self.connection_objects), self.station_objects, trimmed_solution, self.max_minutes)
+            
+            improved_solution = hill.run(iterations_choice)
+
+        # else execute simulated annealing
+        else:
+            simulated = SimulatedAnnealing(len(self.connection_objects), self.station_objects, trimmed_solution, self.max_minutes, temperature=35)
+
+            improved_solution = simulated.run(iterations_choice)
+        
+        return improved_solution
 
     def visualise_solution(self, solution):
         """Given a solution, shows a visual representation on a map."""
@@ -273,6 +364,9 @@ class UI(object):
             
             clear()
 
+            # ask user whether they want iterative improvement
+            iterative = self.ask_iterative()
+
             # perform the algorithm
             solution = self.perform_algorithm(algorithm, visualisation, requested_p)
             
@@ -283,6 +377,19 @@ class UI(object):
             print("Scores of this algorithm:")
             for stat in statistics:
                 print(stat,":", statistics[stat])
+
+            # when requested, perform the iterative algorithm of choice
+            if iterative == True:
+
+                improved_solution = self.perform_iterative_algorithm(solution)
+
+                # create statistics for the runned iterative algorithm
+                statistics = self.general_output_info(improved_solution)
+                
+                # show results to user
+                print("Scores of iterative algorithm:")
+                for stat in statistics:
+                    print(stat,":", statistics[stat])
 
         # for more than 1 iteration
         else:
@@ -301,6 +408,20 @@ class UI(object):
             for stat in statistics:
                 print(stat,":", statistics[stat])
 
+        # ask user whether they want to perform another algorithm
+        again = input("Do you want to run another algorithm on this same problem set?\nFor another problem set, please reboot the program.\nY / N\n")
+
+        # ensure proper usage
+        possible_inputs = ['Y', 'YES', 'N', 'NO']
+        while again.upper() not in possible_inputs:
+            again = input("Do you want to run another algorithm on this same problem set?\nFor another problem set, please reboot the program.\nY / N\n")
+        
+        # process user choice
+        if again.upper() == 'Y' or again.upper() == 'YES':
+            self.run()
+        elif again.upper() == 'N' or again.upper() == 'NO':
+            exit()
+
 def clear():
     """Clears the console screen"""
 
@@ -309,21 +430,3 @@ def clear():
 
     else:
         _ = system('clear')
-
-# greet user
-# verwijs voor usage naar readme
-# kies het algoritme dat je wil gebruiken
-    # 1 = random_p
-    # 2 = shortest
-    # 3 = unused
-    # 4 = greedy lookahead
-
-# hoe vaak wil je het runnen?
-    # bij 1:
-        # wil je visualisatie / kaart?
-        # doe altijd general info
-    # bij meer dan 1:
-        # wil je statistieken?
-            # boxplot?
-            # histogram?
-            # doe altijd general average info

@@ -4,7 +4,7 @@ route.py
 @author Heuristic Heroes
 @version
 """
-from code1.classes.connection import Connection
+from code.classes.connection import Connection
 
 class Route(object):
     """The Route object creates routes by chaining Connections together."""

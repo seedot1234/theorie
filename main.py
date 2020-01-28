@@ -41,99 +41,50 @@ def clear():
         _ = system('clear')
 
 
-clear()
+def ask_problem_set():
+    choice = input("Choose what problem set you want to use\nFor options type HELP\n")
+    choice_options = ['1', '2', 'HELP']
 
-print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
-# VRAAG NAAR WELKE MAP ZE WILLEN GEBRUIKEN
-interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
-interface.run()
+    while choice.upper() not in choice_options:
+        print("That was not a valid command.")
+        choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
+    
+    if choice.upper() == 'HELP':
+        clear()
+        print("1 = Holland\n2 = Nederland\n")
+        return ask_problem_set()
+    
+    elif choice == '1':
+        problem_set = 'Holland'
 
-exit()
+    elif choice == '2':
+        problem_set = 'Nederland'
 
-# VOOR HOLLAND, DOE DIT:
-# creates station objects from csv
-station_csv = os.path.join("data", "StationsHolland.csv")
-station_objects = load_data.create_station_list(station_csv)
+    else:
+        print("That was not a valid command.")
+        choice = input("Choose what algorithm you want to use.\nFor options type HELP\n")
 
-# creates connection objects from csv
-connection_csv = os.path.join("data", "ConnectiesHolland.csv")
-connection_objects = load_data.create_connection(connection_csv, station_objects)
+    return problem_set
 
-# VOOR NATIONAAL, DOE DIT:
-# station_csv = os.path.join("data", "StationsNationaal.csv")
-# station_objects = load_data.create_station_list(station_csv)
+if __name__ == "__main__":
 
-# # creates connection objects from csv
-# connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
-# connection_objects = load_data.create_connection(connection_csv, station_objects)
+    clear()
 
+    print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.\n")
 
-# adds connections to stations
-connections_list = []
-load_data.add_station_connection(station_objects, connection_objects)
+    # ask what problem set the user want to use
+    problem_set = ask_problem_set()
 
-# length of connections
-len_connections = len(connection_objects)
+    # create the corresponding datastructure
+    if problem_set == 'Holland':
+        interface = UI(os.path.join("data", "StationsHolland.csv"), os.path.join("data", "ConnectiesHolland.csv"), max_routes=7, max_minutes=120)
 
-# get descriptives
-descriptive(len_connections, station_objects, connection_objects)
-boxplot()
-# histogram()
- 
-# creates list of station coordinates VISUALISE
-# solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
-# solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
-# solution2 = shortest(station_objects, connection_objects, 20, 180) 
-# solution3 = longest(station_objects, connection_objects, 20, 180)
-# solution4 = railhead(station_objects, connection_objects, 20, 180)
-# solution5 = unused(station_objects, connection_objects, 20, 180)
+    elif problem_set == 'Nederland':
+        interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"), max_routes=20, max_minutes=180)
 
-# visualise
-# coordinates_csv = os.path.join("data", "StationsNationaal.csv")
-# coordinates_objects = visualise.coordinates(coordinates_csv, solution5)
+    # if we get here, something went wrong
+    else:
+        exit()
 
-# ########
-
-# trimmed_solution = trim(solution, connection_objects)
-
-# # calls upon the hill climbing algorithm 
-# hill = Hillclimber(len_connections, station_objects, solution)
-# answer = hill.run(1000)
-# print(answer.K - solution.set_K(len_connections))
-
-# solution = unused(station_objects, connection_objects, 20, 180)
-
-# print("Setting up Simulated Annealing...")
-# simanneal = SimulatedAnnealing(len_connections, station_objects, solution, temperature=35)
-
-# # calls upon the hill climbing algorithm 
-# hill = Hillclimber(len_connections, station_objects, solution)
-# answer = hill.run(1000)
-# print(answer.K - solution.set_K(len_connections))
-
-# exit()
-
-
-# print("Running Simulated Annealing...")
-# simanneal.run(2000)
-
-
-# print("K  after annealing...")
-# print(simanneal.K)
-
-
-# # load csv in dataframe
-# results = pd.read_csv('annealing.csv')
-
-solution = unused(station_objects, connection_objects, 20, 180)
-
-# trimmed_solution = trim(solution, connection_objects)
-
-for i in range (250):
-# calls upon the hill climbing algorithm 
-    solution = unused(station_objects, connection_objects, 20, 180)
-    hill = Hillclimber(len_connections, station_objects, solution)
-    answer = hill.run(1000)
-    print(answer.K - solution.set_K(len_connections))
-
-# solution = unused(station_objects, connection_objects, 20, 180)
+    # run the UI
+    interface.run()

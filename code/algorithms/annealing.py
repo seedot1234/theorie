@@ -24,10 +24,10 @@ class SimulatedAnnealing(Hillclimber):
     we use that as a parent class. 
     """
   
-    def __init__ (self, len_connections, station_objects, solution, temperature):
+    def __init__ (self, len_connections, station_objects, solution, max_minutes, temperature):
 
         # uses the init of the Hillclimber class 
-        super().__init__(len_connections, station_objects, solution)
+        super().__init__(len_connections, station_objects, solution, max_minutes)
         
         # starting temperature and current temperature
         self.iteration = 0

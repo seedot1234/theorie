@@ -15,7 +15,7 @@ class Solution(object):
         self.lining = lining
         self.K = 0
         self.p = 0
-        self.min = 0 
+        self.min = 0
 
         for route in self.lining: 
             self.min += route.total_time

@@ -6,8 +6,8 @@ load_data.py
 
 loads all data
 """
-from code1.classes.station import Station
-from code1.classes.connection import Connection
+from code.classes.station import Station
+from code.classes.connection import Connection
 import csv, io, os
 
 def create_station_list(station_csv):

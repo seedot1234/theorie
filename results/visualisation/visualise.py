@@ -62,7 +62,6 @@ def coordinates(coordinates_csv, solution):
     ]
 
     for i, j, k in zip(station_lon, station_lat, colors):
-        show(p) # WEGHALEN IN EIND
         p.line(i, j, line_width=4, line_color=k, line_alpha=0.5)
 
     output_file("visualise.html")
