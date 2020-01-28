@@ -1,7 +1,8 @@
 # Code 
 
 In deze map staat alle geschreven code. De code is verdeeld onder drie mappen:
-### Algorithms:
+
+### Algorithms
 Hierin staan de algoritmen die geschreven zijn voor het oplossen van de RailNL case.
 Deze algoritmen zijn:
   * random.py: een algoritme dat een random oplossing genereert binnen de constraints van het probleem.
@@ -13,7 +14,7 @@ Deze algoritmen zijn:
   De oplossingen die in de iterative algoritmen (hillclimber, simulated annealing) gebruikt worden, worden eerst gepreprocessed:
   * trim.py: deze recursieve functie wordt gebruikt om oplossingen die in de iteratieve algoritmen gaan op te schonen. De iteratieve algoritmen kunnen namelijk alleen aan het eind en het begin van een route aanpassingen doen. Trim.py lost dit probleem op door dubbele elkaar opvolgende stationparen te verwijderen. (van D-A-B-A-B-C wordt D-A-B-C gemaakt). Ook worden er hier routes zonder connecties erin verwijderd.
 
-### Classes:
+### Classes
 Hierin staat de datastructuur uitgeschreven. De verschillende onderdelen van de RailNL case worden opgeslagen als objecten.
 Deze onderdelen zijn:
   * station.py: de Station klasse. Hierin worden de namen en locaties van stations opgeslagen. Ook houdt het bij welke stations verbonden zijn met een gegeven station.
@@ -23,7 +24,7 @@ Deze onderdelen zijn:
   Tenslotte vind je in classes ook de functies die de objecten initialiseren vanuit een csv file:
   * load_data.py: Deze functies zorgen ervoor dat er daadwerkelijk station en connection objecten aangemaakt worden aan de hand van data uit csv-files. Alle overige objecten zijn combinaties van (delen van) station en connection.
 
-### Visualisation:
+### Visualisation
 Hierin staan de verschillende manieren van visualeren geschreven. De verschillende manieren zijn
 * descriptives.py: hier staan drie functies. Descriptive schrijft resultaten naar een csv file zodat dat kan worden gebruikt in berekeningen. Boxplot maakt een boxplot van de opgegeven resultaten. Histogram maakt een histogram van de opgegeven resultaten.
 * style.py: hierin worden verschillende javascript onderdelen aangepast. Dit wordt gebruikt in visualise om de gegenereerde kaart aan te passen. 
