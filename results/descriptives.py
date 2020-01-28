@@ -7,7 +7,6 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 from code.algorithms.annealing import SimulatedAnnealing
 from code.algorithms.greedy_lookahead import greedy_lookahead
 from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
@@ -20,127 +19,87 @@ from code.algorithms.trim import trim
 from code.algorithms.unused import unused
 
 
-def descriptive(len_connections, station_objects, connection_objects):
+def descriptive(len_connections, station_objects, algorithm, iterations, requested_p):
     """
 
     """
     # write to results.csv
     with open('results.csv', 'w', newline='') as csv_file:
+        
         # K = kwaliteit
-        fieldnames = [
-            'Random', 'RandomHill', 'RandomSim', 
-            'Lookahead', 'LookaheadHill', 'LookaheadSim', 
-            'Shortest', 'ShortestHill', 'ShortestSim',
-            'Unused', 'UnusedHill', 'UnusedSim'
-        ]
+        fieldnames = ['K', 'P', 'MIN', 'R']
 
         # write csv file into dictionary
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
         writer.writeheader()
 
-        route_maximum = 20
-        time_maximum = 180
+        for i in range (iterations):
+            solution = algorithm(station_objects, len_connections, 20, 180, requested_p)     
 
-        for i in range(3):
+            writer.writerow(
+                {
+                    'K': round(solution.set_K(len_connections), 2),
+                    'P': round(solution.set_p(len_connections), 4),
+                    'MIN': solution.set_min(),
+                    'R': len(solution.lining)
+                    }
+            )
 
-            solution0 = random_solution_p(station_objects, len_connections, route_maximum, time_maximum)     
-            # trimmed_solution0 = trim(solution0, connection_objects)
-            # hill0 = Hillclimber(len_connections, station_objects, trimmed_solution0)
-            # answer0 = hill0.run(1000) 
-            # # simanneal0 = SimulatedAnnealing(len_connections, station_objects, solution0, temperature=35)
-            # # answer00 = simanneal0.run(1000)
+    results = pd.read_csv('results.csv')
 
-            # solution1 = greedy_lookahead_test(station_objects, len_connections, route_maximum, time_maximum)
-            # # trimmed_solution1 = trim(solution1, connection_objects)
-            # # hill1 = Hillclimber(len_connections, station_objects, trimmed_solution1)    
-            # # answer1 = hill1.run(1000)
-        
-            # solution2 = shortest(station_objects, len_connections, route_maximum, time_maximum) 
-            # # trimmed_solution2 = trim(solution2, connection_objects)
-            # # hill2 = Hillclimber(len_connections, station_objects, trimmed_solution2)
-            # # answer2 = hill2.run(1000)
+    # create a dictionary with statistic averages
+    statistics = {}
+    statistics['K'] = np.mean(results.K)
+    statistics['R'] = np.mean(results.R)
+    statistics['min'] = np.mean(results.MIN)
+    statistics['p'] = np.mean(results.P)
 
-            # solution3 = unused(station_objects, len_connections, route_maximum, time_maximum)
-            # trimmed_solution3 = trim(solution5, connection_objects)
-            # hill = Hillclimber(len_connections, station_objects, trimmed_solution3)
-            # answer3 = hill3.run(1000)
+    return statistics
 
-            print(i)
-            writer.writerow({
-                'Random': round(solution0.set_K(len_connections), 2),# , 'KH0': answer0.K, 'KH00': answer00
-                # 'K1': round(solution1.set_K(len_connections), 2), #, 'KH1': answer1.K,
-                # 'K2': round(solution2.set_K(len_connections), 2), #, 'KH2': answer2.K,
-                # 'K5': round(solution3.set_K(len_connections), 2), #, 'KH3': answer5.K                
-            })
-            
-def boxplot():
+
+def boxplot(problem, algorithm):
     """ Creates boxplots of all algorithms """
 
     # load csv in dataframe
     results = pd.read_csv('results.csv')
 
     # create plot
-    fig, axes = plt.subplots(1, 1) # (row, col)
+    fig, axes = plt.subplots(1, 1)
 
-    # put solution results in a list
-    data = [ results.Random
-        # results.K0, results.KH0, results.K1, results.KH1, results.K2, results.KH2, results.K5, results.KH5
-    ] 
+    # puts solution results in a list
+    data = [results.K]
 
     # puts data in boxplot function
     axes.boxplot(data)
 
     # sets plot title
-    axes.set_title('Kwaliteit lijnvoering')
+    axes.set_title(f'Kwaliteit lijnvoering: {problem}')
 
     # sets boxplot labels to corresponding algorithm
-    axes.set_xticklabels(['Random'
-        # 'Random', 'Random Hill', 'Lookahead', 'Lookahead Hill', 'Shortest', 'Shortest Hill', 'Unused', 'Unused Hill'
-    ])
-    print('avg: ', np.mean(results.Random))
-
-
+    axes.set_xticklabels([f'{str(algorithm)}'])
+       
     # show or save the plot
     plt.show()
 
-def histogram():
+
+
+def histogram(problem, algorithm):
     """ Creates a histogram of algorithm """
 
     # load csv in dataframe
     results = pd.read_csv('results.csv')
 
     # create histogram with K from results dataframe
-    results.K2.plot.hist(grid=True, rwidth=0.9) 
+    results.K.plot.hist(grid=True, rwidth=0.9) 
 
     # sets labels and title
     plt.xlabel('Kwaliteit')
     plt.ylabel('Frequentie')
-    plt.title('Kwaliteit lijnvoering')
+    plt.title(f'Kwaliteit lijnvoering: {problem} - {str(algorithm)}')
 
     # print('max: ', max(results.K1))
     # print('min: ', min(results.K1))
     
     # show plot
     plt.show()
-    # plt.savefig("out.png")
-
-
-
-def linechart():
-    """ Creates a linechart of algorithm """
-
-    # load csv in dataframe
-    results = pd.read_csv('results.csv')
-
-    # create histogram with K from results dataframe
-    results.K0.plot() 
-
-    # sets labels and title
-    plt.xlabel('Kwaliteit')
-    plt.ylabel('Frequentie')
-    plt.title('Kwaliteit lijnvoering: random')
-
-    # show plot
-    plt.show()
-

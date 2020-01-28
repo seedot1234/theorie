@@ -17,11 +17,13 @@ from random import randrange
 import random  
 
 # makes new routes randomly until all connections have been used
-def shortest(station_objects, len_connections, route_maximum, time_maximum):
+def shortest(station_objects, len_connections, route_maximum, time_maximum, requested_p):
     while True:
 
+        p = 0
         visited_connections = []
         total_time = 0
+
         # makes a list of the solution that matches the requirements 
         lining = []
 
@@ -41,8 +43,8 @@ def shortest(station_objects, len_connections, route_maximum, time_maximum):
             while True:
                 
                 # when all connections have been used, end the algorithm
-                if len_connections == len(visited_connections):
-                    solution = Solution(lining, 0.9)
+                if p >= requested_p:
+                    solution = Solution(lining, 1)
                     return solution
 
                 # make a list of all unused connections of this station
@@ -91,5 +93,8 @@ def shortest(station_objects, len_connections, route_maximum, time_maximum):
                 if link not in visited_connections:
                     visited_connections.append(link)
                 
+                # calculate p
+                p = len(visited_connections) / len_connections
+
                 # set this new station as the current station
                 current_station = new_station

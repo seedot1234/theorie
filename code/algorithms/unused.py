@@ -11,14 +11,14 @@ out of all connections
 @version
 
 """
-from code.classes.station import Station
-from code.classes.route import Route
-from code.classes.solution import Solution
+from code1.classes.station import Station
+from code1.classes.route import Route
+from code1.classes.solution import Solution
 from random import randrange
 import random  
 
 # makes new routes randomly until all connections have been used
-def unused(station_objects, len_connections, route_maximum, time_maximum):
+def unused(station_objects, len_connections, route_maximum, time_maximum, requested_p):
     while True:
 
         visited_connections = []
@@ -44,7 +44,7 @@ def unused(station_objects, len_connections, route_maximum, time_maximum):
             while True:
                 
                 # p equals or is larger than 0.8, return the lining and thus end the algorithm
-                if p >= 0.9:
+                if p >= requested_p:
                     solution = Solution(lining, p)
                     return solution
 

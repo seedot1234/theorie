@@ -23,8 +23,10 @@ from random import randrange
 from code.classes.solution import Solution
 import random
 import csv, io, os
+from os import system, name
 import copy
 from results.bound import quality
+from results.descriptives import descriptive, boxplot, histogram
 
 class UI(object):
 
@@ -85,6 +87,24 @@ class UI(object):
 
         return algorithm
 
+    def ask_p(self):
+        """
+        Ask the user at what p-level the algorithm must stop running.
+        Returns:    p.
+        """
+
+        while True:
+            try:
+                p = float(input("What p-level do you want?\n"))
+                break
+            except ValueError:
+                print("It must be a float")
+        
+        while p <= 0.0 or p > 1:
+            return self.ask_p()
+
+        return p
+
     def ask_iterations(self):
         """
         Asks the user how many times they want their chosen
@@ -93,13 +113,13 @@ class UI(object):
 
         while True:
             try:
-                iterations = int(input("How often do you want to run the algorithm?\n"))
+                iterations = int(input("How often do you want to run the algorithm?\nWARNING: with more than 1 iteration, a csv file will be created in /XXX/XXX/XXX\n"))
                 break
             except ValueError:
                 print("It must be a positive integer")
         
         while iterations <= 0:
-            self.ask_iterations()
+            return self.ask_iterations()
         
         return iterations
 
@@ -124,46 +144,171 @@ class UI(object):
 
         return visualisation
 
-    def perform_algorithm_multiple(self, algorithm, iterations):
+    def ask_boxplot(self):
+        """Asks user whether they want a boxplot made out of their results."""
+
+        choice = input("Do you want a boxplot made of the results?\nIt will open in a python window and not save unless you say so.\nY / N\n")
+
+        possible_inputs = ['Y', 'YES', 'N', 'NO']
+
+        while choice.upper() not in possible_inputs:
+            return self.ask_boxplot()
+        
+        if choice.upper() == 'Y' or choice.upper() == 'YES':
+            boxplot_option = True
+        elif choice.upper() == 'N' or choice.upper() == 'NO':
+            boxplot_option = False
+        
+        # standard is no visualisation
+        else:
+            boxplot_option = False
+
+        return boxplot_option
+
+    def ask_histrogram(self):
+        """Asks user whether thay want a histogram made out of their results."""
+
+        choice = input("Do you want a histogram made of the results?\nIt will open in a python window and not save unless you say so.\nY / N\n")
+
+        possible_inputs = ['Y', 'YES', 'N', 'NO']
+
+        while choice.upper() not in possible_inputs:
+            return self.ask_histrogram()
+        
+        if choice.upper() == 'Y' or choice.upper() == 'YES':
+            histrogram_option = True
+        elif choice.upper() == 'N' or choice.upper() == 'NO':
+            histrogram_option = False
+        
+        # standard is no visualisation
+        else:
+            histrogram_option = False
+
+        return histrogram_option
+
+    def perform_algorithm_multiple(self, algorithm, iterations, requested_p, boxplot_option, histrogram_option):
         """
-        Performs an algorithm for a specified number of times.
-        Parameters: algorithm, iterations.
+        Performs an algorithm for a specified number of times and saves its results to a csv.
+        Returns:    statistics.
+        """
+
+        statistics = descriptive(len(self.connection_objects), self.station_objects, algorithm, iterations, requested_p)
+
+        if boxplot_option == True:
+            boxplot('Nederland', algorithm)
+
+        if histrogram_option == True:
+            histogram('Nederland', algorithm)
+
+        return statistics
+
+    def perform_algorithm(self, algorithm, visualisation, requested_p):
+        """
+        Performs an algorithm one time with a specified p. Shows visualisation.
         Returns:    solution.
         """
-        for i in range (iterations):
 
-            solution = algorithm(self.station_objects, self.connection_objects, self.max_routes, self.max_minutes)
-            solution.set_K(len(self.connection_objects))
-
-        return solution    
-
-    def perform_algorithm(self, algorithm, visualisation):
-
-        solution = algorithm(self.station_objects, self.connection_objects, self.max_routes, self.max_minutes)
+        solution = algorithm(self.station_objects, len(self.connection_objects), self.max_routes, self.max_minutes, requested_p)
         solution.set_K(len(self.connection_objects))
 
 
         if visualisation == True:
-            map = visualise.coordinates(self.station_csv, solution)
+            self.visualise_solution(solution)
 
         return solution
 
 
-    def run(self):
+    def visualise_solution(self, solution):
+        """Given a solution, shows a visual representation on a map."""
+        
+        map = visualise.coordinates(self.station_csv, solution)
 
+
+    def general_output_info(self, solution):
+        """
+        Generates the statistics for a given solution.
+        Returns: statistics.
+        """
+
+        statistics = {}
+
+        statistics['K'] = solution.set_K(len(self.connection_objects))
+        statistics['T'] = len(solution.lining)
+        statistics['min'] = solution.set_min()
+        statistics['p'] = solution.set_p(len(self.connection_objects))
+
+        return statistics
+
+    def run(self):
+        """
+        Runs the user interface.
+        """
+
+        # clear console
+        clear()
+
+        # create the datastructure
         self.create_objects()
+
+        # ask user what algorithm they want to use
         algorithm = self.ask_algorithm()
 
+        clear()
+
+        # ask user how many times they want to run the algorithm
         iterations = self.ask_iterations()
+        
+        clear()
 
-        visualisation = self.ask_visualisation()
+        # ask user what p-level they want their algorithm to have
+        requested_p = self.ask_p()
 
+        clear()
+
+        # for 1 iteration
         if iterations == 1:
-            self.perform_algorithm(algorithm, visualisation)
 
+            # ask user whether they want a visualisation
+            visualisation = self.ask_visualisation()
+            
+            clear()
+
+            # perform the algorithm
+            solution = self.perform_algorithm(algorithm, visualisation, requested_p)
+            
+            # create statistics for the runned algorithm
+            statistics = self.general_output_info(solution)
+            
+            # show results to user
+            print("Scores of this algorithm:")
+            for stat in statistics:
+                print(stat,":", statistics[stat])
+
+        # for more than 1 iteration
         else:
-            self.perform_algorithm_multiple(algorithm, iterations)
 
+            # ask user whether they want a boxplot made
+            boxplot_option = self.ask_boxplot()
+
+            # ask user whether they want a histogram made
+            histrogram_option = self.ask_histrogram()
+
+            # perform the algorithm and write its results to a csv
+            statistics = self.perform_algorithm_multiple(algorithm, iterations, requested_p, boxplot_option, histrogram_option)
+            
+            # show results to user
+            print("Average scores of this algorithm:")
+            for stat in statistics:
+                print(stat,":", statistics[stat])
+
+def clear():
+    """Clears the console screen"""
+
+    if name == 'nt':
+        _ = system('cls')
+
+    else:
+        _ = system('clear')
 
 # greet user
 # verwijs voor usage naar readme

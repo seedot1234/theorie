@@ -7,8 +7,8 @@ so that each station has its corresponding connections.
 @author Heuristic Heroes
 @version 28-1-2020
 """
-from code.classes.station import Station
-from code.classes.connection import Connection
+from code1.classes.station import Station
+from code1.classes.connection import Connection
 import csv, io, os
 
 def create_station_list(station_csv):

@@ -12,14 +12,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from code.algorithms.random import random_solution
-from code.algorithms.random_p import random_solution_p
-from code.algorithms.random_k import random_solution_k
+from code.algorithms.random import random_solution
 from code.algorithms.greedy_lookahead import greedy_lookahead
-from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
 from code.algorithms.trim import trim
-from code.algorithms.railhead import railhead
 from code.algorithms.shortest import shortest
-from code.algorithms.longest import longest
 from code.algorithms.unused import unused
 from code.classes import connection, route, station, load_data
 from code.classes.route import Route
@@ -28,15 +24,31 @@ from code.algorithms.annealing import SimulatedAnnealing
 from code.classes.solution import Solution
 from results.visualisation import visualise
 from results.bound import quality
-from results.descriptives import * 
+from interface.interface import UI
+from os import system, name
 
 from random import randrange
 from interface.interface import UI
 
 
-# print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
-# interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
-# interface.run()
+def clear():
+    """Clears the console screen"""
+
+    if name == 'nt':
+        _ = system('cls')
+
+    else:
+        _ = system('clear')
+
+
+clear()
+
+print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
+# VRAAG NAAR WELKE MAP ZE WILLEN GEBRUIKEN
+interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
+interface.run()
+
+exit()
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -113,14 +125,15 @@ boxplot()
 # # load csv in dataframe
 # results = pd.read_csv('annealing.csv')
 
-# # create histogram with K from results dataframe
-# results.K.plot() 
+solution = unused(station_objects, connection_objects, 20, 180)
 
-# # sets labels and title
-# plt.xlabel('Number of Iterations x 10')
-# plt.ylabel('Kwaliteitsscore (K)')
+# trimmed_solution = trim(solution, connection_objects)
 
-# # show plot
-# plt.show()
+for i in range (250):
+# calls upon the hill climbing algorithm 
+    solution = unused(station_objects, connection_objects, 20, 180)
+    hill = Hillclimber(len_connections, station_objects, solution)
+    answer = hill.run(1000)
+    print(answer.K - solution.set_K(len_connections))
 
-# exit()
+# solution = unused(station_objects, connection_objects, 20, 180)

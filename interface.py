@@ -10,10 +10,9 @@ from code.classes import connection, route, station, load_data
 from results.visualisation import visualise
 from code.classes.route import Route
 from code.algorithms.random import random_solution
-from code.algorithms.random_p import random_solution_p # is nu random_k
-from code.algorithms.random_k import random_solution_k # is nu random_p
+from code.algorithms.random_p import random_solution_p
+from code.algorithms.random_k import random_solution_k
 from code.algorithms.greedy_lookahead import greedy_lookahead
-from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
 from code.algorithms.trim import trim
 from code.algorithms.railhead import railhead
 from code.algorithms.shortest import shortest
@@ -82,7 +81,7 @@ class Interface(object):
             algorithm = unused
 
         elif choice == '4':
-            algorithm = greedy_lookahead_test
+            algorithm = greedy_lookahead
 
         return algorithm
 
