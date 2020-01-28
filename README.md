@@ -43,6 +43,7 @@ Wanneer u het algortime 1x runt, krijgt u ook nog de optie om een interatief alg
   * Hillclimber: een hillclimber algoritme dat uit de oplossing random één route kiest en hier dan één van de vier mogelijke mutaties op doet. Deze nieuwe staat wordt geaccepteerd indien de K-score is verbeterd.
   * Simulated Annealing: doet dezelfde mutaties als de hillclimber, maar heeft een acceptatiekans die varieert gedurende het iteratieproces.
 * Hoeveel iteraties wilt u het iteratief algoritme laten runnen?
+
 Vervolgens krijgt u dezelfde statistieken als eerder te zien, maar dan na het runnen van de hillclimber of simulated annealing.
 
 ### Structuur
