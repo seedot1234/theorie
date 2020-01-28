@@ -5,7 +5,7 @@ In deze map staat alle geschreven code. De code is verdeeld onder drie mappen:
 ### Algorithms
 Hierin staan de algoritmen die geschreven zijn voor het oplossen van de RailNL case.
 Deze algoritmen zijn:
-  * **random.py**: een algoritme dat een random oplossing genereert binnen de constraints van het probleem. Voor een beter gestructureerde versie van hetzelfde algortime, kijk in de /legacy/ map. Deze andere versie heeft dezelfde werking maar een meer modulaire aanpak in de structuur. Vanwege tijdsgebrek is deze betere versie niet in de /code/ map terrecht gekomen, maar in de /legacy/ map.
+  * **random.py**: een algoritme dat een random oplossing genereert binnen de constraints van het probleem. Voor een beter gestructureerde versie van hetzelfde algortime, kijk in de /legacy/ map: improved_random_p.py. Deze andere versie heeft dezelfde werking maar een meer modulaire aanpak in de structuur. Vanwege tijdsgebrek is deze betere versie niet in de /code/ map terrecht gekomen, maar in de /legacy/ map.
   * **shortest.py**: greedy algoritme dat zich in het greedy keuzeproces baseert op de korste ongebruikte connectie mogelijk.
   * **unused.py**: greedy algortime dat zich in het greedy keuzeproces baseert op ongebruikte connecties boven al eerder gebruikte connecties.
   * **greedy_lookahead.py**: een greedy algoritme dat twee 'kinderen'/stappen diep vooruit kijkt. Het algoritme baseert zich op de K-score.
