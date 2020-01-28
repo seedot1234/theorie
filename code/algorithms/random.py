@@ -7,8 +7,8 @@ random.py
 
 random algorithm
 """
-from code1.classes.station import Station
-from code1.classes.route import Route
+from code.classes.station import Station
+from code.classes.route import Route
 from random import randrange
 import random
 

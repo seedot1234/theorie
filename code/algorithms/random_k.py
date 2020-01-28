@@ -11,10 +11,10 @@ random algorithm
 """
 import random
 
-from code1.classes.station import Station
-from code1.classes.route import Route
+from code.classes.station import Station
+from code.classes.route import Route
 from random import randrange
-from code1.classes.solution import Solution
+from code.classes.solution import Solution
 
 # makes new routes randomly until all connections have been used
 def random_solution_k(station_objects, len_connections, route_maximum, time_maximum):

@@ -8,16 +8,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from code1.algorithms.annealing import SimulatedAnnealing
-from code1.algorithms.greedy_lookahead import greedy_lookahead
-from code1.algorithms.greedy_lookahead_test import greedy_lookahead_test
-from code1.algorithms.hill import Hillclimber
-from code1.algorithms.longest import longest
-from code1.algorithms.railhead import railhead
-from code1.algorithms.random_p import random_solution_p
-from code1.algorithms.shortest import shortest
-from code1.algorithms.trim import trim
-from code1.algorithms.unused import unused
+from code.algorithms.annealing import SimulatedAnnealing
+from code.algorithms.greedy_lookahead import greedy_lookahead
+from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
+from code.algorithms.hill import Hillclimber
+from code.algorithms.longest import longest
+from code.algorithms.railhead import railhead
+from code.algorithms.random_p import random_solution_p
+from code.algorithms.shortest import shortest
+from code.algorithms.trim import trim
+from code.algorithms.unused import unused
 
 
 def descriptive(len_connections, station_objects, connection_objects):
@@ -43,6 +43,7 @@ def descriptive(len_connections, station_objects, connection_objects):
         time_maximum = 180
 
         for i in range(3):
+
             solution0 = random_solution_p(station_objects, len_connections, route_maximum, time_maximum)     
             # trimmed_solution0 = trim(solution0, connection_objects)
             # hill0 = Hillclimber(len_connections, station_objects, trimmed_solution0)
@@ -67,7 +68,7 @@ def descriptive(len_connections, station_objects, connection_objects):
 
             print(i)
             writer.writerow({
-                'K0': round(solution0.set_K(len_connections), 2),# , 'KH0': answer0.K, 'KH00': answer00
+                'Random': round(solution0.set_K(len_connections), 2),# , 'KH0': answer0.K, 'KH00': answer00
                 # 'K1': round(solution1.set_K(len_connections), 2), #, 'KH1': answer1.K,
                 # 'K2': round(solution2.set_K(len_connections), 2), #, 'KH2': answer2.K,
                 # 'K5': round(solution3.set_K(len_connections), 2), #, 'KH3': answer5.K                
@@ -83,7 +84,7 @@ def boxplot():
     fig, axes = plt.subplots(1, 1) # (row, col)
 
     # put solution results in a list
-    data = [ results.K0, results.K1, results.K2, results.K5
+    data = [ results.Random
         # results.K0, results.KH0, results.K1, results.KH1, results.K2, results.KH2, results.K5, results.KH5
     ] 
 
@@ -97,7 +98,7 @@ def boxplot():
     axes.set_xticklabels(['Random'
         # 'Random', 'Random Hill', 'Lookahead', 'Lookahead Hill', 'Shortest', 'Shortest Hill', 'Unused', 'Unused Hill'
     ])
-    print('avg: ', np.mean(results.K0))
+    print('avg: ', np.mean(results.Random))
 
 
     # show or save the plot

@@ -40,20 +40,20 @@ from interface.interface import UI
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
-# station_csv = os.path.join("data", "ConnectiesHolland.csv")
-# station_objects = load_data.create_station_list_nationaal(station_csv)
-
-# # creates connection objects from csv
-# connection_csv = os.path.join("data", "TestConnecties.csv")
-# connection_objects = load_data.create_connection(connection_csv, station_objects)
-
-# VOOR NATIONAAL, DOE DIT:
-station_csv = os.path.join("data", "StationsNationaal.csv")
-station_objects = load_data.create_station_list_nationaal(station_csv)
+station_csv = os.path.join("data", "StationsHolland.csv")
+station_objects = load_data.create_station_list(station_csv)
 
 # creates connection objects from csv
-connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
+connection_csv = os.path.join("data", "ConnectiesHolland.csv")
 connection_objects = load_data.create_connection(connection_csv, station_objects)
+
+# VOOR NATIONAAL, DOE DIT:
+# station_csv = os.path.join("data", "StationsNationaal.csv")
+# station_objects = load_data.create_station_list(station_csv)
+
+# # creates connection objects from csv
+# connection_csv = os.path.join("data", "ConnectiesNationaal.csv")
+# connection_objects = load_data.create_connection(connection_csv, station_objects)
 
 
 # adds connections to stations

@@ -11,9 +11,9 @@ it selects a random station out of non-railhead stations.
 """
 import random   
 
-from code1.classes.station import Station
-from code1.classes.route import Route
-from code1.classes.solution import Solution
+from code.classes.station import Station
+from code.classes.route import Route
+from code.classes.solution import Solution
 from random import randrange
 
 def railhead(station_objects, connection_objects, route_maximum, time_maximum):
