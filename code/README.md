@@ -1,8 +1,8 @@
-# code 
+# Code 
 
 In deze map staat alle geschreven code. De code is verdeeld onder drie mappen:
-* ### algorithms:
-hierin staan de algoritmen die geschreven zijn voor het oplossen van de RailNL case.
+### Algorithms:
+Hierin staan de algoritmen die geschreven zijn voor het oplossen van de RailNL case.
 Deze algoritmen zijn:
   * random.py: een algoritme dat een random oplossing genereert binnen de constraints van het probleem.
   * shortest.py: greedy algoritme dat zich in het greedy keuzeproces baseert op de korste ongebruikte connectie mogelijk.
@@ -13,8 +13,8 @@ Deze algoritmen zijn:
   De oplossingen die in de iterative algoritmen (hillclimber, simulated annealing) gebruikt worden, worden eerst gepreprocessed:
   * trim.py: deze recursieve functie wordt gebruikt om oplossingen die in de iteratieve algoritmen gaan op te schonen. De iteratieve algoritmen kunnen namelijk alleen aan het eind en het begin van een route aanpassingen doen. Trim.py lost dit probleem op door dubbele elkaar opvolgende stationparen te verwijderen. (van D-A-B-A-B-C wordt D-A-B-C gemaakt). Ook worden er hier routes zonder connecties erin verwijderd.
 
-* ### classes:
-hierin staat de datastructuur uitgeschreven. De verschillende onderdelen van de RailNL case worden opgeslagen als objecten.
+### Classes:
+Hierin staat de datastructuur uitgeschreven. De verschillende onderdelen van de RailNL case worden opgeslagen als objecten.
 Deze onderdelen zijn:
   * station.py: de Station klasse. Hierin worden de namen en locaties van stations opgeslagen. Ook houdt het bij welke stations verbonden zijn met een gegeven station.
   * connection.py: de Connection klasse slaat alle connecties op zoals deze gegeven zijn in de csv-bestanden van de case. Het houdt bij van welk naar welk station een connectie loopt en hoe lang een trein over dat stuk spoor doet.
@@ -23,4 +23,4 @@ Deze onderdelen zijn:
   Tenslotte vind je in classes ook de functies die de objecten initialiseren vanuit een csv file:
   * load_data.py: Deze functies zorgen ervoor dat er daadwerkelijk station en connection objecten aangemaakt worden aan de hand van data uit csv-files. Alle overige objecten zijn combinaties van (delen van) station en connection.
 
-* 
+### Visualisation:

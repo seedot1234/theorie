@@ -1,2 +1,2 @@
 # Data 
-In deze map staan csv-bestanden. De csv-bestanden bestaan uit de connecties voor Holland en Nederland, dus tussen welke stations een verbinding ligt, en de coördinaten van alle stations. 
+In deze map staan csv-bestanden. In ConnectiesHolland en ConnectiesNationaal staan welke stations in verbinding met elkaar staan. In StationHolland en StationsNationaal staan alle stations met coördinaten. 
