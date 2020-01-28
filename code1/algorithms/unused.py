@@ -18,7 +18,7 @@ from random import randrange
 import random  
 
 # makes new routes randomly until all connections have been used
-def unused(station_objects, connection_objects, route_maximum, time_maximum):
+def unused(station_objects, len_connections, route_maximum, time_maximum, requested_p):
     while True:
 
         visited_connections = []
@@ -44,7 +44,7 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
             while True:
                 
                 # p equals or is larger than 0.8, return the lining and thus end the algorithm
-                if p >= 0.8:
+                if p >= requested_p:
                     solution = Solution(lining, p)
                     return solution
 
@@ -83,7 +83,7 @@ def unused(station_objects, connection_objects, route_maximum, time_maximum):
                     visited_connections.append(link)    
 
                 # calculates p
-                p = len(visited_connections) / len(connection_objects)
+                p = len(visited_connections) / len_connections
                 
                 # set this new station as the current station
                 current_station = new_station

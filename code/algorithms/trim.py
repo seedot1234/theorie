@@ -8,10 +8,10 @@ Makes our random even better
 
 """
 import copy 
-from code.classes.station import Station
-from code.classes.connection import Connection
-from code.classes.solution import Solution
-from code.classes.route import Route
+from code1.classes.station import Station
+from code1.classes.connection import Connection
+from code1.classes.solution import Solution
+from code1.classes.route import Route
 
 def trim(solution, connection_objects):
 
@@ -20,19 +20,21 @@ def trim(solution, connection_objects):
 
         route = solution.lining[i]
         for j in range(len(route.stations) - 3):
-    
+
             if route.stations[j] == route.stations[j+2] and route.stations[j+1] == route.stations[j+3]:
-                station_1 = route.stations[j+3]
-                station_2 = route.stations[j+2]
 
-                # zoek de connectie die bij deze stations hoort
-                for connection in connection_objects:
-                    if (connection.station_a == station_1 and connection.station_b == station_2) or (connection.station_a == station_2 and connection.station_b == station_1):
-                        route.delete_connection(connection)
+                # find the corresponding connection of these two stations
+                selected_connection = route.all_connections[j+2]
 
-                # verwijder de stations uit de route
+                # delete this connection twice
+                route.delete_connection(selected_connection, j+2)
+                route.delete_connection(selected_connection, j+1)
+
+
+                # delete the stations from the route
                 del route.stations[j+3]
                 del route.stations[j+2]
+
                 return trim(solution, connection_objects)
     
     for route in solution.lining:

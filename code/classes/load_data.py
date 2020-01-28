@@ -6,8 +6,8 @@ load_data.py
 
 one file that loads all data
 """
-from code.classes.station import Station
-from code.classes.connection import Connection
+from code1.classes.station import Station
+from code1.classes.connection import Connection
 import csv, io, os
 
 def create_station_list_holland(station_csv):

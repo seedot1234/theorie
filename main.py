@@ -26,12 +26,28 @@ import csv, io, os
 import copy
 from results.bound import quality
 from interface.interface import UI
+from os import system, name
 
 
+
+def clear():
+    """Clears the console screen"""
+
+    if name == 'nt':
+        _ = system('cls')
+
+    else:
+        _ = system('clear')
+
+
+clear()
 
 print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")
+# VRAAG NAAR WELKE MAP ZE WILLEN GEBRUIKEN
 interface = UI(os.path.join("data", "StationsNationaal.csv"), os.path.join("data", "ConnectiesNationaal.csv"))
 interface.run()
+
+exit()
 
 # VOOR HOLLAND, DOE DIT:
 # creates station objects from csv
@@ -63,13 +79,15 @@ len_connections = len(connection_objects)
 # boxplot()
 
 
-solution = random_solution_p(station_objects, connection_objects, 20, 180)
-
-trimmed_solution = trim(solution, connection_objects)
-
-# calls upon the hill climbing algorithm 
-hill = Hillclimber(len_connections, station_objects, solution)
-answer = hill.run(1000)
-print(answer.K - solution.set_K(len_connections))
-
 solution = unused(station_objects, connection_objects, 20, 180)
+
+# trimmed_solution = trim(solution, connection_objects)
+
+for i in range (250):
+# calls upon the hill climbing algorithm 
+    solution = unused(station_objects, connection_objects, 20, 180)
+    hill = Hillclimber(len_connections, station_objects, solution)
+    answer = hill.run(1000)
+    print(answer.K - solution.set_K(len_connections))
+
+# solution = unused(station_objects, connection_objects, 20, 180)
