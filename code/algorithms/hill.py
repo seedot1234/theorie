@@ -7,10 +7,10 @@ Uses the interative Hill Climbing algorithm
 
 import copy 
 import random
-from code1.classes.station import Station
-from code1.classes.connection import Connection
-from code1.classes.solution import Solution
-from code1.classes.route import Route
+from code.classes.station import Station
+from code.classes.connection import Connection
+from code.classes.solution import Solution
+from code.classes.route import Route
 import random
 from random import randrange
 

@@ -11,9 +11,9 @@ out of all connections
 @version
 
 """
-from code1.classes.station import Station
-from code1.classes.route import Route
-from code1.classes.solution import Solution
+from code.classes.station import Station
+from code.classes.route import Route
+from code.classes.solution import Solution
 from random import randrange
 import random  
 

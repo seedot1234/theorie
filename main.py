@@ -22,8 +22,7 @@ from code.classes.route import Route
 from code.algorithms.hill import Hillclimber
 from code.algorithms.annealing import SimulatedAnnealing
 from code.classes.solution import Solution
-from results.visualisation import visualise
-from results.bound import quality
+from code.visualisation import visualise
 from interface.interface import UI
 from os import system, name
 
@@ -84,8 +83,6 @@ boxplot()
 # solution0 = random_solution_p(station_objects, connection_objects, 20, 180)     
 # solution1 = greedy_lookahead(station_objects, connection_objects, 20, 180)
 # solution2 = shortest(station_objects, connection_objects, 20, 180) 
-# solution3 = longest(station_objects, connection_objects, 20, 180)
-# solution4 = railhead(station_objects, connection_objects, 20, 180)
 # solution5 = unused(station_objects, connection_objects, 20, 180)
 
 # visualise

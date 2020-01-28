@@ -6,12 +6,8 @@ This class creates route objects
 @author Heuristic Heroes
 @version 28-1-2020
 """
-<<<<<<< HEAD
 
 from code.classes.connection import Connection
-=======
-from code1.classes.connection import Connection
->>>>>>> 6fe9d996dff9bc452b83a8828d20085ab84a4eca
 
 class Route(object):
     """

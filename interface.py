@@ -7,16 +7,14 @@ Calls all functions in the repository 'theorie'
 """
 
 from code.classes import connection, route, station, load_data
-from results.visualisation import visualise
+from code.visualisation import visualise
 from code.classes.route import Route
 from code.algorithms.random import random_solution
 from code.algorithms.random_p import random_solution_p
 from code.algorithms.random_k import random_solution_k
 from code.algorithms.greedy_lookahead import greedy_lookahead
 from code.algorithms.trim import trim
-from code.algorithms.railhead import railhead
 from code.algorithms.shortest import shortest
-from code.algorithms.longest import longest
 from code.algorithms.unused import unused
 from random import randrange
 from code.classes.solution import Solution
@@ -24,7 +22,6 @@ from code.algorithms.hill import Hillclimber
 import random
 import csv, io, os
 import copy
-from results.bound import quality
 
 class Interface(object):
 
@@ -49,10 +46,6 @@ class Interface(object):
         # adds connections to stations
         connections_list = []
         load_data.add_station_connection(self.station_objects, self.connection_objects)
-
-        # set railhead stations
-        for station in self.station_objects:
-            station.set_rail_head()
 
     def ask_algorithm(self):
         """

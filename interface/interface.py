@@ -7,7 +7,7 @@ Calls all functions in the repository 'theorie'
 """
 
 from code.classes import connection, route, station, load_data
-from results.visualisation import visualise
+from code.visualisation import visualise
 from code.classes.route import Route
 from code.algorithms.random import random_solution
 from code.algorithms.random_p import random_solution_p
@@ -15,9 +15,7 @@ from code.algorithms.random_k import random_solution_k
 from code.algorithms.greedy_lookahead import greedy_lookahead
 from code.algorithms.greedy_lookahead_test import greedy_lookahead_test
 from code.algorithms.trim import trim
-from code.algorithms.railhead import railhead
 from code.algorithms.shortest import shortest
-from code.algorithms.longest import longest
 from code.algorithms.unused import unused
 from random import randrange
 from code.classes.solution import Solution
@@ -25,8 +23,7 @@ import random
 import csv, io, os
 from os import system, name
 import copy
-from results.bound import quality
-from results.descriptives import descriptive, boxplot, histogram
+from code.visualisation.descriptives import descriptive, boxplot, histogram
 
 class UI(object):
 
@@ -43,7 +40,7 @@ class UI(object):
         """
         
         # create station objects from csv
-        self.station_objects = load_data.create_station_list_nationaal(self.station_csv)
+        self.station_objects = load_data.create_station_list(self.station_csv)
         
         # create connection objects from csv
         self.connection_objects = load_data.create_connection(self.connection_csv, self.station_objects)
@@ -51,10 +48,6 @@ class UI(object):
         # adds connections to stations
         connections_list = []
         load_data.add_station_connection(self.station_objects, self.connection_objects)
-
-        # set railhead stations
-        for station in self.station_objects:
-            station.set_rail_head()
 
     def ask_algorithm(self):
         """
