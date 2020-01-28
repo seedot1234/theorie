@@ -22,14 +22,16 @@ from random import randrange
 from code1.classes.solution import Solution
 from code1.algorithms.hill import Hillclimber
 from code1.algorithms.annealing import SimulatedAnnealing
-import random
-import csv, io, os
-import copy
 from results.bound import quality
 from results.descriptives import boxplot, histogram, linechart
 from results.descriptives import descriptive
 from interface.interface import UI
 
+import random
+import csv, io, os
+import copy
+import pandas as pd 
+import matplotlib.pyplot as plt
 
 
 # print("Welcome to RailNL\nPlease refer to the README for instructions as of how to use this program.")

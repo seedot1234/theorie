@@ -10,9 +10,9 @@ the K score for all options.
 @version
 """
 
-from code1.classes.station import Station
-from code1.classes.route import Route
-from code1.classes.solution import Solution
+from code.classes.station import Station
+from code.classes.route import Route
+from code.classes.solution import Solution
 from random import randrange
 import random
 
@@ -49,7 +49,7 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
             while True:
             
                 # p equals or is larger than x, return the lining and thus end the algorithm
-                if p >= 0.9:
+                if p >= 1:
                     solution = Solution(lining, p)
                     return solution
 
@@ -137,6 +137,5 @@ def greedy_lookahead_test(station_objects, len_connections, route_maximum, time_
 
                 # calculates p
                 p = len(visited_connections) / len_connections
-                
 
                 current_station = new_station
