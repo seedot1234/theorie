@@ -37,6 +37,7 @@ Vervolgens wordt u door het volgede keuzemenu geleid:
   * U krijgt altijd algemene statistieken te zien over uw algoritme
   * Wanneer u het algortime 1x runt, kunt u ervoor kiezen om een visualisatie te laten maken van de oplossing
   * Wanneer u het algoritme meerdere keren runt kunt u ervoor kiezen om een boxplot en/of een histrogram te laten maken van de oplossing.
+  
 Wanneer u het algortime 1x runt, krijgt u ook nog de optie om een interatief algortime af te spelen over de gegenereerde oplossing:
 * Zo ja, welk iteratief algortime wilt u gebruiken?
   * Hillclimber: een hillclimber algoritme dat uit de oplossing random één route kiest en hier dan één van de vier mogelijke mutaties op doet. Deze nieuwe staat wordt geaccepteerd indien de K-score is verbeterd.
