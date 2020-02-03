@@ -25,7 +25,7 @@ def coordinates(coordinates_csv, solution):
     map_options = GMapOptions(lat=52.0907374, lng=5.1214201, map_type="terrain", zoom=7, styles=style.style_options)
 
     # gmap function with API key
-    p = gmap("AIzaSyAyJoHTODNYyRK2cTAewX4XDu9WHDoaUOI", map_options, title="Visualisatie")
+    p = gmap("YOURAPIKEYHERE", map_options, title="Visualisatie")
 
     # add circles for all stations
     p.circle(x="lon", y="lat", size=8, fill_color="blue", fill_alpha=0.8, source=source, legend_label="Stations")
